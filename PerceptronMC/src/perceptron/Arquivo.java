@@ -15,15 +15,15 @@ import java.io.IOException;
  */
 public class Arquivo {
 
+     double[][] x;
 
-
-     public void lerArquivo(int colunas, int linhas, String arquivo){
-
+     public double[][] lerArquivo(int colunas, int linhas, String arquivo){
+        x = new double[linhas][colunas];  //matriz com valores de treinamento e saída desejado
         int count = 0;
         try {
         BufferedReader in = new BufferedReader(new FileReader(arquivo));
             String str;
-            while (in.ready()) {
+            while (in.ready() &&  count <linhas) {
                 str = in.readLine();
 
                     montaMatriz(str, count, colunas, linhas);
@@ -33,14 +33,16 @@ public class Arquivo {
             }
             in.close();
            // linhasDados = count;
+           return x;
 
         } catch (IOException e) {
         }
+        return null;
     }
 
-    private double[][] montaMatriz(String linhaString, int count, int c, int l) {
+    private void montaMatriz(String linhaString, int count, int c, int l) {
 
-        double[][] x = new double[l][c];  //matriz com valores de treinamento e saída desejado
+        
         String[] partes = new String[c];
         double num;
            partes = linhaString.split(" ");
@@ -50,8 +52,12 @@ public class Arquivo {
                 x[count][j] = num;
                 System.out.println("matriz ["+count+"]["+j+"] " + x[count][j]);
             }
-       return x;
+       
     }
+
+   public double[][] retornaX(){
+       return x;
+   }
 
 
 
