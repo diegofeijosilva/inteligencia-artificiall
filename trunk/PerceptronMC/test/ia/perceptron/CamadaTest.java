@@ -41,7 +41,7 @@ public class CamadaTest {
      * Test of inicializarVetorPesos() method, of class Camada.
      */
     @Test
-    public void testInicializarVetorPesos() {
+    public void testInicializarMatrizPesos() {
         System.out.println("inicializarVetorPesos()");
 
         int qtdNeuronios = 15;
