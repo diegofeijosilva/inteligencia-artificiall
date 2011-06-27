@@ -1,8 +1,9 @@
 package ia.perceptron;
 
+import ia.perceptron.arquivo.ManipuladorArquivo;
 import java.util.ArrayList;
 import java.util.List;
-import perceptron.Arquivo;
+import ia.perceptron.arquivo.Arquivo;
 
 /*
  * To change this template, choose Tools | Templates
@@ -22,32 +23,52 @@ public class Perceptron {
 
 
     private List<Camada> camadas = new ArrayList<Camada>();
+    private ManipuladorArquivo fileHandler = new ManipuladorArquivo();
+    private Arquivo arquivoTeste;
+    private Arquivo arquivoTreino;
+
     private double x[] = new double[4];  //camada de entrada
     private double d[] = new double[3];  //valores desejados no treino
 
- 
-    public void criarCamada(int qtdNeuronios, int qtdEntradas) {
-        camadas.add(new Camada(qtdNeuronios, qtdEntradas));
+    public Perceptron()
+    {
+        fileHandler.carregarDados();
+        arquivoTeste = fileHandler.getArquivoTeste();
+        arquivoTreino = fileHandler.getArquivoTreino();
     }
 
-    private double erroQuadratico(double[] desejado, double[] saida)
+ 
+
+//    private double EQM()
+//    {
+//        int totalAmostras = ManipuladorArquivo.LINHAS_ARQUIVO_TREINO_DEFAULT;
+//
+//        for (int i = 0; i < totalAmostras; i++) {
+//            double d = x[i];
+//
+//        }
+//    }
+
+    private double erroQuadratico(double[] esperado, double[] obtido)
     {
         double resultado = 0;
 
-        if(desejado.length != saida.length)
+        if(esperado.length != obtido.length)
             throw new IllegalArgumentException("Os vetores devem ter o mesmo tamanho!");
 
-        for (int i = 0; i < desejado.length; i++) {
-            double erro = desejado[i] - saida[i];
+        for (int i = 0; i < esperado.length; i++) {
+            double erro = esperado[i] - obtido[i];
             resultado += Math.pow(erro, 2);
         }
 
         return resultado/2;
     }
 
-//    private double EQM()
-//    {
-//
-//    }
+
+    public void criarCamada(int qtdNeuronios, int qtdEntradas) {
+        camadas.add(new Camada(qtdNeuronios, qtdEntradas));
+    }
+
+
 
 }
