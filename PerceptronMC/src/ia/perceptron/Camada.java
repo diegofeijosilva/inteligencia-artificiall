@@ -24,7 +24,7 @@ public class Camada {
         this.qtdNeuronios = qtdNeuronios;
         this.qtdEntradas = qtdEntradas;
         inicializarNeuronios();
-        inicializarVetorPesos();
+        inicializarMatrizPesos();
     }
 
     private void inicializarNeuronios() {
@@ -33,7 +33,7 @@ public class Camada {
         }
     }
 
-    private void inicializarVetorPesos() {
+    private void inicializarMatrizPesos() {
        
         W = new double[qtdNeuronios][qtdEntradas];
         for (int i = 0; i < qtdNeuronios; i++) {
