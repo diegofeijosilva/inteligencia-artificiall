@@ -38,7 +38,7 @@ public class CamadaTest {
     }
 
     /**
-     * Test of inicializarVetorPesos() method, of class Camada.
+     * Test of inicializarMatrizPesos() method, of class Camada.
      */
     @Test
     public void testInicializarMatrizPesos() {

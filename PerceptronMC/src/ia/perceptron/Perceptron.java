@@ -17,47 +17,37 @@ import perceptron.Arquivo;
  */
 public class Perceptron {
 
+    public static final double TAXA_APRENDIZAGEM = 0.1;
+    public static final double PRECISAO = 0.000001;
+
+
     private List<Camada> camadas = new ArrayList<Camada>();
-    private double x[] = new double[4];
-    
+    private double x[] = new double[4];  //camada de entrada
+    private double d[] = new double[3];  //valores desejados no treino
 
-    public void criarCamada(int neoroniosCamadas, int entradasCamada) {
-        camadas.add(new Camada(neoroniosCamadas, entradasCamada));
+ 
+    public void criarCamada(int qtdNeuronios, int qtdEntradas) {
+        camadas.add(new Camada(qtdNeuronios, qtdEntradas));
     }
 
-    public void teste(){
+    private double erroQuadratico(double[] desejado, double[] saida)
+    {
+        double resultado = 0;
 
-        int neoroniosCamadas1 = 15;
-        int entradasCamada1 = 5; //4 + o bias
-        int neoroniosCamadas2 = 3;
-        int entradasCamada2 = 4; //3 + o bias
-        int colunas = 8, linhas = 130;
-        String nomeArquivo = "treina.txt";
+        if(desejado.length != saida.length)
+            throw new IllegalArgumentException("Os vetores devem ter o mesmo tamanho!");
 
-        double[][] matriz;
-        double[][] matrizDeEntradas;
-        
+        for (int i = 0; i < desejado.length; i++) {
+            double erro = desejado[i] - saida[i];
+            resultado += Math.pow(erro, 2);
+        }
 
-        criarCamada(neoroniosCamadas1, entradasCamada1);
-        criarCamada(neoroniosCamadas2, entradasCamada2);
-
-        
-        Arquivo arquivo = new Arquivo();
-        matriz = arquivo.lerArquivo(colunas, linhas, nomeArquivo);
-
-        matrizDeEntradas = new double[linhas][entradasCamada1];
-        preencheMatriz(linhas, entradasCamada1, matrizDeEntradas, matriz);
-
-
-        
-  }
-
-    private void preencheMatriz(int linhas, int colunas, double[][] matrizDeEntradas, double[][] matriz){
-        for(int i = 0; i<linhas; i++){
-            for(int j = 0; j<colunas; j++)
-                matrizDeEntradas[i][j] = matriz[i][j];
-            }
+        return resultado/2;
     }
 
-    
+//    private double EQM()
+//    {
+//
+//    }
+
 }
