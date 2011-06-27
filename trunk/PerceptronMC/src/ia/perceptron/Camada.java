@@ -34,13 +34,29 @@ public class Camada {
     }
 
     private void inicializarVetorPesos() {
-        System.out.println("\n Pesos iniciais (randomicos)");
-        for (int i = 0; i < qtdNeuronios; i++) {//w[0], w[1], w[2], w[3]
+       
+        W = new double[qtdNeuronios][qtdEntradas];
+        for (int i = 0; i < qtdNeuronios; i++) {
             for (int j = 0; j < qtdEntradas; j++) {
                 W[i][j] = 1 * (double) Math.random();
-                System.out.println("W[" + i + "][" + j + "] = " + W[i][j]);
+                
             }
         }
+    }
+
+    public int getQtdNeuronios()
+    {
+        return this.qtdNeuronios;
+    }
+
+    public int getQtdEntradas()
+    {
+        return this.qtdEntradas;
+    }
+
+    public double getPeso(int i, int j)
+    {
+        return W[i][j];
     }
 
 
