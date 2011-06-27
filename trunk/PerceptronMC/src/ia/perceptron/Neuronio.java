@@ -11,13 +11,20 @@ package ia.perceptron;
  */
 public class Neuronio {
 
-    private double x[];
     private double y;
 
-    private int qtdEntradas;
-
-    public Neuronio(int qtdEntradas)
+    public double getSaida()
     {
-        this.qtdEntradas = qtdEntradas;
+        return y;
+    }
+
+    public void processar(double x)
+    {
+        y = sigmoide(x);
+    }
+
+    private double sigmoide(double x)
+    {
+        return Math.tanh(x);
     }
 }
