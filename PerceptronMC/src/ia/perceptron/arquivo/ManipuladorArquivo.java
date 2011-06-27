@@ -14,30 +14,30 @@ import java.io.IOException;
  */
 public class ManipuladorArquivo {
 
-    public static final String ARQUIVO_TREINO_DEFAULT = "treina.txt";
-    public static final String ARQUIVO_TESTE_DEFAULT = "teste.txt";
+    public static final String PATH_TREINO_DEFAULT = "treina.txt";
+    public static final String PATH_TESTE_DEFAULT = "teste.txt";
     public static final int BIAS_DEFAULT = -1;
     
     public static final int LINHAS_ARQUIVO_TREINO_DEFAULT = 130;
     public static final int LINHAS_ARQUIVO_TESTE_DEFAULT = 18;
 
-    private String arqTreino;
-    private String arqTeste;
+    private String path_arqTreino;
+    private String path_arqTeste;
 
     private Arquivo arquivoTreino;
     private Arquivo arquivoTeste;
 
     public ManipuladorArquivo()
     {
-        arqTreino = ARQUIVO_TREINO_DEFAULT;
-        arqTeste = ARQUIVO_TESTE_DEFAULT;
+        path_arqTreino = PATH_TREINO_DEFAULT;
+        path_arqTeste = PATH_TESTE_DEFAULT;
     }
 
     public ManipuladorArquivo(String arqTreino, String arqTeste)
     {
        this();
-       this.arqTreino = arqTreino;
-       this.arqTeste = arqTeste;
+       this.path_arqTreino = arqTreino;
+       this.path_arqTeste = arqTeste;
     }
 
     public void carregarDados()
@@ -50,7 +50,7 @@ public class ManipuladorArquivo {
     private void carregarDadosTreino()
     {
         double[][] dados_treino = new double[LINHAS_ARQUIVO_TREINO_DEFAULT][totalColunas()];
-        dados_treino = lerArquivo(arqTreino, LINHAS_ARQUIVO_TREINO_DEFAULT, totalColunas());
+        dados_treino = lerArquivo(path_arqTreino, LINHAS_ARQUIVO_TREINO_DEFAULT, totalColunas());
         arquivoTreino = new Arquivo(dados_treino);
         arquivoTreino.setLinhas(LINHAS_ARQUIVO_TREINO_DEFAULT);
         arquivoTreino.parseDadosArquivo();
@@ -59,7 +59,7 @@ public class ManipuladorArquivo {
     private void carregarDadosTeste()
     {
         double[][] dados_teste = new double[LINHAS_ARQUIVO_TESTE_DEFAULT][totalColunas()];
-        dados_teste = lerArquivo(arqTeste, LINHAS_ARQUIVO_TESTE_DEFAULT, totalColunas());
+        dados_teste = lerArquivo(path_arqTeste, LINHAS_ARQUIVO_TESTE_DEFAULT, totalColunas());
         arquivoTeste = new Arquivo(dados_teste);
         arquivoTeste.setLinhas(LINHAS_ARQUIVO_TESTE_DEFAULT);
         arquivoTeste.parseDadosArquivo();
