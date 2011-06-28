@@ -60,10 +60,12 @@ public class Camada {
     private void ponderarEntradas(double[] entradas) {
         for (int i = 0; i < qtdNeuronios; i++) {
             for (int j = 0; j < (qtdEntradas + 1); j++) {
-                if(j==0)
+                if(j==0) {
                     I[i] += bias * W[i][j];
-                else
+                }
+                else {
                     I[i] += entradas[j-1] * W[i][j];
+                }
             }
         }
         arredondarI();
@@ -90,7 +92,6 @@ public class Camada {
         BigDecimal bd = new BigDecimal(num);
         bd = bd.setScale(decimalPlace,BigDecimal.ROUND_HALF_UP);
         num = bd.doubleValue();
-        System.out.println(num);
         return num;
     }
 
