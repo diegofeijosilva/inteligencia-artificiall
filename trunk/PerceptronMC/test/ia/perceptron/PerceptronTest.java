@@ -48,8 +48,8 @@ public class PerceptronTest {
 
         instance.setBias(-1);
         instance.criarCamada(3, 2);
-        instance.criarCamada(2, 2);
-        instance.criarCamada(1, 0);
+        instance.criarCamada(2, 3);
+        instance.criarCamada(1, 2);
 
         instance.getCamada(0).setMatrizPeso(new double[][] {{0.2,0.4,0.5},{0.3,0.6,0.7},{0.4,0.8,0.3}});
         instance.getCamada(1).setMatrizPeso(new double[][] {{-0.7,0.6,0.2,0.7},{-0.3,0.7,0.2,0.8}});
@@ -73,11 +73,16 @@ public class PerceptronTest {
         assertEquals(0.05,instance.getCamada(0).getSaida()[2],0.0);
         
         //Segunda camada neural
-        assertEquals(0.96,instance.getCamada(1).getI()[0],0.01);
-        assertEquals(0.59,instance.getCamada(1).getI()[1],0.01);
+        assertEquals(0.96,instance.getCamada(1).getI()[0],0.0);
+        assertEquals(0.59,instance.getCamada(1).getI()[1],0.0);
 
-        assertEquals(0.74,instance.getCamada(1).getSaida()[0],0.01);
-        assertEquals(0.53,instance.getCamada(1).getSaida()[1],0.01);
+        assertEquals(0.74,instance.getCamada(1).getSaida()[0],0.0);
+        assertEquals(0.53,instance.getCamada(1).getSaida()[1],0.0);
+
+        //Terceira camada neural
+        assertEquals(0.76,instance.getCamada(2).getI()[0],0.0);
+
+        assertEquals(0.64,instance.getCamada(2).getSaida()[0],0.0);
 
 
 
