@@ -64,13 +64,13 @@ public class PerceptronTest {
         instance.processarEntradas();
 
         //Primeira camada neural
-        assertEquals(0.27,instance.getCamada(0).getI()[0],0.01);
-        assertEquals(0.37,instance.getCamada(0).getI()[1],0.01);
-        assertEquals(0.05,instance.getCamada(0).getI()[2],0.01);
+        assertEquals(0.27,instance.getCamada(0).getI()[0],0.0);
+        assertEquals(0.37,instance.getCamada(0).getI()[1],0.0);
+        assertEquals(0.05,instance.getCamada(0).getI()[2],0.0);
 
-        assertEquals(0.26,instance.getCamada(0).getSaida()[0],0.01);
-        assertEquals(0.35,instance.getCamada(0).getSaida()[1],0.01);
-        assertEquals(0.05,instance.getCamada(0).getSaida()[2],0.01);
+        assertEquals(0.26,instance.getCamada(0).getSaida()[0],0.0);
+        assertEquals(0.35,instance.getCamada(0).getSaida()[1],0.0);
+        assertEquals(0.05,instance.getCamada(0).getSaida()[2],0.0);
         
         //Segunda camada neural
         assertEquals(0.96,instance.getCamada(1).getI()[0],0.01);

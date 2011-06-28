@@ -1,5 +1,6 @@
 package ia.perceptron;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -65,9 +66,33 @@ public class Camada {
                     I[i] += entradas[j-1] * W[i][j];
             }
         }
+        arredondarI();
     }
 
+    private void arredondarI()
+    {
+        for (int i = 0; i < I.length; i++) {
+            I[i] = arredondar(I[i]);
 
+        }
+    }
+
+    private void arredondarY()
+    {
+        for (int i = 0; i < Y.length; i++) {
+            Y[i] = arredondar(Y[i]);
+
+        }
+    }
+
+     private double arredondar(double num) {
+        int decimalPlace = 2;
+        BigDecimal bd = new BigDecimal(num);
+        bd = bd.setScale(decimalPlace,BigDecimal.ROUND_HALF_UP);
+        num = bd.doubleValue();
+        System.out.println(num);
+        return num;
+    }
 
     public int getQtdNeuronios() {
         return this.qtdNeuronios;
@@ -93,6 +118,7 @@ public class Camada {
         for (int i = 0; i < neuronios.size(); i++) {
             Y[i] = neuronios.get(i).getSaida();
         }
+        arredondarY();
     }
 
     public void setMatrizPeso(double[][] matriz)
