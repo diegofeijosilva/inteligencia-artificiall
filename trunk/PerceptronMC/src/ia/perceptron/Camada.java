@@ -17,12 +17,15 @@ public class Camada {
     private double[][] W;
     private double[] I;
     private double[] Y;
+    private double bias;
     private int qtdNeuronios;
     private int qtdEntradas;
 
     public Camada(int qtdNeuronios, int qtdEntradas) {
         this.qtdNeuronios = qtdNeuronios;
         this.qtdEntradas = qtdEntradas;
+        I = new double[qtdNeuronios];
+        Y = new double[qtdNeuronios];
         inicializarNeuronios();
         inicializarMatrizPesos();
     }
@@ -55,11 +58,16 @@ public class Camada {
 
     private void ponderarEntradas(double[] entradas) {
         for (int i = 0; i < qtdNeuronios; i++) {
-            for (int j = 0; j < qtdEntradas; j++) {
-                I[i] += entradas[j] * W[i][j];
+            for (int j = 0; j < (qtdEntradas + 1); j++) {
+                if(j==0)
+                    I[i] += bias * W[i][j];
+                else
+                    I[i] += entradas[j-1] * W[i][j];
             }
         }
     }
+
+
 
     public int getQtdNeuronios() {
         return this.qtdNeuronios;
@@ -85,5 +93,23 @@ public class Camada {
         for (int i = 0; i < neuronios.size(); i++) {
             Y[i] = neuronios.get(i).getSaida();
         }
+    }
+
+    public void setMatrizPeso(double[][] matriz)
+    {
+        if(matriz.length != W.length)
+            throw new IllegalArgumentException("A matriz passada tem tamanho diferente da matriz da camada! ");
+
+        W = matriz;
+    }
+
+    protected double[] getI()
+    {
+        return I;
+    }
+
+    protected void setBias(double bias)
+    {
+        this.bias = bias;
     }
 }
