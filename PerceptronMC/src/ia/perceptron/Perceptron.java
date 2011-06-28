@@ -49,6 +49,26 @@ public class Perceptron {
         criarCamada(3, 15);
     }
 
+    private void treinar()
+    {
+        double EQM_ant = 999999999;
+        double EQM_atual = 0;
+        double epoca = 0;
+
+        while( Math.abs(EQM_atual - EQM_ant) > PRECISAO )
+        {
+            EQM_ant = EQM_atual;
+            for (int i = 0; i < arquivoTreino.getTotalLinhas(); i++) {
+                x = arquivoTreino.x(i);
+                processarEntradas();
+                //TODO: determinar gradientes e ajustar pesos
+
+            }
+            //EQM_atual = EQM();
+            epoca++;
+        }
+    }
+
 //    private double EQM()
 //    {
 //        int totalAmostras = ManipuladorArquivo.LINHAS_ARQUIVO_TREINO_DEFAULT;
@@ -60,6 +80,7 @@ public class Perceptron {
 //        }
 //        return resultado/totalAmostras;
 //    }
+    
     private double erroQuadratico(double[] esperado, double[] obtido) {
         double resultado = 0;
 
