@@ -39,6 +39,11 @@ public class Arquivo {
         return x[k];
     }
 
+    public int getTotalLinhas()
+    {
+        return arquivo.length;
+    }
+
     protected void setLinhas(int linhas)
     {
         this.linhas = linhas;
