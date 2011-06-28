@@ -21,17 +21,19 @@ public class Perceptron {
     private ManipuladorArquivo fileHandler = new ManipuladorArquivo();
     private Arquivo arquivoTeste;
     private Arquivo arquivoTreino;
+    private double bias = -1;
     private double x[] = new double[4];  //camada de entrada
     private double y[] = new double[3];  //valores de saída
 
-    public Perceptron() {
+    public Perceptron(int entradas) {
         fileHandler.carregarDados();
         arquivoTeste = fileHandler.getArquivoTeste();
         arquivoTreino = fileHandler.getArquivoTreino();
-        initCamadasDefault();
+        x = new double[entradas];
+        //initCamadasDefault();
     }
 
-    private void processarEntradas() {
+    protected void processarEntradas() {
         for (int i = 0; i < camadas.size(); i++) {
             if (i == 0) {
                 camadas.get(i).processar(x);
@@ -83,5 +85,22 @@ public class Perceptron {
 
     public void criarCamada(int qtdNeuronios, int qtdEntradas) {
         camadas.add(new Camada(qtdNeuronios, qtdEntradas));
+    }
+
+    public Camada getCamada(int index)
+    {
+        return camadas.get(index);
+    }
+
+    public void setBias(double bias) {
+        this.bias = bias;
+    }
+
+    public void setEntrada(double[] entrada)
+    {
+        if(entrada.length != x.length)
+            throw new IllegalArgumentException("O vetor passado tem tamanho diferente do vetor de entrada! ");
+
+        x = entrada;
     }
 }
