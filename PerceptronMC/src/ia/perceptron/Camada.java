@@ -110,7 +110,7 @@ public class Camada {
          //calculo da camada de saída
          S = new double[qtdNeuronios];
          for(int i=0; i<qtdNeuronios; i++){
-            S[i] = (saidaDesejada[i] - Y[i]) * Neuronio.derivada(I[i]);
+            S[i] = (saidaDesejada[i] - Y[i]) * Neuronio.derivadaT(I[i]);
          }
          return S;
      }
@@ -121,7 +121,7 @@ public class Camada {
          S = new double[qtdNeuronios];
          for(int i=0; i<qtdNeuronios; i++){
              for (int j = 0; j < proxima.getQtdNeuronios(); j++) {
-                S[i] += ( proxima.S[j] * proxima.W[j][i] ) * Neuronio.derivada(I[i]); // A formula é difente pq já envolve o resultado do gradiente anterior
+                S[i] += ( proxima.S[j] * proxima.W[j][i] ) * Neuronio.derivadaT(I[i]); // A formula é difente pq já envolve o resultado do gradiente anterior
             }
          }
          return S;
