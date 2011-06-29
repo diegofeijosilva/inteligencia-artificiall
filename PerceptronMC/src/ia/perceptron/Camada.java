@@ -21,6 +21,7 @@ public class Camada {
     private double[] Y; //vetor de saídas
     private double[] S;//gradiente local
     private double deriv;
+    private final double BETA = 0.5;
 
     private double bias;
     private int qtdNeuronios;
@@ -96,17 +97,45 @@ public class Camada {
 
 
 
-     private double[] calcularGradienteLocal(){
+     private double[] calcularGradienteLocalSaida(double saidaDesejada){
+
+         //calculo da camada de saída
+         S= new double[qtdNeuronios];
+         for(int i=0; i<qtdNeuronios; i++){
+            S[i]= (saidaDesejada - Y[i]) * derivada(I[i]);
+         }
          return S;
      }
 
-     private double derivada(/*recebe I*/){
+     private double[] calcularGradienteLocalCamada(double saidaDesejada){
+
+         //calculo da camada de saída
+         S= new double[qtdNeuronios];
+         for(int i=0; i<qtdNeuronios; i++){
+            // A formula é difente pq já envolve o resultado do gradiente anterior
+         }
+         return S;
+     }
+
+     private double derivada(double entrada){//entrada: entrada poderada do j-essimo neuronio da camada L
+        
+         deriv = BETA*sigmoide(entrada)*(1-sigmoide(entrada));
          return deriv;
      }
 
+     private double sigmoide(double x){
+        return Math.tanh(x);
+    }
 
-     private void ajustarPesos(){
-     }
+     private void ajustarMatrizPesos() {
+
+        for (int i = 0; i < qtdNeuronios; i++) {
+            for (int j = 0; j < qtdEntradas; j++) {
+                W[i][j] = 1 * (double) Math.random();
+
+            }
+        }
+    }
 
 
 
