@@ -23,7 +23,7 @@ public class Camada {
     private double deriv;
     private final double BETA = 0.5;
 
-    private double bias;
+    private double bias = -1;
     private int qtdNeuronios;
     private int qtdEntradas;
 
@@ -46,7 +46,7 @@ public class Camada {
 
         W = new double[qtdNeuronios][qtdEntradas+1];
         for (int i = 0; i < qtdNeuronios; i++) {
-            for (int j = 0; j < qtdEntradas; j++) {
+            for (int j = 0; j < qtdEntradas + 1; j++) {
                 W[i][j] = 1 * (double) Math.random();
 
             }
@@ -62,6 +62,7 @@ public class Camada {
     }
 
     private void ponderarEntradas(double[] entradas) {
+        I = new double[qtdNeuronios];
         for (int i = 0; i < qtdNeuronios; i++) {
             for (int j = 0; j < (qtdEntradas + 1); j++) {
                     I[i] += entradas[j] * W[i][j];
@@ -69,7 +70,7 @@ public class Camada {
                    //System.out.println("entradas.lenght: "+ entradas.length);
             }
         }
-        arredondarI();
+       // arredondarI(); mudar de novo
     }
 
     private void arredondarI()
@@ -139,9 +140,10 @@ public class Camada {
 
      protected void ajustarMatrizPesos(double[] entradas) {//num sei se tá certo n...
 
+        double[] entradas2 = concatenarBias(entradas);
         for (int i = 0; i < qtdNeuronios; i++) {
-            for (int j = 0; j < qtdEntradas; j++) {
-                W[i][j] = W[i][j] + Perceptron.TAXA_APRENDIZAGEM * S[i] * entradas[j];
+            for (int j = 0; j < qtdEntradas+1; j++) {
+                W[i][j] = W[i][j] + Perceptron.TAXA_APRENDIZAGEM * S[i] * entradas2[j];
 
             }
         }
@@ -193,7 +195,7 @@ public class Camada {
         for (int i = 0; i < neuronios.size(); i++) {
             Y[i] = neuronios.get(i).getSaida();
         }
-        arredondarY();
+      //  arredondarY();mudei aki
     }
 
     public void setMatrizPeso(double[][] matriz)
