@@ -97,12 +97,12 @@ public class Camada {
 
 
 
-     private double[] calcularGradienteLocalCamadaDeSaida(double saidaDesejada){
+     private double[] calcularGradienteLocalCamadaDeSaida(double[] saidaDesejada){
 
          //calculo da camada de saída
          S= new double[qtdNeuronios];
          for(int i=0; i<qtdNeuronios; i++){
-            S[i]= (saidaDesejada - Y[i]) * neuronios.get(i).derivada(I[i]);
+            S[i]= (saidaDesejada[i] - Y[i]) * Neuronio.derivada(I[i]);
          }
          return S;
      }
