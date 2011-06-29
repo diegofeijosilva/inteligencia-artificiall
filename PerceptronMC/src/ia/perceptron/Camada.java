@@ -15,9 +15,11 @@ import java.util.List;
 public class Camada {
 
     private List<Neuronio> neuronios = new ArrayList<Neuronio>();
-    private double[][] W;
-    private double[] I;
-    private double[] Y;
+
+    private double[][] W; //matriz de pesos
+    private double[] I; //vetor de entradas ponderadas
+    private double[] Y; //vetor de saídas
+
     private double bias;
     private int qtdNeuronios;
     private int qtdEntradas;
@@ -50,7 +52,6 @@ public class Camada {
 
     protected void processar(double[] x) {
         ponderarEntradas(x);
-
         for (int i = 0; i < neuronios.size(); i++) {
             neuronios.get(i).processar(I[i]);
         }
@@ -60,12 +61,10 @@ public class Camada {
     private void ponderarEntradas(double[] entradas) {
         for (int i = 0; i < qtdNeuronios; i++) {
             for (int j = 0; j < (qtdEntradas + 1); j++) {
-                if(j==0) {
+                if(j==0) 
                     I[i] += bias * W[i][j];
-                }
-                else {
+                else 
                     I[i] += entradas[j-1] * W[i][j];
-                }
             }
         }
         arredondarI();
@@ -75,7 +74,6 @@ public class Camada {
     {
         for (int i = 0; i < I.length; i++) {
             I[i] = arredondar(I[i]);
-
         }
     }
 
@@ -83,7 +81,6 @@ public class Camada {
     {
         for (int i = 0; i < Y.length; i++) {
             Y[i] = arredondar(Y[i]);
-
         }
     }
 
@@ -115,6 +112,11 @@ public class Camada {
         return Y;
     }
 
+    protected double[] getI()
+    {
+        return I;
+    }
+
     private void setSaida() {
         for (int i = 0; i < neuronios.size(); i++) {
             Y[i] = neuronios.get(i).getSaida();
@@ -128,11 +130,6 @@ public class Camada {
             throw new IllegalArgumentException("A matriz passada tem tamanho diferente da matriz da camada! ");
 
         W = matriz;
-    }
-
-    protected double[] getI()
-    {
-        return I;
     }
 
     protected void setBias(double bias)
