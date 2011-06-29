@@ -26,7 +26,8 @@ public class Perceptron {
     
     private double bias = -1;
     private double x[] = new double[4];  //camada de entrada
-    private double y[] = new double[3];  //valores de saída
+    private double d[] = new double[3];  //valores desejados de saída em uma propagação
+    private double y[] = new double[3];  //valores obtidos de saída em uma propagação
 
     public Perceptron(int entradas) {
         x = new double[entradas];
@@ -46,6 +47,29 @@ public class Perceptron {
         }
     }
 
+    private void reajustarPesos()
+    {
+        int indiceUltimaCamada = camadas.size()-1;
+        for (int i = indiceUltimaCamada; i>-1; i--) {
+            if( i==indiceUltimaCamada )
+            {
+                camadas.get(i).calcularGradienteLocalCamadaDeSaida(d);
+            }
+            else
+            {
+                camadas.get(i).calcularGradienteLocalCamadaIntermediaria(camadas.get(i+1));
+            }
+            if( i==0 )
+            {
+                camadas.get(i).ajustarMatrizPesos(x);
+            }
+            else
+            {
+                camadas.get(i).ajustarMatrizPesos(camadas.get(i-1).getSaida());
+            }
+        }
+    }
+
     private void treinar()
     {
         double EQM_ant = 999999999;
@@ -57,9 +81,9 @@ public class Perceptron {
             EQM_ant = EQM_atual;
             for (int i = 0; i < arquivoTreino.getTotalLinhas(); i++) {
                 x = arquivoTreino.x(i);
+                d = arquivoTreino.d(i);
                 propagarEntradas();
-                //TODO: determinar gradientes e ajustar pesos
-
+                reajustarPesos();
             }
             //EQM_atual = EQM();
             epoca++;
