@@ -103,7 +103,7 @@ public class Camada {
      }
 
 
-     private double[] calcularGradienteLocalCamadaDeSaida(double[] saidaDesejada){
+     protected double[] calcularGradienteLocalCamadaDeSaida(double[] saidaDesejada){
 
          //calculo da camada de saída
          S = new double[qtdNeuronios];
@@ -113,7 +113,7 @@ public class Camada {
          return S;
      }
 
-     private double[] calcularGradienteLocalCamadaIntermediária(Camada proxima){
+     protected double[] calcularGradienteLocalCamadaIntermediaria(Camada proxima){
 
          //calculo da camada de saída
          S = new double[qtdNeuronios];
@@ -135,7 +135,7 @@ public class Camada {
 //        return Math.tanh(x);
 //    }
 
-     private void ajustarMatrizPesos(double[] entradas) {//num sei se tá certo n...
+     protected void ajustarMatrizPesos(double[] entradas) {//num sei se tá certo n...
 
         for (int i = 0; i < qtdNeuronios; i++) {
             for (int j = 0; j < qtdEntradas; j++) {
