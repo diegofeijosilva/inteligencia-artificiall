@@ -35,7 +35,6 @@ public class ManipuladorArquivo {
 
     public ManipuladorArquivo(String arqTreino, String arqTeste)
     {
-       this();
        this.path_arqTreino = arqTreino;
        this.path_arqTeste = arqTeste;
     }
@@ -49,20 +48,26 @@ public class ManipuladorArquivo {
 
     private void carregarDadosTreino()
     {
-        double[][] dados_treino = new double[LINHAS_ARQUIVO_TREINO_DEFAULT][totalColunas()];
-        dados_treino = lerArquivo(path_arqTreino, LINHAS_ARQUIVO_TREINO_DEFAULT, totalColunas());
+        int linhas = LINHAS_ARQUIVO_TREINO_DEFAULT;
+        int colunas = totalColunas();
+
+        double[][] dados_treino = new double[linhas][colunas];
+        dados_treino = lerArquivo(path_arqTreino, linhas, colunas);
         arquivoTreino = new Arquivo(dados_treino);
-        arquivoTreino.setLinhas(LINHAS_ARQUIVO_TREINO_DEFAULT);
-        arquivoTreino.parseDadosArquivo();
+        arquivoTreino.setLinhas(linhas);
+        arquivoTreino.separarDados();
     }
 
     private void carregarDadosTeste()
     {
-        double[][] dados_teste = new double[LINHAS_ARQUIVO_TESTE_DEFAULT][totalColunas()];
-        dados_teste = lerArquivo(path_arqTeste, LINHAS_ARQUIVO_TESTE_DEFAULT, totalColunas());
+        int linhas = LINHAS_ARQUIVO_TESTE_DEFAULT;
+        int colunas = totalColunas();
+
+        double[][] dados_teste = new double[linhas][colunas];
+        dados_teste = lerArquivo(path_arqTeste, linhas, colunas);
         arquivoTeste = new Arquivo(dados_teste);
-        arquivoTeste.setLinhas(LINHAS_ARQUIVO_TESTE_DEFAULT);
-        arquivoTeste.parseDadosArquivo();
+        arquivoTeste.setLinhas(linhas);
+        arquivoTeste.separarDados();
     }
 
 

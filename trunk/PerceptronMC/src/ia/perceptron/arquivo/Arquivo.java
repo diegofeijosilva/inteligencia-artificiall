@@ -49,27 +49,39 @@ public class Arquivo {
         this.linhas = linhas;
     }
 
-    protected void parseDadosArquivo() {
+    protected void separarDados() {
+      separarDadosEntrada();
+      separarDadosSaida();
+    }
+
+    private void separarDadosEntrada()
+    {
         x = new double[linhas][colunasEntradas];
-        d = new double[linhas][colunasSaidas];
+
         //deslocamento para leitura dos dados de entrada x[], devido ao bias
         int shiftX = 1;
-        //deslocamento para leitura dos dados desejados de saída d[], devido ao bias e os dados de entrada
-        int shiftD = 1 + colunasEntradas;
 
-        for (int i = 0; i < linhas; i++) {
+         for (int i = 0; i < linhas; i++) {
             for (int j = 0; j < colunasEntradas; j++) {
                 x[i][j] = arquivo[i][j + shiftX];
             }
-
         }
+        
+    }
+
+    private void separarDadosSaida()
+    {
+          d = new double[linhas][colunasSaidas];
+
+        //deslocamento para leitura dos dados desejados de saída d[], devido ao bias e os dados de entrada
+        int shiftD = 1 + colunasEntradas;
 
         for (int i = 0; i < linhas; i++) {
             for (int j = 0; j < colunasSaidas; j++) {
                 d[i][j] = arquivo[i][j + shiftD];
             }
-
         }
+
     }
 
 }
