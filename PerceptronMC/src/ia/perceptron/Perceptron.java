@@ -28,12 +28,14 @@ public class Perceptron {
     private double x[] = new double[4];  //camada de entrada
     private double d[] = new double[3];  //valores desejados de saída em uma propagação
     private double y[] = new double[3];  //valores obtidos de saída em uma propagação
+    private double Y[][]; //valores de saída obtidos em todas as amostras de entrada;
 
     public Perceptron(int entradas) {
         x = new double[entradas];
         fileHandler.carregarDados();
         arquivoTeste = fileHandler.getArquivoTeste();
         arquivoTreino = fileHandler.getArquivoTreino();
+        Y = new double[arquivoTreino.getTotalLinhas()][3];
     }
 
     protected void propagarEntradas() {
@@ -45,6 +47,7 @@ public class Perceptron {
                 camadas.get(i).processar(anterior.getSaida());
             }
         }
+        atualizarSaida();
     }
 
     private void reajustarPesos()
@@ -84,23 +87,24 @@ public class Perceptron {
                 d = arquivoTreino.d(i);
                 propagarEntradas();
                 reajustarPesos();
+                Y[i] = y;
             }
-            //EQM_atual = EQM();
+            EQM_atual = EQM();
             epoca++;
         }
     }
 
-//    private double EQM()
-//    {
-//        int totalAmostras = ManipuladorArquivo.LINHAS_ARQUIVO_TREINO_DEFAULT;
-//        double resultado = 0;
-//        atualizarSaida();
-//
-//        for (int k = 0; k < totalAmostras; k++) {
-//            resultado += erroQuadratico(arquivoTreino.d(k),);
-//        }
-//        return resultado/totalAmostras;
-//    }
+    private double EQM()
+    {
+        int totalAmostras = arquivoTreino.getTotalLinhas();
+        double resultado = 0;
+        atualizarSaida();
+
+        for (int k = 0; k < totalAmostras; k++) {
+            resultado += erroQuadratico(arquivoTreino.d(k),Y[k]);
+        }
+        return resultado/totalAmostras;
+    }
     
     private double erroQuadratico(double[] esperado, double[] obtido) {
         double resultado = 0;
