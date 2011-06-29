@@ -23,9 +23,14 @@ public class Neuronio {
         y = sigmoide(x);
     }
 
-    private double sigmoide(double x)
+    public static double sigmoide(double x)
     {
         return Math.tanh(x);
+    }
+
+    public static double derivadaSigmoide(double x)
+    {
+        return 1 - Math.pow(Math.tanh(x),2);
     }
 
 }
