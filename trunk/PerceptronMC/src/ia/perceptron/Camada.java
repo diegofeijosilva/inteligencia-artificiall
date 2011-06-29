@@ -135,11 +135,11 @@ public class Camada {
 //        return Math.tanh(x);
 //    }
 
-     private void ajustarMatrizPesos(Camada camadaAnterior) {//num sei se tá certo n...
+     private void ajustarMatrizPesos(double[] entradas) {//num sei se tá certo n...
 
         for (int i = 0; i < qtdNeuronios; i++) {
             for (int j = 0; j < qtdEntradas; j++) {
-                W[i][j] = W[i][j] + Perceptron.TAXA_APRENDIZAGEM * S[i] * camadaAnterior.Y[j];
+                W[i][j] = W[i][j] + Perceptron.TAXA_APRENDIZAGEM * S[i] * entradas[j];
 
             }
         }
