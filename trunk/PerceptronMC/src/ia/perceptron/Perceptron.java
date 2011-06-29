@@ -111,13 +111,13 @@ public class Perceptron {
             propagarEntradas();
 
             for (int j = 0; j < d.length; j++) {
-                if( !(y[j]==d[j]) )
+                if( y[j]!=d[j] )
                     sucesso = false;
             }
             if(sucesso)
-                System.out.println("OK");
+                System.out.println("OK ---->  "+d[0]+"  "+d[1]+"  "+d[1]);
             else
-                System.out.println("ERRO");
+                System.out.println("ERRO ---->  "+d[0]+"  "+d[1]+"  "+d[1]);
         }
     }
 

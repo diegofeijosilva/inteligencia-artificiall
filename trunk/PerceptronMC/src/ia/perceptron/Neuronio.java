@@ -28,7 +28,7 @@ public class Neuronio {
         return Math.tanh(x);
     }
 
-    public static double derivadaSigmoide(double x)
+    public static double derivadaT(double x)
     {
         return 1 - Math.pow(Math.tanh(x),2);
     }
