@@ -109,15 +109,26 @@ public class Perceptron {
             x = arquivoTeste.x(i);
             d = arquivoTeste.d(i);
             propagarEntradas();
+            posProcessamento();
 
             for (int j = 0; j < d.length; j++) {
                 if( y[j]!=d[j] )
                     sucesso = false;
             }
             if(sucesso)
-                System.out.println("OK ---->  "+d[0]+"  "+d[1]+"  "+d[1]);
+                System.out.println("OK ---->  "+y[0]+"  "+y[1]+"  "+y[2]);
             else
-                System.out.println("ERRO ---->  "+d[0]+"  "+d[1]+"  "+d[1]);
+                System.out.println("ERRO ---->  "+y[0]+"  "+y[1]+"  "+y[2]);
+        }
+    }
+
+    private void posProcessamento(){
+        for (int i = 0; i < y.length; i++) {
+            if(y[i] >= 0.5){
+                y[i] = 1;
+            }
+            else
+                y[i] = 0;
         }
     }
 
@@ -150,7 +161,7 @@ public class Perceptron {
         Camada ultima = camadas.get(camadas.size() - 1);
 
         for (int i = 0; i < ultima.getQtdNeuronios(); i++) {
-            y[i] = ultima.getNeuronio(i).getSaida();
+            y[i] = ultima.getSaida()[i];
         }
     }
 
