@@ -30,13 +30,20 @@ public class Perceptron {
     private double y[] = new double[3];  //valores obtidos de saída em uma propagação
     private double Y[][]; //valores de saída obtidos em todas as amostras de entrada;
 
-    public Perceptron(int entradas) {
-        x = new double[entradas];
+    public Perceptron()
+    {
         fileHandler.carregarDados();
         arquivoTeste = fileHandler.getArquivoTeste();
         arquivoTreino = fileHandler.getArquivoTreino();
         Y = new double[arquivoTreino.getTotalLinhas()][3];
     }
+
+    public Perceptron(int entradas)
+    {
+        this();
+        x = new double[entradas]; 
+    }
+
 
     protected void propagarEntradas() {
         for (int i = 0; i < camadas.size(); i++) {
@@ -73,7 +80,7 @@ public class Perceptron {
         }
     }
 
-    private void treinar()
+    public void treinar()
     {
         double EQM_ant = 999999999;
         double EQM_atual = 0;
@@ -91,6 +98,25 @@ public class Perceptron {
             }
             EQM_atual = EQM();
             epoca++;
+        }
+    }
+
+    public void testar()
+    {
+        boolean sucesso = true;
+        for (int i = 0; i < arquivoTeste.getTotalLinhas(); i++) {
+            x = arquivoTeste.x(i);
+            d = arquivoTeste.d(i);
+            propagarEntradas();
+
+            for (int j = 0; j < d.length; j++) {
+                if( !(y[j]==d[j]) )
+                    sucesso = false;
+            }
+            if(sucesso)
+                System.out.println("OK");
+            else
+                System.out.println("ERRO");
         }
     }
 
@@ -146,5 +172,16 @@ public class Perceptron {
             throw new IllegalArgumentException("O vetor passado tem tamanho diferente do vetor de entrada! ");
 
         x = entrada;
+    }
+
+    public static void main(String[] args) {
+        Perceptron perceptron = new Perceptron(4);
+
+        perceptron.criarCamada(15, 4);
+        perceptron.criarCamada(3, 15);
+
+        perceptron.treinar();
+        perceptron.testar();
+
     }
 }
