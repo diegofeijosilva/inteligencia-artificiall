@@ -38,7 +38,7 @@ public class PerceptronTest {
     }
 
     /**
-     * Test of processarEntradas method, of class Perceptron.
+     * Test of propagarEntradas method, of class Perceptron.
      */
     @Test
     public void testProcessarEntradas() {
@@ -61,7 +61,7 @@ public class PerceptronTest {
 
         instance.setEntrada(new double[] {0.3,0.7});
 
-        instance.processarEntradas();
+        instance.propagarEntradas();
 
         //Primeira camada neural
         assertEquals(0.27,instance.getCamada(0).getI()[0],0.0);
