@@ -100,20 +100,20 @@ public class Camada {
      private double[] calcularGradienteLocalCamadaDeSaida(double[] saidaDesejada){
 
          //calculo da camada de saída
-         S= new double[qtdNeuronios];
+         S = new double[qtdNeuronios];
          for(int i=0; i<qtdNeuronios; i++){
-            S[i]= (saidaDesejada[i] - Y[i]) * Neuronio.derivada(I[i]);
+            S[i] = (saidaDesejada[i] - Y[i]) * Neuronio.derivada(I[i]);
          }
          return S;
      }
 
-     private double[] calcularGradienteLocalCamadaIntermediária(Camada camadaDeSaida){
+     private double[] calcularGradienteLocalCamadaIntermediária(Camada proxima){
 
          //calculo da camada de saída
-         S= new double[qtdNeuronios];
+         S = new double[qtdNeuronios];
          for(int i=0; i<qtdNeuronios; i++){
-             for (int j = 0; j < qtdEntradas; j++) {
-                //S[i] = camadaDeSaida.S[i]*camadaDeSaida.W[][] // A formula é difente pq já envolve o resultado do gradiente anterior
+             for (int j = 0; j < proxima.getQtdNeuronios(); j++) {
+                S[i] += ( proxima.getS()[j] * proxima.getPeso(j,i) ) * Neuronio.derivada(I[i]); // A formula é difente pq já envolve o resultado do gradiente anterior
             }
          }
          return S;
@@ -174,6 +174,11 @@ public class Camada {
     protected double[] getI()
     {
         return I;
+    }
+
+    protected double[] getS()
+    {
+        return S;
     }
 
     private void setSaida() {
