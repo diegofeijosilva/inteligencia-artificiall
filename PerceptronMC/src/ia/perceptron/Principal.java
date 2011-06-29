@@ -5,7 +5,6 @@
 
 package ia.perceptron;
 
-import perceptron.Arquivo;
 
 /**
  *
