@@ -54,7 +54,7 @@ public class Camada {
     }
 
     protected void processar(double[] x) {
-        ponderarEntradas(x);
+        ponderarEntradas(concatenarBias(x));
         for (int i = 0; i < neuronios.size(); i++) {
             neuronios.get(i).processar(I[i]);
         }
@@ -64,10 +64,7 @@ public class Camada {
     private void ponderarEntradas(double[] entradas) {
         for (int i = 0; i < qtdNeuronios; i++) {
             for (int j = 0; j < (qtdEntradas + 1); j++) {
-                if(j==0) 
-                    I[i] += bias * W[i][j];
-                else 
-                    I[i] += entradas[j-1] * W[i][j];
+                    I[i] += entradas[j] * W[i][j];
             }
         }
         arredondarI();
@@ -95,6 +92,15 @@ public class Camada {
         return num;
     }
 
+     private double[] concatenarBias(double[] entrada)
+     {
+         double[] resultado = new double[entrada.length + 1];
+         resultado[0] = bias;
+         for (int i = 1; i < resultado.length; i++) {
+             resultado[i] = entrada[i-1];
+         }
+         return resultado;
+     }
 
 
      private double[] calcularGradienteLocalCamadaDeSaida(double[] saidaDesejada){
