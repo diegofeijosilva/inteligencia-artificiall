@@ -102,7 +102,7 @@ public class Camada {
          //calculo da camada de saída
          S= new double[qtdNeuronios];
          for(int i=0; i<qtdNeuronios; i++){
-            S[i]= (saidaDesejada - Y[i]) * derivada(I[i]);
+            S[i]= (saidaDesejada - Y[i]) * neuronios.get(i).derivada(I[i]);
          }
          return S;
      }
@@ -117,21 +117,21 @@ public class Camada {
          return S;
      }
 
-     private double derivada(double entrada){//entrada: entrada poderada do j-essimo neuronio da camada L
-        
-         deriv = BETA*sigmoide(entrada)*(1-sigmoide(entrada));
-         return deriv;
-     }
+//     private double derivada(double entrada){//entrada: entrada poderada do j-essimo neuronio da camada L
+//
+//         deriv = BETA*sigmoide(entrada)*(1-sigmoide(entrada));
+//         return deriv;
+//     }
 
      private double sigmoide(double x){
         return Math.tanh(x);
     }
 
-     private void ajustarMatrizPesos() {
+     private void ajustarMatrizPesos(Camada camadaAnterior) {//num sei se tá certo n...
 
         for (int i = 0; i < qtdNeuronios; i++) {
             for (int j = 0; j < qtdEntradas; j++) {
-                W[i][j] = 1 * (double) Math.random();
+                W[i][j] = W[i][j] + Perceptron.TAXA_APRENDIZAGEM * S[i] * camadaAnterior.Y[i];
 
             }
         }
