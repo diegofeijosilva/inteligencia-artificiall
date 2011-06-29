@@ -19,6 +19,8 @@ public class Camada {
     private double[][] W; //matriz de pesos
     private double[] I; //vetor de entradas ponderadas
     private double[] Y; //vetor de saídas
+    private double[] S;//gradiente local
+    private double deriv;
 
     private double bias;
     private int qtdNeuronios;
@@ -91,6 +93,24 @@ public class Camada {
         num = bd.doubleValue();
         return num;
     }
+
+
+
+     private double[] calcularGradienteLocal(){
+         return S;
+     }
+
+     private double derivada(/*recebe I*/){
+         return deriv;
+     }
+
+
+     private void ajustarPesos(){
+     }
+
+
+
+
 
     public int getQtdNeuronios() {
         return this.qtdNeuronios;
