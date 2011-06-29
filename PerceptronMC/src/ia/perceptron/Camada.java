@@ -97,7 +97,7 @@ public class Camada {
 
 
 
-     private double[] calcularGradienteLocalSaida(double saidaDesejada){
+     private double[] calcularGradienteLocalCamadaDeSaida(double saidaDesejada){
 
          //calculo da camada de saída
          S= new double[qtdNeuronios];
@@ -107,12 +107,14 @@ public class Camada {
          return S;
      }
 
-     private double[] calcularGradienteLocalCamada(double saidaDesejada){
+     private double[] calcularGradienteLocalCamadaIntermediária(Camada camadaDeSaida){
 
          //calculo da camada de saída
          S= new double[qtdNeuronios];
          for(int i=0; i<qtdNeuronios; i++){
-            // A formula é difente pq já envolve o resultado do gradiente anterior
+             for (int j = 0; j < qtdEntradas; j++) {
+                //S[i] = camadaDeSaida.S[i]*camadaDeSaida.W[][] // A formula é difente pq já envolve o resultado do gradiente anterior
+            }
          }
          return S;
      }
@@ -123,9 +125,9 @@ public class Camada {
 //         return deriv;
 //     }
 
-     private double sigmoide(double x){
-        return Math.tanh(x);
-    }
+//     private double sigmoide(double x){
+//        return Math.tanh(x);
+//    }
 
      private void ajustarMatrizPesos(Camada camadaAnterior) {//num sei se tá certo n...
 
