@@ -39,10 +39,11 @@ public class PerceptronTest {
 
     /**
      * Test of propagarEntradas method, of class Perceptron.
+     * TESTE BASEADO NO EXEMPLO DOS SLIDES.
      */
     @Test
-    public void testProcessarEntradas() {
-        System.out.println("processarEntradas()");
+    public void testPropagarEntradas() {
+        System.out.println("propagarEntradas()");
        
         Perceptron instance = new Perceptron(2);
 
@@ -63,7 +64,7 @@ public class PerceptronTest {
 
         instance.propagarEntradas();
 
-        //Primeira camada neural
+        //Conferindo Primeira camada neural
         assertEquals(0.27,instance.getCamada(0).getI()[0],0.0);
         assertEquals(0.37,instance.getCamada(0).getI()[1],0.0);
         assertEquals(0.05,instance.getCamada(0).getI()[2],0.0);
@@ -72,19 +73,16 @@ public class PerceptronTest {
         assertEquals(0.35,instance.getCamada(0).getSaida()[1],0.0);
         assertEquals(0.05,instance.getCamada(0).getSaida()[2],0.0);
         
-        //Segunda camada neural
+        //Conferindo Segunda camada neural
         assertEquals(0.96,instance.getCamada(1).getI()[0],0.0);
         assertEquals(0.59,instance.getCamada(1).getI()[1],0.0);
 
         assertEquals(0.74,instance.getCamada(1).getSaida()[0],0.0);
         assertEquals(0.53,instance.getCamada(1).getSaida()[1],0.0);
 
-        //Terceira camada neural
+        //Conferindo Terceira camada neural
         assertEquals(0.76,instance.getCamada(2).getI()[0],0.0);
-
         assertEquals(0.64,instance.getCamada(2).getSaida()[0],0.0);
-
-
 
     }
 

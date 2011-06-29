@@ -42,7 +42,7 @@ public class CamadaTest {
      */
     @Test
     public void testInicializarMatrizPesos() {
-        System.out.println("inicializarVetorPesos()");
+        System.out.println("inicializarMatrizPesos()");
 
         int qtdNeuronios = 15;
         int qtdEntradas = 4;
@@ -57,7 +57,5 @@ public class CamadaTest {
         }
         
     }
-
-   
 
 }
