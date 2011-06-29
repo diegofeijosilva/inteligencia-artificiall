@@ -105,6 +105,7 @@ public class Perceptron {
     {
         boolean sucesso = true;
         for (int i = 0; i < arquivoTeste.getTotalLinhas(); i++) {
+            sucesso = true;
             x = arquivoTeste.x(i);
             d = arquivoTeste.d(i);
             propagarEntradas();
@@ -176,6 +177,7 @@ public class Perceptron {
 
     public static void main(String[] args) {
         Perceptron perceptron = new Perceptron(4);
+        perceptron.setBias(-1);
 
         perceptron.criarCamada(15, 4);
         perceptron.criarCamada(3, 15);
