@@ -14,7 +14,7 @@ public class Arquivo {
     public static final int QTD_COLUNAS_ENTRADA_DEFAULT = 4;
     public static final int QTD_COLUNAS_SAIDA_DEFAULT = 3;
 
-    private double[][] arquivo;
+    private double[][] matriz_dados;
     private double[][] x;
     private double[][] d;
     
@@ -22,9 +22,9 @@ public class Arquivo {
     private int colunasEntradas;
     private int colunasSaidas;
 
-    public Arquivo(double[][] arquivo)
+    public Arquivo(double[][] matriz_dados)
     {
-        this.arquivo = arquivo;
+        this.matriz_dados = matriz_dados;
         this.colunasEntradas = QTD_COLUNAS_ENTRADA_DEFAULT;
         this.colunasSaidas = QTD_COLUNAS_SAIDA_DEFAULT;
     }
@@ -41,7 +41,7 @@ public class Arquivo {
 
     public int getTotalLinhas()
     {
-        return arquivo.length;
+        return matriz_dados.length;
     }
 
     protected void setLinhas(int linhas)
@@ -63,7 +63,7 @@ public class Arquivo {
 
          for (int i = 0; i < linhas; i++) {
             for (int j = 0; j < colunasEntradas; j++) {
-                x[i][j] = arquivo[i][j + shiftX];
+                x[i][j] = matriz_dados[i][j + shiftX];
             }
         }
         
@@ -78,7 +78,7 @@ public class Arquivo {
 
         for (int i = 0; i < linhas; i++) {
             for (int j = 0; j < colunasSaidas; j++) {
-                d[i][j] = arquivo[i][j + shiftD];
+                d[i][j] = matriz_dados[i][j + shiftD];
             }
         }
 
