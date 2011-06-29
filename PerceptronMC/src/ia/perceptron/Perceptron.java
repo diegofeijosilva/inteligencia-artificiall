@@ -17,23 +17,25 @@ public class Perceptron {
 
     public static final double TAXA_APRENDIZAGEM = 0.1;
     public static final double PRECISAO = 0.000001;
+
     private List<Camada> camadas = new ArrayList<Camada>();
+
     private ManipuladorArquivo fileHandler = new ManipuladorArquivo();
     private Arquivo arquivoTeste;
     private Arquivo arquivoTreino;
+    
     private double bias = -1;
     private double x[] = new double[4];  //camada de entrada
     private double y[] = new double[3];  //valores de saída
 
     public Perceptron(int entradas) {
+        x = new double[entradas];
         fileHandler.carregarDados();
         arquivoTeste = fileHandler.getArquivoTeste();
         arquivoTreino = fileHandler.getArquivoTreino();
-        x = new double[entradas];
-        //initCamadasDefault();
     }
 
-    protected void processarEntradas() {
+    protected void propagarEntradas() {
         for (int i = 0; i < camadas.size(); i++) {
             if (i == 0) {
                 camadas.get(i).processar(x);
@@ -42,11 +44,6 @@ public class Perceptron {
                 camadas.get(i).processar(anterior.getSaida());
             }
         }
-    }
-
-    private void initCamadasDefault() {
-        criarCamada(15, 4);
-        criarCamada(3, 15);
     }
 
     private void treinar()
@@ -60,7 +57,7 @@ public class Perceptron {
             EQM_ant = EQM_atual;
             for (int i = 0; i < arquivoTreino.getTotalLinhas(); i++) {
                 x = arquivoTreino.x(i);
-                processarEntradas();
+                propagarEntradas();
                 //TODO: determinar gradientes e ajustar pesos
 
             }
@@ -87,12 +84,10 @@ public class Perceptron {
         if (esperado.length != obtido.length) {
             throw new IllegalArgumentException("Os vetores devem ter o mesmo tamanho!");
         }
-
         for (int i = 0; i < esperado.length; i++) {
             double erro = esperado[i] - obtido[i];
             resultado += Math.pow(erro, 2);
         }
-
         return resultado / 2;
     }
 
