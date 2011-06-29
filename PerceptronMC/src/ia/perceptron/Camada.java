@@ -44,7 +44,7 @@ public class Camada {
 
     private void inicializarMatrizPesos() {
 
-        W = new double[qtdNeuronios][qtdEntradas];
+        W = new double[qtdNeuronios][qtdEntradas+1];
         for (int i = 0; i < qtdNeuronios; i++) {
             for (int j = 0; j < qtdEntradas; j++) {
                 W[i][j] = 1 * (double) Math.random();
@@ -65,6 +65,8 @@ public class Camada {
         for (int i = 0; i < qtdNeuronios; i++) {
             for (int j = 0; j < (qtdEntradas + 1); j++) {
                     I[i] += entradas[j] * W[i][j];
+                   // System.out.println("entradas["+j+"] = "+entradas[j] );
+                   //System.out.println("entradas.lenght: "+ entradas.length);
             }
         }
         arredondarI();
