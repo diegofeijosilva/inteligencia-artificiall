@@ -15,8 +15,8 @@ public class Arquivo {
     public static final int QTD_COLUNAS_SAIDA_DEFAULT = 3;
 
     private double[][] matriz_dados;
-    private double[][] x;
-    private double[][] d;
+    private double[][] x; //matriz com os dados de entrada do arquivo
+    private double[][] d; //matriz com os dados de saida desejada do arquivo
     
     private int linhas;
     private int colunasEntradas;
