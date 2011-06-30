@@ -4,6 +4,14 @@ import ia.perceptron.arquivo.ManipuladorArquivo;
 import java.util.ArrayList;
 import java.util.List;
 import ia.perceptron.arquivo.Arquivo;
+import java.awt.Dimension;
+import javax.swing.JFrame;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.xy.XYSeries;
+import org.jfree.data.xy.XYSeriesCollection;
 
 /*
  * To change this template, choose Tools | Templates
@@ -30,6 +38,8 @@ public class Perceptron {
     private double d[] = new double[3];  //valores desejados de saída em uma propagação
     private double y[] = new double[3];  //valores obtidos de saída em uma propagação
     private double Y[][]; //valores de saída obtidos para todas as amostras de entrada;
+
+    final XYSeries series = new XYSeries ("Data");
 
     public Perceptron()
     {
@@ -76,8 +86,10 @@ public class Perceptron {
             }
             EQM_atual = EQM();
             epoca++;
+            series.add(epoca,EQM_atual);
         }
         System.out.println("epoca: " + epoca);
+        gerarGráfico();
     }
 
     public void testar()
@@ -161,6 +173,23 @@ public class Perceptron {
             y[i] = ultima.getSaida()[i];
         }
     }
+
+    public void gerarGráfico(){
+         JFrame frame = new JFrame("Erro quadrático X Épocas");
+         frame.setSize(new Dimension(1024,1024));
+
+         final XYSeriesCollection data = new XYSeriesCollection(series);
+         final JFreeChart chart = ChartFactory.createXYLineChart("Erro quadrático X quantidade de épocas", "Épocas", "Erro quadrático",
+                 data,PlotOrientation.VERTICAL , true,true, false);
+         final ChartPanel chartPanel = new ChartPanel(chart);
+            chartPanel.setPreferredSize(new java.awt.Dimension (1024, 1024));
+            chartPanel.setVisible(true);
+
+            frame.setContentPane(chartPanel);
+            frame.setVisible(true);
+
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+     }
 
     public void criarCamada(int qtdNeuronios, int qtdEntradas) {
         camadas.add(new Camada(qtdNeuronios, qtdEntradas));
