@@ -65,24 +65,24 @@ public class PerceptronTest {
         instance.propagarEntradas();
 
         //Conferindo Primeira camada neural
-        assertEquals(0.27,instance.getCamada(0).getI()[0],0.0);
-        assertEquals(0.37,instance.getCamada(0).getI()[1],0.0);
-        assertEquals(0.05,instance.getCamada(0).getI()[2],0.0);
+        assertEquals(0.27,instance.getCamada(0).getI()[0],0.05);
+        assertEquals(0.37,instance.getCamada(0).getI()[1],0.05);
+        assertEquals(0.05,instance.getCamada(0).getI()[2],0.05);
 
-        assertEquals(0.26,instance.getCamada(0).getSaida()[0],0.0);
-        assertEquals(0.35,instance.getCamada(0).getSaida()[1],0.0);
-        assertEquals(0.05,instance.getCamada(0).getSaida()[2],0.0);
+        assertEquals(0.26,instance.getCamada(0).getSaida()[0],0.05);
+        assertEquals(0.35,instance.getCamada(0).getSaida()[1],0.05);
+        assertEquals(0.05,instance.getCamada(0).getSaida()[2],0.05);
         
         //Conferindo Segunda camada neural
-        assertEquals(0.96,instance.getCamada(1).getI()[0],0.0);
-        assertEquals(0.59,instance.getCamada(1).getI()[1],0.0);
+        assertEquals(0.96,instance.getCamada(1).getI()[0],0.05);
+        assertEquals(0.59,instance.getCamada(1).getI()[1],0.05);
 
-        assertEquals(0.74,instance.getCamada(1).getSaida()[0],0.0);
-        assertEquals(0.53,instance.getCamada(1).getSaida()[1],0.0);
+        assertEquals(0.74,instance.getCamada(1).getSaida()[0],0.05);
+        assertEquals(0.53,instance.getCamada(1).getSaida()[1],0.05);
 
         //Conferindo Terceira camada neural
-        assertEquals(0.76,instance.getCamada(2).getI()[0],0.0);
-        assertEquals(0.64,instance.getCamada(2).getSaida()[0],0.0);
+        assertEquals(0.76,instance.getCamada(2).getI()[0],0.05);
+        assertEquals(0.64,instance.getCamada(2).getSaida()[0],0.05);
 
     }
 

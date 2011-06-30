@@ -33,9 +33,4 @@ public class Neuronio {
         return 1 - Math.pow(Math.tanh(x),2);
     }
 
-    public static double derivada(double entrada){//entrada: entrada poderada do j-essimo neuronio da camada L
-
-         return 0.5*sigmoide(entrada)*(1-sigmoide(entrada));
-     }
-
 }

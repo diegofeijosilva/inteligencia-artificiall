@@ -28,7 +28,7 @@ public class Perceptron {
     private double x[] = new double[4];  //camada de entrada
     private double d[] = new double[3];  //valores desejados de saída em uma propagação
     private double y[] = new double[3];  //valores obtidos de saída em uma propagação
-    private double Y[][]; //valores de saída obtidos em todas as amostras de entrada;
+    private double Y[][]; //valores de saída obtidos para todas as amostras de entrada;
 
     public Perceptron()
     {
@@ -55,29 +55,6 @@ public class Perceptron {
             }
         }
         atualizarSaida();
-    }
-
-    private void reajustarPesos()
-    {
-        int indiceUltimaCamada = camadas.size()-1;
-        for (int i = indiceUltimaCamada; i>-1; i--) {
-            if( i==indiceUltimaCamada )
-            {
-                camadas.get(i).calcularGradienteLocalCamadaDeSaida(d);
-            }
-            else
-            {
-                camadas.get(i).calcularGradienteLocalCamadaIntermediaria(camadas.get(i+1));
-            }
-            if( i==0 )
-            {
-                camadas.get(i).ajustarMatrizPesos(x);
-            }
-            else
-            {
-                camadas.get(i).ajustarMatrizPesos(camadas.get(i-1).getSaida());
-            }
-        }
     }
 
     public void treinar()
@@ -122,13 +99,13 @@ public class Perceptron {
         }
     }
 
-    private void posProcessamento(){
+    private void posProcessamento() {
         for (int i = 0; i < y.length; i++) {
-            if(y[i] >= 0.5){
+            if (y[i] >= 0.5) {
                 y[i] = 1;
-            }
-            else
+            } else {
                 y[i] = 0;
+            }
         }
     }
 
@@ -157,6 +134,24 @@ public class Perceptron {
         return resultado / 2;
     }
 
+    private void reajustarPesos() {
+        int indexUltimaCamada = camadas.size() - 1;
+        for (int i = indexUltimaCamada; i > -1; i--) {
+            if (i == indexUltimaCamada) {
+                camadas.get(i).calcularGradienteLocalCamadaDeSaida(d);
+            } else {
+                camadas.get(i).calcularGradienteLocalCamadaIntermediaria(camadas.get(i + 1));
+            }
+
+            if (i == 0) {
+                camadas.get(i).ajustarMatrizPesos(x);
+            } else {
+                camadas.get(i).ajustarMatrizPesos(camadas.get(i - 1).getSaida());
+            }
+        }
+    }
+
+
     private void atualizarSaida() {
         Camada ultima = camadas.get(camadas.size() - 1);
 
@@ -178,7 +173,7 @@ public class Perceptron {
         this.bias = bias;
     }
 
-    public void setEntrada(double[] entrada)
+    protected void setEntrada(double[] entrada)
     {
         if(entrada.length != x.length)
             throw new IllegalArgumentException("O vetor passado tem tamanho diferente do vetor de entrada! ");

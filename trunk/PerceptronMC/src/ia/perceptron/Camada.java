@@ -19,9 +19,7 @@ public class Camada {
     private double[][] W; //matriz de pesos
     private double[] I; //vetor de entradas ponderadas
     private double[] Y; //vetor de saídas
-    private double[] S;//gradiente local
-    private double deriv;
-    private final double BETA = 0.5;
+    private double[] S; //gradiente local
 
     private double bias = -1;
     private int qtdNeuronios;
@@ -46,15 +44,15 @@ public class Camada {
 
         W = new double[qtdNeuronios][qtdEntradas+1];
         for (int i = 0; i < qtdNeuronios; i++) {
-            for (int j = 0; j < qtdEntradas + 1; j++) {
+            for (int j = 0; j < (qtdEntradas + 1); j++) {
                 W[i][j] = 1 * (double) Math.random();
 
             }
         }
     }
 
-    protected void processar(double[] x) {
-        ponderarEntradas(concatenarBias(x));
+    protected void processar(double[] entradas) {
+        ponderarEntradas(concatenarBias(entradas));
         for (int i = 0; i < neuronios.size(); i++) {
             neuronios.get(i).processar(I[i]);
         }
@@ -66,21 +64,18 @@ public class Camada {
         for (int i = 0; i < qtdNeuronios; i++) {
             for (int j = 0; j < (qtdEntradas + 1); j++) {
                     I[i] += entradas[j] * W[i][j];
-                   // System.out.println("entradas["+j+"] = "+entradas[j] );
-                   //System.out.println("entradas.lenght: "+ entradas.length);
             }
         }
-       // arredondarI(); mudar de novo
     }
 
-    private void arredondarI()
+    private void arredondarI() //não utilizado
     {
         for (int i = 0; i < I.length; i++) {
             I[i] = arredondar(I[i]);
         }
     }
 
-    private void arredondarY()
+    private void arredondarY() //não utilizado
     {
         for (int i = 0; i < Y.length; i++) {
             Y[i] = arredondar(Y[i]);
@@ -106,60 +101,34 @@ public class Camada {
      }
 
 
-     protected double[] calcularGradienteLocalCamadaDeSaida(double[] saidaDesejada){
-
-         //calculo da camada de saída
-         S = new double[qtdNeuronios];
-         for(int i=0; i<qtdNeuronios; i++){
+    protected double[] calcularGradienteLocalCamadaDeSaida(double[] saidaDesejada) {
+        S = new double[qtdNeuronios];
+        for (int i = 0; i < qtdNeuronios; i++) {
             S[i] = (saidaDesejada[i] - Y[i]) * Neuronio.derivadaT(I[i]);
-         }
-         return S;
-     }
+        }
+        return S;
+    }
 
-     protected double[] calcularGradienteLocalCamadaIntermediaria(Camada proxima){
-
-         //calculo da camada de saída
-         S = new double[qtdNeuronios];
-         for(int i=0; i<qtdNeuronios; i++){
-             for (int j = 0; j < proxima.getQtdNeuronios(); j++) {
-                S[i] += ( proxima.S[j] * proxima.W[j][i] ) * Neuronio.derivadaT(I[i]); // A formula é difente pq já envolve o resultado do gradiente anterior
+    protected double[] calcularGradienteLocalCamadaIntermediaria(Camada proxima) {
+        S = new double[qtdNeuronios];
+        for (int i = 0; i < qtdNeuronios; i++) {
+            for (int j = 0; j < proxima.getQtdNeuronios(); j++) {
+                S[i] += (proxima.S[j] * proxima.W[j][i]) * Neuronio.derivadaT(I[i]); // A formula é difente pq já envolve o resultado do gradiente anterior
             }
-         }
-         return S;
-     }
+        }
+        return S;
+    }
 
-//     private double derivada(double entrada){//entrada: entrada poderada do j-essimo neuronio da camada L
-//
-//         deriv = BETA*sigmoide(entrada)*(1-sigmoide(entrada));
-//         return deriv;
-//     }
+     protected void ajustarMatrizPesos(double[] entradas) {
 
-//     private double sigmoide(double x){
-//        return Math.tanh(x);
-//    }
-
-     protected void ajustarMatrizPesos(double[] entradas) {//num sei se tá certo n...
-
-        double[] entradas2 = concatenarBias(entradas);
+        double[] entradas_concat = concatenarBias(entradas);
         for (int i = 0; i < qtdNeuronios; i++) {
             for (int j = 0; j < qtdEntradas+1; j++) {
-                W[i][j] = W[i][j] + Perceptron.TAXA_APRENDIZAGEM * S[i] * entradas2[j];
+                W[i][j] = W[i][j] + Perceptron.TAXA_APRENDIZAGEM * S[i] * entradas_concat[j];
 
             }
         }
     }
-//metodo de ajuste de pesos do outro perceptron, só pra a gente comparar mesmo e v se segue a msm idéia
-//      public void atualizarPeso(int i, double saida) {
-//        w[0] = w[0] + taxaAprendizagem *(x[i][4] - saida)* x[i][0];
-//        w[1] = w[1] + taxaAprendizagem *(x[i][4] - saida)* x[i][1];
-//        w[2] = w[2] + taxaAprendizagem *(x[i][4] - saida)* x[i][2];
-//        w[3] = w[3] + taxaAprendizagem *(x[i][4] - saida)* x[i][3];
-//       // System.out.println("normalizado " + w[0] + " "+ w[1] + " " + w[2] + " "+ w[3]);
-//    }
-
-
-
-
 
     public int getQtdNeuronios() {
         return this.qtdNeuronios;
@@ -177,7 +146,8 @@ public class Camada {
         return neuronios.get(i);
     }
 
-    public double[] getSaida() {
+    public double[] getSaida()
+    {
         return Y;
     }
 
@@ -195,7 +165,6 @@ public class Camada {
         for (int i = 0; i < neuronios.size(); i++) {
             Y[i] = neuronios.get(i).getSaida();
         }
-      //  arredondarY();mudei aki
     }
 
     public void setMatrizPeso(double[][] matriz)
