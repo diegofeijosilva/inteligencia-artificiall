@@ -20,6 +20,7 @@ public class Camada {
     private double[] I; //vetor de entradas ponderadas
     private double[] Y; //vetor de saídas
     private double[] S; //gradiente local
+    private double fatorDeMomentum = 0.9;
 
     private double bias = -1;
     private int qtdNeuronios;
@@ -119,13 +120,18 @@ public class Camada {
         return S;
     }
 
-     protected void ajustarMatrizPesos(double[] entradas) {
+     protected void ajustarMatrizPesos(boolean momentum, double[] entradas) {
 
         double[] entradas_concat = concatenarBias(entradas);
+        double W_anterior = W[0][0];
         for (int i = 0; i < qtdNeuronios; i++) {
             for (int j = 0; j < qtdEntradas+1; j++) {
-                W[i][j] = W[i][j] + Perceptron.TAXA_APRENDIZAGEM * S[i] * entradas_concat[j];
-
+                if(momentum){
+                    W[i][j] = W[i][j] + fatorDeMomentum * (W[i][j] - W_anterior) + Perceptron.TAXA_APRENDIZAGEM * S[i] * entradas_concat[j];
+                }else{
+                    W[i][j] = W[i][j] + Perceptron.TAXA_APRENDIZAGEM * S[i] * entradas_concat[j];
+                }
+                W_anterior = W[i][j];//axu ki isso aki tá errado... num sei direito o ki eh akele "t-1"
             }
         }
     }

@@ -23,7 +23,8 @@ public class Perceptron {
     private ManipuladorArquivo fileHandler = new ManipuladorArquivo();
     private Arquivo arquivoTeste;
     private Arquivo arquivoTreino;
-    
+
+    private boolean momentum;
     private double bias = -1;
     private double x[] = new double[4];  //camada de entrada
     private double d[] = new double[3];  //valores desejados de saída em uma propagação
@@ -76,6 +77,7 @@ public class Perceptron {
             EQM_atual = EQM();
             epoca++;
         }
+        System.out.println("epoca: " + epoca);
     }
 
     public void testar()
@@ -93,7 +95,7 @@ public class Perceptron {
                     sucesso = false;
             }
             if(sucesso)
-                System.out.println("OK ---->  "+y[0]+"  "+y[1]+"  "+y[2]);
+                System.out.println("OK   ---->  "+y[0]+"  "+y[1]+"  "+y[2]);
             else
                 System.out.println("ERRO ---->  "+y[0]+"  "+y[1]+"  "+y[2]);
         }
@@ -144,9 +146,9 @@ public class Perceptron {
             }
 
             if (i == 0) {
-                camadas.get(i).ajustarMatrizPesos(x);
+                camadas.get(i).ajustarMatrizPesos(isMomentum(), x);
             } else {
-                camadas.get(i).ajustarMatrizPesos(camadas.get(i - 1).getSaida());
+                camadas.get(i).ajustarMatrizPesos(isMomentum(), camadas.get(i - 1).getSaida());
             }
         }
     }
@@ -162,6 +164,14 @@ public class Perceptron {
 
     public void criarCamada(int qtdNeuronios, int qtdEntradas) {
         camadas.add(new Camada(qtdNeuronios, qtdEntradas));
+    }
+
+    public boolean isMomentum() {
+        return momentum;
+    }
+
+    public void setMomentum(boolean momentum) {
+        this.momentum = momentum;
     }
 
     public Camada getCamada(int index)
@@ -188,6 +198,7 @@ public class Perceptron {
         perceptron.criarCamada(15, 4);
         perceptron.criarCamada(3, 15);
 
+        perceptron.setMomentum(false);
         perceptron.treinar();
         perceptron.testar();
 
