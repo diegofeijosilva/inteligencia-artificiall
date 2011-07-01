@@ -18,7 +18,7 @@ public class Camada {
 
     private double[][] W; //matriz de pesos
     private double[] I; //vetor de entradas ponderadas
-    private double[] Y; //vetor de saídas
+    private double[] Yc; //vetor de saídas
     private double[] S; //gradiente local
     private double fatorDeMomentum = 0.9;
 
@@ -30,7 +30,7 @@ public class Camada {
         this.qtdNeuronios = qtdNeuronios;
         this.qtdEntradas = qtdEntradas;
         I = new double[qtdNeuronios];
-        Y = new double[qtdNeuronios];
+        Yc = new double[qtdNeuronios];
         inicializarNeuronios();
         inicializarMatrizPesos();
     }
@@ -78,8 +78,8 @@ public class Camada {
 
     private void arredondarY() //não utilizado
     {
-        for (int i = 0; i < Y.length; i++) {
-            Y[i] = arredondar(Y[i]);
+        for (int i = 0; i < Yc.length; i++) {
+            Yc[i] = arredondar(Yc[i]);
         }
     }
 
@@ -105,7 +105,7 @@ public class Camada {
     protected double[] calcularGradienteLocalCamadaDeSaida(double[] saidaDesejada) {
         S = new double[qtdNeuronios];
         for (int i = 0; i < qtdNeuronios; i++) {
-            S[i] = (saidaDesejada[i] - Y[i]) * Neuronio.derivadaT(I[i]);
+            S[i] = (saidaDesejada[i] - Yc[i]) * Neuronio.derivadaT(I[i]);
         }
         return S;
     }
@@ -114,7 +114,7 @@ public class Camada {
         S = new double[qtdNeuronios];
         for (int i = 0; i < qtdNeuronios; i++) {
             for (int j = 0; j < proxima.getQtdNeuronios(); j++) {
-                S[i] += (proxima.S[j] * proxima.W[j][i]) * Neuronio.derivadaT(I[i]); 
+                S[i] += (proxima.S[j] * proxima.W[j][i]) * Neuronio.derivadaT(I[i]);
             }
         }
         return S;
@@ -176,7 +176,7 @@ public class Camada {
 
     public double[] getSaida()
     {
-        return Y;
+        return Yc;
     }
 
     protected double[] getI()
@@ -191,7 +191,7 @@ public class Camada {
 
     private void setSaida() {
         for (int i = 0; i < neuronios.size(); i++) {
-            Y[i] = neuronios.get(i).getSaida();
+            Yc[i] = neuronios.get(i).getSaida();
         }
     }
 

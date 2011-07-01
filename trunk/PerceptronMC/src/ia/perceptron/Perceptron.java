@@ -38,6 +38,7 @@ public class Perceptron {
     private double d[] = new double[3];  //valores desejados de saída em uma propagação
     private double y[] = new double[3];  //valores obtidos de saída em uma propagação
     private double Y[][]; //valores de saída obtidos para todas as amostras de entrada;
+    double[] y_aux = new double[3];
 
     final XYSeries series = new XYSeries ("Data");
 
@@ -82,10 +83,11 @@ public class Perceptron {
                 d = arquivoTreino.d(i);
                 propagarEntradas();
                 reajustarPesos();
-                Y[i] = y;
+                Y[i] = y_aux;
             }
             EQM_atual = EQM();
             epoca++;
+            System.out.println("EQM: " + EQM_atual);
             series.add(epoca,EQM_atual);
         }
         System.out.println("epoca: " + epoca);
@@ -168,9 +170,11 @@ public class Perceptron {
 
     private void atualizarSaida() {
         Camada ultima = camadas.get(camadas.size() - 1);
-
+        y_aux = new double[3];
         for (int i = 0; i < ultima.getQtdNeuronios(); i++) {
-            y[i] = ultima.getSaida()[i];
+            //y[i] = ultima.getSaida()[i];
+            y_aux[i] = ultima.getSaida()[i];
+
         }
     }
 
