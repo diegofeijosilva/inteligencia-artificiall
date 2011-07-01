@@ -120,20 +120,42 @@ public class Camada {
         return S;
     }
 
-     protected void ajustarMatrizPesos(boolean momentum, double[] entradas) {
+     protected void ajustarMatrizPesos(int f, boolean momentum, double[] entradas) {
 
         double[] entradas_concat = concatenarBias(entradas);
-        double W_anterior = W[0][0];
+        double[][] W_anterior;
+        double[][] W_anterior_aux;
+
+
+            W_anterior = new double[qtdNeuronios][qtdEntradas+1];
+            W_anterior_aux = new double[qtdNeuronios][qtdEntradas+1];
+            for (int i = 0; i < qtdNeuronios; i++) {
+             for (int j = 0; j < (qtdEntradas + 1); j++) {
+                 if (f == 0) {
+                     W_anterior[i][j] = W[i][j];
+                     W_anterior_aux[i][j] = W[i][j];
+                 } else {
+                     W_anterior_aux[i][j] = W[i][j];
+                 }
+
+             }
+         }
+
+
         for (int i = 0; i < qtdNeuronios; i++) {
             for (int j = 0; j < qtdEntradas+1; j++) {
+
+               // W_anterior[i][j]= W[i][j];
                 if(momentum){
-                    W[i][j] = W[i][j] + fatorDeMomentum * (W[i][j] - W_anterior) + Perceptron.TAXA_APRENDIZAGEM * S[i] * entradas_concat[j];
+                    W[i][j] = W[i][j] + fatorDeMomentum * (W[i][j] - W_anterior[i][j]) + Perceptron.TAXA_APRENDIZAGEM * S[i] * entradas_concat[j];
                 }else{
                     W[i][j] = W[i][j] + Perceptron.TAXA_APRENDIZAGEM * S[i] * entradas_concat[j];
                 }
-                W_anterior = W[i][j];//axu ki isso aki tá errado... num sei direito o ki eh akele "t-1"
+                
             }
         }
+            W_anterior = W_anterior_aux;
+
     }
 
     public int getQtdNeuronios() {

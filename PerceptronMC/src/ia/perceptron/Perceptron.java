@@ -158,9 +158,9 @@ public class Perceptron {
             }
 
             if (i == 0) {
-                camadas.get(i).ajustarMatrizPesos(isMomentum(), x);
+                camadas.get(i).ajustarMatrizPesos(i, isMomentum(), x);
             } else {
-                camadas.get(i).ajustarMatrizPesos(isMomentum(), camadas.get(i - 1).getSaida());
+                camadas.get(i).ajustarMatrizPesos(i, isMomentum(), camadas.get(i - 1).getSaida());
             }
         }
     }

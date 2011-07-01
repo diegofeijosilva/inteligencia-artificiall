@@ -28,7 +28,7 @@ public class Neuronio {
     {
         //return Math.tanh(x);
         double e = Math.E;
-        return 1 / (1 + Math.pow(e, -BETA*x));
+        return 1 / (1 + Math.pow(e, -(BETA)*x));
     }
 
     public static double derivadaT(double x)
