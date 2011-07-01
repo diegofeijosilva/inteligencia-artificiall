@@ -87,7 +87,7 @@ public class Perceptron {
             }
             EQM_atual = EQM();
             epoca++;
-            //System.out.println("EQM: " + EQM_atual);
+            System.out.println("EQM: " + EQM_atual);
             series.add(epoca,EQM_atual);
         }
         System.out.println("epoca: " + epoca);
@@ -226,12 +226,31 @@ public class Perceptron {
 
     public static void main(String[] args) {
         Perceptron perceptron = new Perceptron(4);
+
+        double[][] pesosc1;
+        double[][] pesosc2;
+
         perceptron.setBias(-1);
 
         perceptron.criarCamada(15, 4);
         perceptron.criarCamada(3, 15);
 
+        pesosc1 = perceptron.camadas.get(0).getW();
+        pesosc2 = perceptron.camadas.get(1).getW();
+
         perceptron.setMomentum(false);
+        perceptron.treinar();
+        perceptron.testar();
+
+        perceptron = new Perceptron(4);
+
+        perceptron.criarCamada(15, 4);
+        perceptron.criarCamada(3, 15);
+
+        perceptron.camadas.get(0).setMatrizPeso(pesosc1);
+        perceptron.camadas.get(1).setMatrizPeso(pesosc2);
+
+        perceptron.setMomentum(true);
         perceptron.treinar();
         perceptron.testar();
 

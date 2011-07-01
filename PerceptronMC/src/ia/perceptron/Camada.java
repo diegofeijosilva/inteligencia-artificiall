@@ -25,12 +25,16 @@ public class Camada {
     private double bias = -1;
     private int qtdNeuronios;
     private int qtdEntradas;
+    private double[][] W_anterior;
+    private double[][] W_anterior_aux;
 
     public Camada(int qtdNeuronios, int qtdEntradas) {
         this.qtdNeuronios = qtdNeuronios;
         this.qtdEntradas = qtdEntradas;
         I = new double[qtdNeuronios];
         Yc = new double[qtdNeuronios];
+        W_anterior = new double[qtdNeuronios][qtdEntradas+1];
+        W_anterior_aux = new double[qtdNeuronios][qtdEntradas+1];
         inicializarNeuronios();
         inicializarMatrizPesos();
     }
@@ -123,15 +127,10 @@ public class Camada {
      protected void ajustarMatrizPesos(int f, boolean momentum, double[] entradas) {
 
         double[] entradas_concat = concatenarBias(entradas);
-        double[][] W_anterior;
-        double[][] W_anterior_aux;
-
-
-            W_anterior = new double[qtdNeuronios][qtdEntradas+1];
-            W_anterior_aux = new double[qtdNeuronios][qtdEntradas+1];
+        
             for (int i = 0; i < qtdNeuronios; i++) {
              for (int j = 0; j < (qtdEntradas + 1); j++) {
-                 if (f == 0) {
+                 if (f == 1) {
                      W_anterior[i][j] = W[i][j];
                      W_anterior_aux[i][j] = W[i][j];
                  } else {
@@ -168,6 +167,17 @@ public class Camada {
 
     public double getPeso(int i, int j) {
         return W[i][j];
+    }
+
+    public double[][] getW()
+    {
+        double[][] var = new double[qtdNeuronios][qtdEntradas+1];
+        for (int i = 0; i < qtdNeuronios; i++) {
+            for (int j = 0; j < qtdEntradas; j++) {
+                var[i][j] = W[i][j];
+            }
+        }
+        return var;
     }
 
     public Neuronio getNeuronio(int i) {
