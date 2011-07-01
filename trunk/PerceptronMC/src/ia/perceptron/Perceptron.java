@@ -83,11 +83,11 @@ public class Perceptron {
                 d = arquivoTreino.d(i);
                 propagarEntradas();
                 reajustarPesos();
-                Y[i] = y_aux;
+                Y[i] = y;
             }
             EQM_atual = EQM();
             epoca++;
-            System.out.println("EQM: " + EQM_atual);
+            //System.out.println("EQM: " + EQM_atual);
             series.add(epoca,EQM_atual);
         }
         System.out.println("epoca: " + epoca);
@@ -170,10 +170,10 @@ public class Perceptron {
 
     private void atualizarSaida() {
         Camada ultima = camadas.get(camadas.size() - 1);
-        y_aux = new double[3];
+        y = new double[3];
         for (int i = 0; i < ultima.getQtdNeuronios(); i++) {
-            //y[i] = ultima.getSaida()[i];
-            y_aux[i] = ultima.getSaida()[i];
+            y[i] = ultima.getSaida()[i];
+           // y_aux[i] = ultima.getSaida()[i];
 
         }
     }
