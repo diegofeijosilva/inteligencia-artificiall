@@ -11,6 +11,7 @@ package ia.perceptron;
  */
 public class Neuronio {
 
+    public static final double BETA = 0.5;
     private double y;
 
     public double getSaida()
@@ -25,12 +26,15 @@ public class Neuronio {
 
     public static double sigmoide(double x)
     {
-        return Math.tanh(x);
+        //return Math.tanh(x);
+        double e = Math.E;
+        return 1 / (1 + Math.pow(e, -BETA*x));
     }
 
     public static double derivadaT(double x)
     {
-        return 1 - Math.pow(Math.tanh(x),2);
+        //return 1 - Math.pow(Math.tanh(x),2);
+        return BETA * sigmoide(x) * (1 - sigmoide(x));
     }
 
 }
