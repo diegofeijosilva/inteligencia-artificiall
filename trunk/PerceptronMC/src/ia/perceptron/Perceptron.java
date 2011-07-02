@@ -27,6 +27,9 @@ public class Perceptron {
     public static final double PRECISAO = 0.000001;
     public static final double FATOR_DE_MOMENTUM = 0.9;
 
+    public static final String FUNÇÃO_ATIVACAO_SIGMOIDE = "SIGMOIDE";
+    public static final String FUNÇÃO_ATIVACAO_TANGENTE_HEPERBOLICA = "TANGENTE_HIPERBOLICA";
+
     private List<Camada> camadas = new ArrayList<Camada>();
 
     private ManipuladorArquivo fileHandler = new ManipuladorArquivo();
@@ -34,6 +37,8 @@ public class Perceptron {
     private Arquivo arquivoTreino;
 
     private boolean momentum;
+    private String funcao_ativacao = FUNÇÃO_ATIVACAO_SIGMOIDE;
+
     private double bias = -1;
     private double x[] = new double[4];  //camada de entrada
     private double d[] = new double[3];  //valores desejados de saída em uma propagação
@@ -50,10 +55,11 @@ public class Perceptron {
         Y = new double[arquivoTreino.getTotalLinhas()][3];
     }
 
-    public Perceptron(int entradas)
+    public Perceptron(int entradas, String funcao_ativacao)
     {
         this();
-        x = new double[entradas]; 
+        x = new double[entradas];
+        this.funcao_ativacao = funcao_ativacao;
     }
 
 
@@ -194,7 +200,7 @@ public class Perceptron {
      }
 
     public void criarCamada(int qtdNeuronios, int qtdEntradas) {
-        camadas.add(new Camada(qtdNeuronios, qtdEntradas));
+        camadas.add(new Camada(qtdNeuronios, qtdEntradas, funcao_ativacao));
     }
 
     public boolean isMomentum() {
@@ -223,7 +229,7 @@ public class Perceptron {
     }
 
     public static void main(String[] args) {
-        Perceptron perceptron = new Perceptron(4);
+        Perceptron perceptron = new Perceptron();
 
         double[][] pesosc1;
         double[][] pesosc2;
