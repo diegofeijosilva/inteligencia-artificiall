@@ -26,6 +26,7 @@ public class Perceptron {
     public static final double TAXA_APRENDIZAGEM = 0.1;
     public static final double PRECISAO = 0.000001;
     public static final double FATOR_DE_MOMENTUM = 0.9;
+    public static final double EQM_MAX = 0.03;
 
     public static final String FUNÇÃO_ATIVACAO_SIGMOIDE = "SIGMOIDE";
     public static final String FUNÇÃO_ATIVACAO_TANGENTE_HEPERBOLICA = "TANGENTE_HIPERBOLICA";
@@ -78,10 +79,10 @@ public class Perceptron {
     public void treinar()
     {
         double EQM_ant = 999999999;
-        double EQM_atual = 0;
+        double EQM_atual = 1;
         double epoca = 0;
 
-        while( Math.abs(EQM_atual - EQM_ant) > PRECISAO )
+        while( (Math.abs(EQM_atual - EQM_ant) > PRECISAO)  && (EQM_atual > EQM_MAX) )
         {
             EQM_ant = EQM_atual;
             for (int i = 0; i < arquivoTreino.getTotalLinhas(); i++) {
@@ -93,10 +94,11 @@ public class Perceptron {
             }
             EQM_atual = EQM();
             epoca++;
-            System.out.println("EQM: " + EQM_atual);
+            //resetarPrimeiroAjuste();
+            System.out.println("  epoca: " + epoca + "  EQM: " + EQM_atual);
             series.add(epoca,EQM_atual);
         }
-        System.out.println("epoca: " + epoca);
+        System.out.println("total de epocas: " + epoca);
         gerarGráfico();
     }
 
@@ -166,9 +168,9 @@ public class Perceptron {
             }
 
             if (i == 0) {
-                camadas.get(i).ajustarMatrizPesos(i, isMomentum(), x);
+                camadas.get(i).ajustarMatrizPesos(isMomentum(), x);
             } else {
-                camadas.get(i).ajustarMatrizPesos(i, isMomentum(), camadas.get(i - 1).getSaida());
+                camadas.get(i).ajustarMatrizPesos(isMomentum(), camadas.get(i - 1).getSaida());
             }
         }
     }
@@ -179,6 +181,13 @@ public class Perceptron {
         y = new double[3];
         for (int i = 0; i < ultima.getQtdNeuronios(); i++) {
             y[i] = ultima.getSaida()[i];
+        }
+    }
+
+    private void resetarPrimeiroAjuste()
+    {
+        for (Camada camada : camadas) {
+            camada.setPrimeiroAjustePesos(true);
         }
     }
 
@@ -242,7 +251,7 @@ public class Perceptron {
         pesosc1 = perceptron.camadas.get(0).getW();
         pesosc2 = perceptron.camadas.get(1).getW();
 
-        perceptron.setMomentum(false);
+        perceptron.setMomentum(true);
         perceptron.treinar();
         perceptron.testar();
 
