@@ -45,7 +45,7 @@ public class PerceptronTest {
     public void testPropagarEntradas() {
         System.out.println("propagarEntradas()");
        
-        Perceptron instance = new Perceptron(2);
+        Perceptron instance = new Perceptron(2,Perceptron.FUNÇÃO_ATIVACAO_TANGENTE_HEPERBOLICA);
 
         instance.setBias(-1);
         instance.criarCamada(3, 2);

@@ -25,6 +25,7 @@ public class Camada {
     private double bias = -1;
     private int qtdNeuronios;
     private int qtdEntradas;
+    private String funcao_ativacao = Perceptron.FUNÇÃO_ATIVACAO_SIGMOIDE;
     private double[][] W_anterior;
     private double[][] W_anterior_aux;
 
@@ -35,22 +36,30 @@ public class Camada {
         Y = new double[qtdNeuronios];
         W_anterior = new double[qtdNeuronios][qtdEntradas+1];
         W_anterior_aux = new double[qtdNeuronios][qtdEntradas+1];
-        inicializarNeuronios();
-        inicializarMatrizPesos();
+        
+        inicializarNeuronios(qtdNeuronios);
+        inicializarMatrizPesos(qtdNeuronios, qtdEntradas + 1);
     }
 
-    private void inicializarNeuronios() {
+    public Camada(int qtdNeuronios, int qtdEntradas, String funcao_ativacao) {
+        this(qtdNeuronios, qtdEntradas);
+        this.funcao_ativacao = funcao_ativacao;
+        inicializarNeuronios(qtdNeuronios);
+    }
+
+    private void inicializarNeuronios(int qtdNeuronios) {
+        neuronios = new ArrayList<Neuronio>();
         for (int i = 0; i < qtdNeuronios; i++) {
-            neuronios.add(new Neuronio());
+            neuronios.add(new Neuronio(this.funcao_ativacao));
         }
     }
 
-    private void inicializarMatrizPesos() {
+    private void inicializarMatrizPesos(int i, int j) {
 
-        W = new double[qtdNeuronios][qtdEntradas+1];
-        for (int i = 0; i < qtdNeuronios; i++) {
-            for (int j = 0; j < (qtdEntradas + 1); j++) {
-                W[i][j] = 1 * (double) Math.random();
+        W = new double[i][j];
+        for (int k = 0; k < i; k++) {
+            for (int w = 0; w < j; w++) {
+                W[k][w] = 1 * (double) Math.random();
 
             }
         }

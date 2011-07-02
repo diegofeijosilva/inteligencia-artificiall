@@ -12,17 +12,32 @@ package ia.perceptron;
 public class Neuronio {
 
     public static final double BETA = 0.5;
+    private String funcao_ativacao =  Perceptron.FUNÇÃO_ATIVACAO_SIGMOIDE;;
     private double y;
+
+
+    public Neuronio()
+    {
+        this.funcao_ativacao = Perceptron.FUNÇÃO_ATIVACAO_SIGMOIDE;
+    }
+
+    public Neuronio(String funcao_ativacao)
+    {
+        this.funcao_ativacao = funcao_ativacao;
+    }
 
     public double getSaida()
     {
         return y;
     }
 
-    public void processar(double x)
-    {
-        y = sigmoide(x);
-       // y = tangenteHiperbolica(x);
+    public void processar(double x) {
+        if (funcao_ativacao.equals(Perceptron.FUNÇÃO_ATIVACAO_TANGENTE_HEPERBOLICA)) {
+            y = tangenteHiperbolica(x);
+        } else if(funcao_ativacao.equals(Perceptron.FUNÇÃO_ATIVACAO_SIGMOIDE)) {
+            y = sigmoide(x);
+        } else
+            throw new RuntimeException("Função de ativação não suportada!");
     }
 
     public static double sigmoide(double x)
