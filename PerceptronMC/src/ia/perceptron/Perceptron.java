@@ -38,8 +38,7 @@ public class Perceptron {
     private double x[] = new double[4];  //camada de entrada
     private double d[] = new double[3];  //valores desejados de saída em uma propagação
     private double y[] = new double[3];  //valores obtidos de saída em uma propagação
-    private double Y[][]; //valores de saída obtidos para todas as amostras de entrada;
-    double[] y_aux = new double[3];
+    private double Y[][];                //valores de saída obtidos para todas as amostras de entrada;
 
     final XYSeries series = new XYSeries ("Data");
 
@@ -174,8 +173,6 @@ public class Perceptron {
         y = new double[3];
         for (int i = 0; i < ultima.getQtdNeuronios(); i++) {
             y[i] = ultima.getSaida()[i];
-           // y_aux[i] = ultima.getSaida()[i];
-
         }
     }
 
