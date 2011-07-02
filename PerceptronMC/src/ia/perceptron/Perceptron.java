@@ -25,6 +25,7 @@ public class Perceptron {
 
     public static final double TAXA_APRENDIZAGEM = 0.1;
     public static final double PRECISAO = 0.000001;
+    public static final double FATOR_DE_MOMENTUM = 0.9;
 
     private List<Camada> camadas = new ArrayList<Camada>();
 
@@ -242,17 +243,17 @@ public class Perceptron {
         perceptron.treinar();
         perceptron.testar();
 
-        perceptron = new Perceptron(4);
-
-        perceptron.criarCamada(15, 4);
-        perceptron.criarCamada(3, 15);
-
-        perceptron.camadas.get(0).setMatrizPeso(pesosc1);
-        perceptron.camadas.get(1).setMatrizPeso(pesosc2);
-
-        perceptron.setMomentum(true);
-        perceptron.treinar();
-        perceptron.testar();
+//        perceptron = new Perceptron(4);
+//
+//        perceptron.criarCamada(15, 4);
+//        perceptron.criarCamada(3, 15);
+//
+//        perceptron.camadas.get(0).setMatrizPeso(pesosc1);
+//        perceptron.camadas.get(1).setMatrizPeso(pesosc2);
+//
+//        perceptron.setMomentum(true);
+//        perceptron.treinar();
+//        perceptron.testar();
 
     }
 }

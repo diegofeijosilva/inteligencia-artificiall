@@ -18,9 +18,9 @@ public class Camada {
 
     private double[][] W; //matriz de pesos
     private double[] I; //vetor de entradas ponderadas
-    private double[] Yc; //vetor de saídas
+    private double[] Y; //vetor de saídas
     private double[] S; //gradiente local
-    private double fatorDeMomentum = 0.9;
+    //private double fatorDeMomentum = 0.9;
 
     private double bias = -1;
     private int qtdNeuronios;
@@ -32,7 +32,7 @@ public class Camada {
         this.qtdNeuronios = qtdNeuronios;
         this.qtdEntradas = qtdEntradas;
         I = new double[qtdNeuronios];
-        Yc = new double[qtdNeuronios];
+        Y = new double[qtdNeuronios];
         W_anterior = new double[qtdNeuronios][qtdEntradas+1];
         W_anterior_aux = new double[qtdNeuronios][qtdEntradas+1];
         inicializarNeuronios();
@@ -82,8 +82,8 @@ public class Camada {
 
     private void arredondarY() //não utilizado
     {
-        for (int i = 0; i < Yc.length; i++) {
-            Yc[i] = arredondar(Yc[i]);
+        for (int i = 0; i < Y.length; i++) {
+            Y[i] = arredondar(Y[i]);
         }
     }
 
@@ -109,7 +109,7 @@ public class Camada {
     protected double[] calcularGradienteLocalCamadaDeSaida(double[] saidaDesejada) {
         S = new double[qtdNeuronios];
         for (int i = 0; i < qtdNeuronios; i++) {
-            S[i] = (saidaDesejada[i] - Yc[i]) * Neuronio.derivadaT(I[i]);
+            S[i] = (saidaDesejada[i] - Y[i]) * Neuronio.derivadaS(I[i]);
         }
         return S;
     }
@@ -118,7 +118,7 @@ public class Camada {
         S = new double[qtdNeuronios];
         for (int i = 0; i < qtdNeuronios; i++) {
             for (int j = 0; j < proxima.getQtdNeuronios(); j++) {
-                S[i] += (proxima.S[j] * proxima.W[j][i]) * Neuronio.derivadaT(I[i]);
+                S[i] += (proxima.S[j] * proxima.W[j][i]) * Neuronio.derivadaS(I[i]);
             }
         }
         return S;
@@ -146,7 +146,7 @@ public class Camada {
 
                // W_anterior[i][j]= W[i][j];
                 if(momentum){
-                    W[i][j] = W[i][j] + fatorDeMomentum * (W[i][j] - W_anterior[i][j]) + Perceptron.TAXA_APRENDIZAGEM * S[i] * entradas_concat[j];
+                    W[i][j] = W[i][j] + Perceptron.FATOR_DE_MOMENTUM * (W[i][j] - W_anterior[i][j]) + Perceptron.TAXA_APRENDIZAGEM * S[i] * entradas_concat[j];
                 }else{
                     W[i][j] = W[i][j] + Perceptron.TAXA_APRENDIZAGEM * S[i] * entradas_concat[j];
                 }
@@ -186,7 +186,7 @@ public class Camada {
 
     public double[] getSaida()
     {
-        return Yc;
+        return Y;
     }
 
     protected double[] getI()
@@ -201,7 +201,7 @@ public class Camada {
 
     private void setSaida() {
         for (int i = 0; i < neuronios.size(); i++) {
-            Yc[i] = neuronios.get(i).getSaida();
+            Y[i] = neuronios.get(i).getSaida();
         }
     }
 
