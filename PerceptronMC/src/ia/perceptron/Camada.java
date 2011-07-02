@@ -28,7 +28,7 @@ public class Camada {
     private String funcao_ativacao = Perceptron.FUNÇÃO_ATIVACAO_SIGMOIDE;
     
     private double[][] W_anterior;
-    private double[][] W_anterior_aux;
+    private boolean primeiroAjustePesos = true;
 
     public Camada(int qtdNeuronios, int qtdEntradas) {
         this.qtdNeuronios = qtdNeuronios;
@@ -36,7 +36,7 @@ public class Camada {
         I = new double[qtdNeuronios];
         Y = new double[qtdNeuronios];
         W_anterior = new double[qtdNeuronios][qtdEntradas+1];
-        W_anterior_aux = new double[qtdNeuronios][qtdEntradas+1];
+        //W_anterior_aux = new double[qtdNeuronios][qtdEntradas+1];
         
         inicializarNeuronios(qtdNeuronios);
         inicializarMatrizPesos(qtdNeuronios, qtdEntradas + 1);
@@ -134,36 +134,28 @@ public class Camada {
         return S;
     }
 
-     protected void ajustarMatrizPesos(int f, boolean momentum, double[] entradas) {
+    protected void ajustarMatrizPesos(boolean momentum, double[] entradas) {
 
         double[] entradas_concat = concatenarBias(entradas);
-        
-            for (int i = 0; i < qtdNeuronios; i++) {
-             for (int j = 0; j < (qtdEntradas + 1); j++) {
-                 if (f == 1) {
-                     W_anterior[i][j] = W[i][j];
-                     W_anterior_aux[i][j] = W[i][j];
-                 } else {
-                     W_anterior_aux[i][j] = W[i][j];
-                 }
+        double[][] W_prox = new double[W.length][W[0].length];
 
-             }
-         }
-
+        if (primeiroAjustePesos) {
+            W_anterior = copiarMatriz(W);
+        } 
 
         for (int i = 0; i < qtdNeuronios; i++) {
-            for (int j = 0; j < qtdEntradas+1; j++) {
-
-               // W_anterior[i][j]= W[i][j];
-                if(momentum){
-                    W[i][j] = W[i][j] + Perceptron.FATOR_DE_MOMENTUM * (W[i][j] - W_anterior[i][j]) + Perceptron.TAXA_APRENDIZAGEM * S[i] * entradas_concat[j];
-                }else{
+            for (int j = 0; j < (qtdEntradas + 1); j++) {
+                if (momentum) {
+                    W_prox[i][j] = W[i][j] + Perceptron.FATOR_DE_MOMENTUM * (W[i][j] - W_anterior[i][j]) + Perceptron.TAXA_APRENDIZAGEM * S[i] * entradas_concat[j];
+                    W_anterior[i][j] = W[i][j];
+                    W[i][j] = W_prox[i][j];
+                } else {
                     W[i][j] = W[i][j] + Perceptron.TAXA_APRENDIZAGEM * S[i] * entradas_concat[j];
                 }
-                
+
             }
         }
-            W_anterior = W_anterior_aux;
+        primeiroAjustePesos = false;
 
     }
 
@@ -241,5 +233,10 @@ public class Camada {
     protected void setBias(double bias)
     {
         this.bias = bias;
+    }
+
+    protected void setPrimeiroAjustePesos(boolean b)
+    {
+        this.primeiroAjustePesos = b;
     }
 }
