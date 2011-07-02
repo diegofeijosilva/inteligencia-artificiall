@@ -24,7 +24,9 @@ public class Camada {
     private double bias = -1;
     private int qtdNeuronios;
     private int qtdEntradas;
+
     private String funcao_ativacao = Perceptron.FUNÇÃO_ATIVACAO_SIGMOIDE;
+    
     private double[][] W_anterior;
     private double[][] W_anterior_aux;
 
