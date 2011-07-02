@@ -5,6 +5,8 @@
 
 package ia.perceptron.arquivo;
 
+import ia.perceptron.Camada;
+
 /**
  *
  * @author Neto
@@ -31,12 +33,12 @@ public class Arquivo {
 
     public double[] d(int k)
     {
-        return d[k];
+        return Camada.copiarVetor(d[k]);
     }
 
     public double[] x(int k)
     {
-        return x[k];
+        return Camada.copiarVetor(x[k]);
     }
 
     public int getTotalLinhas()

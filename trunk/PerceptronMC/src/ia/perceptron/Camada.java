@@ -14,13 +14,12 @@ import java.util.List;
  */
 public class Camada {
 
-    private List<Neuronio> neuronios = new ArrayList<Neuronio>();
+    private List<Neuronio> neuronios;
 
     private double[][] W; //matriz de pesos
-    private double[] I; //vetor de entradas ponderadas
-    private double[] Y; //vetor de saídas
-    private double[] S; //gradiente local
-    //private double fatorDeMomentum = 0.9;
+    private double[] I;   //vetor de entradas ponderadas
+    private double[] Y;   //vetor de saídas
+    private double[] S;   //gradiente local
 
     private double bias = -1;
     private int qtdNeuronios;
@@ -166,6 +165,27 @@ public class Camada {
 
     }
 
+    public static double[] copiarVetor(double[] vetor)
+    {
+        double[] copia = new double[vetor.length];
+        for (int i = 0; i < vetor.length; i++) {
+            copia[i] = vetor[i];
+        }
+        return copia;
+
+    }
+
+    public static double[][] copiarMatriz(double[][] matriz)
+    {
+        double[][] copia = new double[matriz.length][matriz[0].length];
+        for (int i = 0; i < copia.length; i++) {
+            for (int j = 0; j < copia[0].length; j++) {
+                copia[i][j] = matriz[i][j];
+            }
+        }
+        return copia;
+    }
+
     public int getQtdNeuronios() {
         return this.qtdNeuronios;
     }
@@ -180,13 +200,7 @@ public class Camada {
 
     public double[][] getW()
     {
-        double[][] var = new double[qtdNeuronios][qtdEntradas+1];
-        for (int i = 0; i < qtdNeuronios; i++) {
-            for (int j = 0; j < qtdEntradas; j++) {
-                var[i][j] = W[i][j];
-            }
-        }
-        return var;
+        return copiarMatriz(W);
     }
 
     public Neuronio getNeuronio(int i) {
@@ -195,17 +209,17 @@ public class Camada {
 
     public double[] getSaida()
     {
-        return Y;
+        return copiarVetor(Y);
     }
 
     protected double[] getI()
     {
-        return I;
+        return copiarVetor(I);
     }
 
     protected double[] getS()
     {
-        return S;
+        return copiarVetor(S);
     }
 
     private void setSaida() {
