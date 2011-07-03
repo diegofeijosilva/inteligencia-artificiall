@@ -48,10 +48,10 @@ public class Perceptron extends Observable {
     private double y[] = new double[3];  //valores obtidos de saída em uma propagação
     private double Y[][];                //valores de saída obtidos para todas as amostras de entrada;
 
-    private double EQM_ant = 999999999;
-    private double EQM_atual = 1;
-    private int epoca = 0;
-    private double taxaAcerto = 0;
+    private double EQM_ant;
+    private double EQM_atual;
+    private int epoca;
+    private double taxaAcerto;
 
     final XYSeries series = new XYSeries ("Data");
     PerceptronGUI janela;
@@ -96,6 +96,7 @@ public class Perceptron extends Observable {
     {
          janela.imprimirArquivoTreino();
          janela.imprimirArquivoTeste();
+         janela.salvarPesosIniciais();
     }
 
 
@@ -113,6 +114,10 @@ public class Perceptron extends Observable {
 
     public void treinar()
     {
+        EQM_ant = 999999999;
+        EQM_atual = 1;
+        epoca = 0;
+        taxaAcerto = 0;
         
         while( (Math.abs(EQM_atual - EQM_ant) > PRECISAO)  && (EQM_atual > EQM_MAX) )
         {
@@ -131,6 +136,7 @@ public class Perceptron extends Observable {
             series.add(epoca,EQM_atual);
         }
         System.out.println("total de epocas: " + epoca);
+        System.out.println("EQM final: " + EQM_atual);
         //gerarGrafico();
     }
 

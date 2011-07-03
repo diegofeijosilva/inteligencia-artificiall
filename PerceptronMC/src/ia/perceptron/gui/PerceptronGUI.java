@@ -64,6 +64,7 @@ public class PerceptronGUI extends javax.swing.JFrame implements Observer {
         jLabelTestadaRotulo = new javax.swing.JLabel();
         jLabelTestada = new javax.swing.JLabel();
         jButtonReinicializar = new javax.swing.JButton();
+        jCheckBoxConservarPesos = new javax.swing.JCheckBox();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -139,6 +140,8 @@ public class PerceptronGUI extends javax.swing.JFrame implements Observer {
             }
         });
 
+        jCheckBoxConservarPesos.setText("Conservar Pesos Iniciais");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -162,7 +165,9 @@ public class PerceptronGUI extends javax.swing.JFrame implements Observer {
                         .addComponent(jLabel9)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel10)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 941, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 782, Short.MAX_VALUE)
+                        .addComponent(jCheckBoxConservarPesos)
+                        .addGap(18, 18, 18)
                         .addComponent(jButtonReinicializar))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -220,7 +225,9 @@ public class PerceptronGUI extends javax.swing.JFrame implements Observer {
                 .addContainerGap(21, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(118, Short.MAX_VALUE)
-                .addComponent(jButtonReinicializar)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonReinicializar)
+                    .addComponent(jCheckBoxConservarPesos))
                 .addContainerGap())
         );
 
@@ -420,16 +427,9 @@ public class PerceptronGUI extends javax.swing.JFrame implements Observer {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonTreinarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTreinarActionPerformed
+       // reinicializarInterface();
         perceptron.treinar();
-        jLabelTreinada.setText("OK");
-        jLabelTreinada.setForeground(Color.GREEN);
-        jLabelTestada.setText("NÃO");
-        jLabelTestada.setForeground(Color.RED);
-        jLabelEQM.setForeground(Color.BLUE);
-        jLabelEQM.setText(String.valueOf(perceptron.getEQM_atual()));
-        jLabelEpocas.setForeground(Color.BLUE);
-        jLabelEpocas.setText(String.valueOf(perceptron.getEpocas()));
-        jLabelNumeroCamadas.setText(String.valueOf(perceptron.getNumeroCamadas()));
+        atualizarInterfacePosTreino();
     }//GEN-LAST:event_jButtonTreinarActionPerformed
 
     private void jButtonGerarGraficoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGerarGraficoActionPerformed
@@ -451,6 +451,16 @@ public class PerceptronGUI extends javax.swing.JFrame implements Observer {
         perceptron = new Perceptron(this);
         perceptron.criarCamada(15, 4);
         perceptron.criarCamada(3, 15);
+        if (jCheckBoxConservarPesos.isSelected()) {
+            perceptron.getCamada(0).setMatrizPeso(pesosc1);
+            perceptron.getCamada(1).setMatrizPeso(pesosc2);
+        }
+        salvarPesosIniciais();
+        reinicializarInterface();
+    }//GEN-LAST:event_jButtonReinicializarActionPerformed
+
+    private void reinicializarInterface()
+    {
         perceptron.setMomentum(jCheckBoxMomentum.isSelected());
         jLabelEQM.setText("0");
         jLabelEpocas.setText("0");
@@ -460,10 +470,22 @@ public class PerceptronGUI extends javax.swing.JFrame implements Observer {
         jLabelTestada.setForeground(Color.red);
         jLabelTaxaAcerto.setText("0%");
         for (int i = 0; i < perceptron.getArquivoTeste().getTotalLinhas(); i++) {
-           limparLinhaResultadoTeste(i);            
+           limparLinhaResultadoTeste(i);
         }
+    }
 
-    }//GEN-LAST:event_jButtonReinicializarActionPerformed
+    private void atualizarInterfacePosTreino()
+    {
+        jLabelTreinada.setText("OK");
+        jLabelTreinada.setForeground(Color.GREEN);
+        jLabelTestada.setText("NÃO");
+        jLabelTestada.setForeground(Color.RED);
+        jLabelEQM.setForeground(Color.BLUE);
+        jLabelEQM.setText(String.valueOf(perceptron.getEQM_atual()));
+        jLabelEpocas.setForeground(Color.BLUE);
+        jLabelEpocas.setText(String.valueOf(perceptron.getEpocas()));
+        jLabelNumeroCamadas.setText(String.valueOf(perceptron.getNumeroCamadas()));
+    }
 
     private void configComponents()
     {
@@ -546,6 +568,11 @@ public class PerceptronGUI extends javax.swing.JFrame implements Observer {
         }
     }
 
+    public void salvarPesosIniciais()
+    {
+        pesosc1 = perceptron.getCamada(0).getW();
+        pesosc2 = perceptron.getCamada(1).getW();
+    }
      
 
     /**
@@ -566,6 +593,7 @@ public class PerceptronGUI extends javax.swing.JFrame implements Observer {
     private javax.swing.JButton jButtonReinicializar;
     private javax.swing.JButton jButtonTestar;
     private javax.swing.JButton jButtonTreinar;
+    private javax.swing.JCheckBox jCheckBoxConservarPesos;
     private javax.swing.JCheckBox jCheckBoxMomentum;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -599,6 +627,8 @@ public class PerceptronGUI extends javax.swing.JFrame implements Observer {
     private javax.swing.JTable jTableTreino;
     // End of variables declaration//GEN-END:variables
     Perceptron perceptron;
+    double[][] pesosc1;
+    double[][] pesosc2;
 
     public void update(Observable o, Object arg) {
        
