@@ -116,7 +116,7 @@ public class PerceptronGUI extends javax.swing.JFrame implements Observer {
         jLabelTreinada.setForeground(new java.awt.Color(255, 0, 0));
         jLabelTreinada.setText("NÃO");
 
-        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 12));
         jLabel9.setText("EQM Máximo:");
 
         jLabel10.setText("0.03");
@@ -225,11 +225,11 @@ public class PerceptronGUI extends javax.swing.JFrame implements Observer {
             }
         });
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11));
-        jLabel5.setText("Épocas:");
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel5.setText("Total de Épocas:");
 
-        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 11));
-        jLabel7.setText("EQM:");
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel7.setText("EQM Final:");
 
         jLabelEpocas.setText("0");
 
@@ -254,7 +254,7 @@ public class PerceptronGUI extends javax.swing.JFrame implements Observer {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jCheckBoxMomentum)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 719, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 670, Short.MAX_VALUE)
                                 .addComponent(jLabel5))
                             .addComponent(jLabel7))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
