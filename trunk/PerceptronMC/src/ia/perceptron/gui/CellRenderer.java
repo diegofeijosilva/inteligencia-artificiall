@@ -38,7 +38,7 @@ public class CellRenderer extends DefaultTableCellRenderer {
         if (column == 11) {
             component.setFont(component.getFont().deriveFont(Font.BOLD));
             if (value == "OK") {
-                component.setForeground(Color.GREEN);
+                component.setForeground(PerceptronGUI.verde);
             } else if (value == "ERRO") {
                 component.setForeground(Color.RED);
             }

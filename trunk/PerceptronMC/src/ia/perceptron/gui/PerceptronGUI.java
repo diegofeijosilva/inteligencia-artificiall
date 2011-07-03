@@ -439,7 +439,7 @@ public class PerceptronGUI extends javax.swing.JFrame implements Observer {
     private void jButtonTestarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTestarActionPerformed
         perceptron.testar();
         jLabelTestada.setText("OK");
-        jLabelTestada.setForeground(Color.GREEN);
+        jLabelTestada.setForeground(PerceptronGUI.verde);
         jLabelTaxaAcerto.setText(String.valueOf(perceptron.getTaxaAcerto())+"%");
     }//GEN-LAST:event_jButtonTestarActionPerformed
 
@@ -477,7 +477,7 @@ public class PerceptronGUI extends javax.swing.JFrame implements Observer {
     private void atualizarInterfacePosTreino()
     {
         jLabelTreinada.setText("OK");
-        jLabelTreinada.setForeground(Color.GREEN);
+        jLabelTreinada.setForeground(PerceptronGUI.verde);
         jLabelTestada.setText("NÃO");
         jLabelTestada.setForeground(Color.RED);
         jLabelEQM.setForeground(Color.BLUE);
@@ -629,6 +629,8 @@ public class PerceptronGUI extends javax.swing.JFrame implements Observer {
     Perceptron perceptron;
     double[][] pesosc1;
     double[][] pesosc2;
+
+    public static Color verde = new Color(35,142,35);
 
     public void update(Observable o, Object arg) {
        
