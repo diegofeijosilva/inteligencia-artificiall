@@ -141,10 +141,13 @@ public class Perceptron extends Observable {
                 if( y[j]!=d[j] )
                     sucesso = false;
             }
-            if(sucesso)
-                System.out.println("OK   ---->  "+y[0]+"  "+y[1]+"  "+y[2]);
-            else
-                System.out.println("ERRO ---->  "+y[0]+"  "+y[1]+"  "+y[2]);
+            if (sucesso) {
+                System.out.println("OK   ---->  " + y[0] + "  " + y[1] + "  " + y[2]);
+                janela.imprimirLinhaResultadoTeste(y,"OK", i);
+            } else {
+                System.out.println("ERRO ---->  " + y[0] + "  " + y[1] + "  " + y[2]);
+                janela.imprimirLinhaResultadoTeste(y,"ERRO", i);
+            }
         }
     }
 
