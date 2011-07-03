@@ -59,12 +59,14 @@ public class PerceptronGUI extends javax.swing.JFrame implements Observer {
         jLabelFatorMomentum = new javax.swing.JLabel();
         jLabelTreinadaRotulo = new javax.swing.JLabel();
         jLabelTreinada = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTableTreino = new javax.swing.JTable();
         jButtonTreinar = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jButtonGerarGrafico = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabelEpocas = new javax.swing.JLabel();
@@ -72,7 +74,7 @@ public class PerceptronGUI extends javax.swing.JFrame implements Observer {
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableTeste = new javax.swing.JTable();
-        jButton3 = new javax.swing.JButton();
+        jButtonTestar = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
 
@@ -80,16 +82,16 @@ public class PerceptronGUI extends javax.swing.JFrame implements Observer {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Parâmetros", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12))); // NOI18N
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12));
         jLabel1.setText("Número de Camadas:");
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12));
         jLabel2.setText("Taxa de Aprendizagem:");
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12));
         jLabel3.setText("Precisão:");
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12));
         jLabel4.setText("Função de Ativação:");
 
         jLabelNumeroCamadas.setText("0");
@@ -100,18 +102,23 @@ public class PerceptronGUI extends javax.swing.JFrame implements Observer {
 
         jLabelFuncaoAtivacao.setText("SIGMÓIDE");
 
-        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 12));
         jLabel11.setText("Fator de Momentum:");
 
         jLabelFatorMomentum.setText("0.9");
 
-        jLabelTreinadaRotulo.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabelTreinadaRotulo.setFont(new java.awt.Font("Tahoma", 1, 12));
         jLabelTreinadaRotulo.setForeground(new java.awt.Color(102, 102, 102));
         jLabelTreinadaRotulo.setText("Treinada:");
 
-        jLabelTreinada.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabelTreinada.setFont(new java.awt.Font("Tahoma", 1, 12));
         jLabelTreinada.setForeground(new java.awt.Color(255, 0, 0));
         jLabelTreinada.setText("NÃO");
+
+        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel9.setText("EQM Máximo:");
+
+        jLabel10.setText("0.03");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -143,7 +150,11 @@ public class PerceptronGUI extends javax.swing.JFrame implements Observer {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel11)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabelFatorMomentum)))
+                        .addComponent(jLabelFatorMomentum))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel9)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel10)))
                 .addContainerGap(757, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -171,7 +182,11 @@ public class PerceptronGUI extends javax.swing.JFrame implements Observer {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(jLabelFuncaoAtivacao))
-                .addContainerGap(41, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(jLabel10))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -202,17 +217,17 @@ public class PerceptronGUI extends javax.swing.JFrame implements Observer {
             }
         });
 
-        jButton2.setText("Gerar Gráfico");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        jButtonGerarGrafico.setText("Gerar Gráfico");
+        jButtonGerarGrafico.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                jButtonGerarGraficoActionPerformed(evt);
             }
         });
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel5.setText("Épocas:");
 
-        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel7.setText("EQM:");
 
         jLabelEpocas.setText("0");
@@ -228,7 +243,7 @@ public class PerceptronGUI extends javax.swing.JFrame implements Observer {
                 .addContainerGap()
                 .addComponent(jButtonTreinar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2)
+                .addComponent(jButtonGerarGrafico)
                 .addContainerGap(981, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(806, Short.MAX_VALUE)
@@ -254,7 +269,7 @@ public class PerceptronGUI extends javax.swing.JFrame implements Observer {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButtonTreinar)
-                            .addComponent(jButton2))
+                            .addComponent(jButtonGerarGrafico))
                         .addContainerGap())
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -286,7 +301,12 @@ public class PerceptronGUI extends javax.swing.JFrame implements Observer {
         });
         jScrollPane1.setViewportView(jTableTeste);
 
-        jButton3.setText("Testar");
+        jButtonTestar.setText("Testar");
+        jButtonTestar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonTestarActionPerformed(evt);
+            }
+        });
 
         jLabel6.setText("Taxa de Acerto:");
 
@@ -299,7 +319,7 @@ public class PerceptronGUI extends javax.swing.JFrame implements Observer {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton3)
+                    .addComponent(jButtonTestar)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -316,7 +336,7 @@ public class PerceptronGUI extends javax.swing.JFrame implements Observer {
                     .addComponent(jLabel6)
                     .addComponent(jLabel8))
                 .addGap(42, 42, 42)
-                .addComponent(jButton3)
+                .addComponent(jButtonTestar)
                 .addContainerGap())
         );
 
@@ -340,7 +360,7 @@ public class PerceptronGUI extends javax.swing.JFrame implements Observer {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 381, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         jTabbedPane1.getAccessibleContext().setAccessibleName("Teste");
@@ -358,9 +378,13 @@ public class PerceptronGUI extends javax.swing.JFrame implements Observer {
         jLabelEpocas.setText(String.valueOf(perceptron.getEpocas()));
     }//GEN-LAST:event_jButtonTreinarActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void jButtonGerarGraficoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGerarGraficoActionPerformed
         perceptron.gerarGráfico();
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_jButtonGerarGraficoActionPerformed
+
+    private void jButtonTestarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTestarActionPerformed
+        perceptron.testar();
+    }//GEN-LAST:event_jButtonTestarActionPerformed
 
     private void configComponents()
     {
@@ -424,10 +448,15 @@ public class PerceptronGUI extends javax.swing.JFrame implements Observer {
         modelo.addRow(linha);
     }
     
-//    imprimirLinhaResultadoTeste()
-//    {
-//
-//    }
+    public void imprimirLinhaResultadoTeste(double[] y, String status, int linha)
+    {
+        DefaultTableModel modelo = (DefaultTableModel) jTableTeste.getModel();
+
+        for (int i = 8; i < 11; i++) {
+            modelo.setValueAt(String.valueOf(y[i-8]), linha, i);
+        }
+        modelo.setValueAt(status,linha,11);    
+    }
 
      
 
@@ -445,10 +474,11 @@ public class PerceptronGUI extends javax.swing.JFrame implements Observer {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButtonGerarGrafico;
+    private javax.swing.JButton jButtonTestar;
     private javax.swing.JButton jButtonTreinar;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -457,6 +487,7 @@ public class PerceptronGUI extends javax.swing.JFrame implements Observer {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLabelEQM;
     private javax.swing.JLabel jLabelEpocas;
     private javax.swing.JLabel jLabelFatorMomentum;
