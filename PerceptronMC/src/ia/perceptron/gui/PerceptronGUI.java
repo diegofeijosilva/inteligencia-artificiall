@@ -76,7 +76,7 @@ public class PerceptronGUI extends javax.swing.JFrame implements Observer {
         jTableTeste = new javax.swing.JTable();
         jButtonTestar = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
+        jLabelTaxaAcerto = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -310,7 +310,7 @@ public class PerceptronGUI extends javax.swing.JFrame implements Observer {
 
         jLabel6.setText("Taxa de Acerto:");
 
-        jLabel8.setText("0%");
+        jLabelTaxaAcerto.setText("0%");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -323,7 +323,7 @@ public class PerceptronGUI extends javax.swing.JFrame implements Observer {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel8)))
+                        .addComponent(jLabelTaxaAcerto)))
                 .addContainerGap(1050, Short.MAX_VALUE))
             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1161, Short.MAX_VALUE)
         );
@@ -334,7 +334,7 @@ public class PerceptronGUI extends javax.swing.JFrame implements Observer {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(jLabel8))
+                    .addComponent(jLabelTaxaAcerto))
                 .addGap(42, 42, 42)
                 .addComponent(jButtonTestar)
                 .addContainerGap())
@@ -384,6 +384,7 @@ public class PerceptronGUI extends javax.swing.JFrame implements Observer {
 
     private void jButtonTestarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTestarActionPerformed
         perceptron.testar();
+        jLabelTaxaAcerto.setText(String.valueOf(perceptron.getTaxaAcerto())+"%");
     }//GEN-LAST:event_jButtonTestarActionPerformed
 
     private void configComponents()
@@ -486,7 +487,6 @@ public class PerceptronGUI extends javax.swing.JFrame implements Observer {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLabelEQM;
     private javax.swing.JLabel jLabelEpocas;
@@ -494,6 +494,7 @@ public class PerceptronGUI extends javax.swing.JFrame implements Observer {
     private javax.swing.JLabel jLabelFuncaoAtivacao;
     private javax.swing.JLabel jLabelNumeroCamadas;
     private javax.swing.JLabel jLabelPrecisao;
+    private javax.swing.JLabel jLabelTaxaAcerto;
     private javax.swing.JLabel jLabelTaxaAprendizagem;
     private javax.swing.JLabel jLabelTreinada;
     private javax.swing.JLabel jLabelTreinadaRotulo;
