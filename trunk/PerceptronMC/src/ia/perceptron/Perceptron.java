@@ -6,6 +6,7 @@ import java.util.List;
 import ia.perceptron.arquivo.Arquivo;
 import ia.perceptron.gui.PerceptronGUI;
 import java.awt.Dimension;
+import java.util.Observable;
 import javax.swing.JFrame;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -22,7 +23,7 @@ import org.jfree.data.xy.XYSeriesCollection;
  *
  * @author Larissa
  */
-public class Perceptron {
+public class Perceptron extends Observable {
 
     public static final double TAXA_APRENDIZAGEM = 0.1;
     public static final double PRECISAO = 0.000001;
@@ -115,14 +116,14 @@ public class Perceptron {
                 reajustarPesos();
                 Y[i] = y;
             }
-            EQM_atual = EQM();
+            setEQM_atual(EQM());
             epoca++;
             //resetarPrimeiroAjuste();
             System.out.println("  epoca: " + epoca + "  EQM: " + EQM_atual);
             series.add(epoca,EQM_atual);
         }
         System.out.println("total de epocas: " + epoca);
-        gerarGráfico();
+        //gerarGráfico();
     }
 
     public void testar()
@@ -260,6 +261,19 @@ public class Perceptron {
 
     public void setBias(double bias) {
         this.bias = bias;
+    }
+
+    public double getEQM_atual()
+    {
+        return EQM_atual;
+    }
+
+    public void setEQM_atual(double EQM_atual)
+    {
+        this.EQM_atual = EQM_atual;
+       // janela.mudarTextoEQM();
+        setChanged();
+        notifyObservers();
     }
 
     protected void setEntrada(double[] entrada)
