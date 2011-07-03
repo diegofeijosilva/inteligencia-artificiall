@@ -23,7 +23,7 @@ import org.jfree.data.xy.XYSeriesCollection;
  *
  * @author Larissa
  */
-public class Perceptron extends Observable {
+public class Perceptron extends Observable implements Runnable {
 
     public static final double TAXA_APRENDIZAGEM = 0.1;
     public static final double PRECISAO = 0.000001;
@@ -135,6 +135,7 @@ public class Perceptron extends Observable {
             System.out.println("  epoca: " + epoca + "  EQM: " + EQM_atual);
             series.add(epoca,EQM_atual);
         }
+        janela.finalizarProcessoTreino();
         System.out.println("total de epocas: " + epoca);
         System.out.println("EQM final: " + EQM_atual);
         //gerarGrafico();
@@ -254,6 +255,11 @@ public class Perceptron extends Observable {
 
             //frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
      }
+
+    public void run()
+    {
+        treinar();
+    }
 
     public void criarCamada(int qtdNeuronios, int qtdEntradas) {
         camadas.add(new Camada(qtdNeuronios, qtdEntradas, funcao_ativacao));

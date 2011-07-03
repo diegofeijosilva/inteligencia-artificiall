@@ -30,9 +30,10 @@ public class PerceptronGUI extends javax.swing.JFrame implements Observer {
     public PerceptronGUI(Perceptron perceptron) {
         this.perceptron = perceptron;
         this.perceptron.addObserver((Observer) this);
-        update(this.perceptron, null);
         initComponents();
         configComponents();
+        update(this.perceptron, null);
+        
         
         //JOptionPane.showMessageDialog(null,"Testando!!!");
     }
@@ -435,8 +436,21 @@ public class PerceptronGUI extends javax.swing.JFrame implements Observer {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonTreinarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTreinarActionPerformed
-       // reinicializarInterface();
-        perceptron.treinar();
+        //perceptron.treinar();
+         
+        if(processo==null || processo.isInterrupted()) { //Instancia a thread SE não existir uma
+            processo = new Thread(perceptron);
+            processo.start();
+        } else {
+            System.out.println("O processo ainda está em execução");
+        }
+
+//        if(processo.isInterrupted()) { //Instancia a thread SE não existir uma
+//             System.out.println("DENTRO DO IF!!!");
+//            processo = new Thread(perceptron);
+//            processo.start();
+//        }
+
         atualizarInterfacePosTreino();
     }//GEN-LAST:event_jButtonTreinarActionPerformed
 
@@ -456,7 +470,10 @@ public class PerceptronGUI extends javax.swing.JFrame implements Observer {
     }//GEN-LAST:event_jCheckBoxMomentumActionPerformed
 
     private void jButtonReinicializarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonReinicializarActionPerformed
+        processo = null;
         perceptron = new Perceptron(this);
+        this.perceptron.addObserver((Observer) this);
+        update(this.perceptron, null);
         perceptron.criarCamada(15, 4);
         perceptron.criarCamada(3, 15);
         if (jCheckBoxConservarPesos.isSelected()) {
@@ -576,7 +593,7 @@ public class PerceptronGUI extends javax.swing.JFrame implements Observer {
     {
         DefaultTableModel modelo = (DefaultTableModel) jTableTeste.getModel();
 
-        for (int i = 8; i < 12; i++) {
+        for (int i = 8; i < 15; i++) {
             modelo.setValueAt("", linha, i);
         }
     }
@@ -586,6 +603,16 @@ public class PerceptronGUI extends javax.swing.JFrame implements Observer {
         pesosc1 = perceptron.getCamada(0).getW();
         pesosc2 = perceptron.getCamada(1).getW();
     }
+
+    public void finalizarProcessoTreino()
+    {
+        processo.interrupt();
+        if (processo.isInterrupted()) {
+        processo = null;
+        System.out.println("TREAD INTERROMPIDA!!!");
+        }
+    }
+
      
 
     /**
@@ -640,13 +667,15 @@ public class PerceptronGUI extends javax.swing.JFrame implements Observer {
     private javax.swing.JTable jTableTreino;
     // End of variables declaration//GEN-END:variables
     Perceptron perceptron;
+    private Thread processo; 
     double[][] pesosc1;
     double[][] pesosc2;
 
     public static Color verde = new Color(35,142,35);
 
     public void update(Observable o, Object arg) {
-       
+       jLabelEQM.setText(String.valueOf(perceptron.getEQM_atual()));
+       jLabelEpocas.setText(String.valueOf(perceptron.getEpocas()));
     }
 
 }
