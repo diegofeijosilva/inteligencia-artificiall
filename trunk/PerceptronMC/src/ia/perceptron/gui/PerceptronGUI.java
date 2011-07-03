@@ -396,7 +396,7 @@ public class PerceptronGUI extends javax.swing.JFrame implements Observer {
     }//GEN-LAST:event_jButtonTreinarActionPerformed
 
     private void jButtonGerarGraficoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGerarGraficoActionPerformed
-        perceptron.gerarGráfico();
+        perceptron.gerarGrafico();
     }//GEN-LAST:event_jButtonGerarGraficoActionPerformed
 
     private void jButtonTestarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTestarActionPerformed
