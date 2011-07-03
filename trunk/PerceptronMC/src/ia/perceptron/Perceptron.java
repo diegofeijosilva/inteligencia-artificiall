@@ -50,7 +50,7 @@ public class Perceptron extends Observable {
 
     double EQM_ant = 999999999;
     double EQM_atual = 1;
-    double epoca = 0;
+    int epoca = 0;
 
     final XYSeries series = new XYSeries ("Data");
     PerceptronGUI janela;
@@ -263,6 +263,11 @@ public class Perceptron extends Observable {
         this.bias = bias;
     }
 
+    public int getNumeroCamadas()
+    {
+        return camadas.size();
+    }
+
     public double getEQM_atual()
     {
         return EQM_atual;
@@ -274,6 +279,11 @@ public class Perceptron extends Observable {
        // janela.mudarTextoEQM();
         setChanged();
         notifyObservers();
+    }
+
+    public int getEpocas()
+    {
+        return epoca;
     }
 
     protected void setEntrada(double[] entrada)

@@ -28,11 +28,12 @@ public class PerceptronGUI extends javax.swing.JFrame implements Observer {
 
     /** Creates new form PerceptronGUI */
     public PerceptronGUI(Perceptron perceptron) {
-        initComponents();
-        configComponents();
         this.perceptron = perceptron;
         this.perceptron.addObserver((Observer) this);
         update(this.perceptron, null);
+        initComponents();
+        configComponents();
+        
         //JOptionPane.showMessageDialog(null,"Testando!!!");
     }
 
@@ -50,18 +51,24 @@ public class PerceptronGUI extends javax.swing.JFrame implements Observer {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
+        jLabelNumeroCamadas = new javax.swing.JLabel();
+        jLabelTaxaAprendizagem = new javax.swing.JLabel();
+        jLabelPrecisao = new javax.swing.JLabel();
+        jLabelFuncaoAtivacao = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
+        jLabelFatorMomentum = new javax.swing.JLabel();
+        jLabelTreinadaRotulo = new javax.swing.JLabel();
+        jLabelTreinada = new javax.swing.JLabel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTableTreino = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        jButtonTreinar = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabelEpocas = new javax.swing.JLabel();
+        jLabelEQM = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableTeste = new javax.swing.JTable();
@@ -85,18 +92,26 @@ public class PerceptronGUI extends javax.swing.JFrame implements Observer {
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel4.setText("Função de Ativação:");
 
-        jLabel5.setText("0");
+        jLabelNumeroCamadas.setText("0");
 
-        jLabel7.setText("0.01");
+        jLabelTaxaAprendizagem.setText("0.01");
 
-        jLabel9.setText("0.000001");
+        jLabelPrecisao.setText("0.000001");
 
-        jLabel10.setText("SIGMÓIDE");
+        jLabelFuncaoAtivacao.setText("SIGMÓIDE");
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel11.setText("Fator de Momentum:");
 
-        jLabel12.setText("0.9");
+        jLabelFatorMomentum.setText("0.9");
+
+        jLabelTreinadaRotulo.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabelTreinadaRotulo.setForeground(new java.awt.Color(102, 102, 102));
+        jLabelTreinadaRotulo.setText("Treinada:");
+
+        jLabelTreinada.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabelTreinada.setForeground(new java.awt.Color(255, 0, 0));
+        jLabelTreinada.setText("NÃO");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -108,24 +123,28 @@ public class PerceptronGUI extends javax.swing.JFrame implements Observer {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel5))
+                        .addComponent(jLabelNumeroCamadas)
+                        .addGap(147, 147, 147)
+                        .addComponent(jLabelTreinadaRotulo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabelTreinada, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel7))
+                        .addComponent(jLabelTaxaAprendizagem))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel9))
+                        .addComponent(jLabelPrecisao))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel10))
+                        .addComponent(jLabelFuncaoAtivacao))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel11)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel12)))
-                .addContainerGap(969, Short.MAX_VALUE))
+                        .addComponent(jLabelFatorMomentum)))
+                .addContainerGap(757, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -133,23 +152,25 @@ public class PerceptronGUI extends javax.swing.JFrame implements Observer {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jLabel5))
+                    .addComponent(jLabelNumeroCamadas)
+                    .addComponent(jLabelTreinadaRotulo)
+                    .addComponent(jLabelTreinada))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jLabel7))
+                    .addComponent(jLabelTaxaAprendizagem))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jLabel9))
+                    .addComponent(jLabelPrecisao))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
-                    .addComponent(jLabel12))
+                    .addComponent(jLabelFatorMomentum))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jLabel10))
+                    .addComponent(jLabelFuncaoAtivacao))
                 .addContainerGap(41, Short.MAX_VALUE))
         );
 
@@ -174,9 +195,24 @@ public class PerceptronGUI extends javax.swing.JFrame implements Observer {
         jScrollPane2.setViewportView(jTableTreino);
         jTableTreino.getColumnModel().getColumn(0).setPreferredWidth(20);
 
-        jButton1.setText("Treinar");
+        jButtonTreinar.setText("Treinar");
+        jButtonTreinar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonTreinarActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Gerar Gráfico");
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel5.setText("Épocas:");
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel7.setText("EQM:");
+
+        jLabelEpocas.setText("0");
+
+        jLabelEQM.setText("0");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -185,20 +221,42 @@ public class PerceptronGUI extends javax.swing.JFrame implements Observer {
             .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1161, Short.MAX_VALUE)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton1)
+                .addComponent(jButtonTreinar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton2)
                 .addContainerGap(981, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(806, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel7))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabelEpocas, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelEQM, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(24, 24, 24))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
+                .addGap(31, 31, 31)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
-                .addContainerGap())
+                    .addComponent(jLabel5)
+                    .addComponent(jLabelEpocas))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButtonTreinar)
+                            .addComponent(jButton2))
+                        .addContainerGap())
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabelEQM)
+                            .addComponent(jLabel7))
+                        .addContainerGap())))
         );
 
         jTabbedPane1.addTab("Treino", jPanel2);
@@ -285,10 +343,21 @@ public class PerceptronGUI extends javax.swing.JFrame implements Observer {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButtonTreinarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTreinarActionPerformed
+        perceptron.treinar();
+        jLabelTreinada.setText("OK");
+        jLabelTreinada.setForeground(Color.GREEN);
+        jLabelEQM.setForeground(Color.BLUE);
+        jLabelEQM.setText(String.valueOf(perceptron.getEQM_atual()));
+        jLabelEpocas.setForeground(Color.BLUE);
+        jLabelEpocas.setText(String.valueOf(perceptron.getEpocas()));
+    }//GEN-LAST:event_jButtonTreinarActionPerformed
+
     private void configComponents()
     {
         jTableTeste.setDefaultRenderer(Object.class, new CellRenderer());
         jTableTreino.setDefaultRenderer(Object.class, new CellRenderer());
+        jLabelNumeroCamadas.setText(String.valueOf(perceptron.getNumeroCamadas()));
        // jLabelProcessando.setVisible(false);
     }
 
@@ -362,13 +431,11 @@ public class PerceptronGUI extends javax.swing.JFrame implements Observer {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButtonTreinar;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -376,7 +443,15 @@ public class PerceptronGUI extends javax.swing.JFrame implements Observer {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel jLabelEQM;
+    private javax.swing.JLabel jLabelEpocas;
+    private javax.swing.JLabel jLabelFatorMomentum;
+    private javax.swing.JLabel jLabelFuncaoAtivacao;
+    private javax.swing.JLabel jLabelNumeroCamadas;
+    private javax.swing.JLabel jLabelPrecisao;
+    private javax.swing.JLabel jLabelTaxaAprendizagem;
+    private javax.swing.JLabel jLabelTreinada;
+    private javax.swing.JLabel jLabelTreinadaRotulo;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
