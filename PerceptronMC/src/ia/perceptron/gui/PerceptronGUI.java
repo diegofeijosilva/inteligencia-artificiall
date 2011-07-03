@@ -498,7 +498,7 @@ public class PerceptronGUI extends javax.swing.JFrame implements Observer {
         DefaultTableModel modelo = (DefaultTableModel) jTableTeste.getModel();
 
         for (int i = 8; i < 11; i++) {
-            modelo.setValueAt(String.valueOf(y[i-8]), linha, i);
+            modelo.setValueAt(String.valueOf((int)y[i-8]), linha, i);
         }
         modelo.setValueAt(status,linha,11);    
     }
