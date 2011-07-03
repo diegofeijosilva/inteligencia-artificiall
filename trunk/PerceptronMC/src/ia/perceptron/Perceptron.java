@@ -48,9 +48,10 @@ public class Perceptron extends Observable {
     private double y[] = new double[3];  //valores obtidos de saída em uma propagação
     private double Y[][];                //valores de saída obtidos para todas as amostras de entrada;
 
-    double EQM_ant = 999999999;
-    double EQM_atual = 1;
-    int epoca = 0;
+    private double EQM_ant = 999999999;
+    private double EQM_atual = 1;
+    private int epoca = 0;
+    private double taxaAcerto = 0;
 
     final XYSeries series = new XYSeries ("Data");
     PerceptronGUI janela;
@@ -130,6 +131,8 @@ public class Perceptron extends Observable {
     public void testar()
     {
         boolean sucesso = true;
+        int acertos = 0;
+
         for (int i = 0; i < arquivoTeste.getTotalLinhas(); i++) {
             sucesso = true;
             x = arquivoTeste.x(i);
@@ -144,11 +147,14 @@ public class Perceptron extends Observable {
             if (sucesso) {
                 System.out.println("OK   ---->  " + y[0] + "  " + y[1] + "  " + y[2]);
                 janela.imprimirLinhaResultadoTeste(y,"OK", i);
+                acertos++;
             } else {
                 System.out.println("ERRO ---->  " + y[0] + "  " + y[1] + "  " + y[2]);
                 janela.imprimirLinhaResultadoTeste(y,"ERRO", i);
             }
         }
+
+        taxaAcerto = (acertos / arquivoTeste.getTotalLinhas()) * 100;
     }
 
     private void posProcessamento() {
@@ -288,6 +294,11 @@ public class Perceptron extends Observable {
     public int getEpocas()
     {
         return epoca;
+    }
+
+    public double getTaxaAcerto()
+    {
+        return taxaAcerto;
     }
 
     protected void setEntrada(double[] entrada)
