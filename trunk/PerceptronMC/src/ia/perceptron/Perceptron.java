@@ -238,11 +238,11 @@ public class Perceptron extends Observable {
     }
 
     public void gerarGrafico(){
-         JFrame frame = new JFrame("Erro quadrático X Épocas");
+         JFrame frame = new JFrame("Época X Erro Quadrático Médio");
          frame.setSize(new Dimension(1024,1024));
 
          final XYSeriesCollection data = new XYSeriesCollection(series);
-         final JFreeChart chart = ChartFactory.createXYLineChart("Erro quadrático X quantidade de épocas", "Épocas", "Erro quadrático",
+         final JFreeChart chart = ChartFactory.createXYLineChart("Época X Erro Quadrático Médio", "Época", "Erro Quadrático Médio",
                  data,PlotOrientation.VERTICAL , true,true, false);
          final ChartPanel chartPanel = new ChartPanel(chart);
             chartPanel.setPreferredSize(new java.awt.Dimension (1024, 1024));
