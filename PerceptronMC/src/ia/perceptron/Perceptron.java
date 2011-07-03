@@ -4,6 +4,7 @@ import ia.perceptron.arquivo.ManipuladorArquivo;
 import java.util.ArrayList;
 import java.util.List;
 import ia.perceptron.arquivo.Arquivo;
+import ia.perceptron.gui.PerceptronGUI;
 import java.awt.Dimension;
 import javax.swing.JFrame;
 import org.jfree.chart.ChartFactory;
@@ -46,7 +47,12 @@ public class Perceptron {
     private double y[] = new double[3];  //valores obtidos de saída em uma propagação
     private double Y[][];                //valores de saída obtidos para todas as amostras de entrada;
 
+    double EQM_ant = 999999999;
+    double EQM_atual = 1;
+    double epoca = 0;
+
     final XYSeries series = new XYSeries ("Data");
+    PerceptronGUI janela;
 
     public Perceptron()
     {
@@ -56,11 +62,31 @@ public class Perceptron {
         Y = new double[arquivoTreino.getTotalLinhas()][3];
     }
 
+    public Perceptron(boolean gui)
+    {
+        this();
+        if(gui) {
+            janela = new PerceptronGUI(this);
+        }
+    }
+
     public Perceptron(int entradas, String funcao_ativacao)
     {
         this();
         x = new double[entradas];
         this.funcao_ativacao = funcao_ativacao;
+    }
+
+    public void showInterface()
+    {
+        inicializarInterface();
+        janela.setVisible(true);
+    }
+
+    private void inicializarInterface()
+    {
+         janela.imprimirArquivoTreino();
+         janela.imprimirArquivoTeste();
     }
 
 
@@ -78,10 +104,7 @@ public class Perceptron {
 
     public void treinar()
     {
-        double EQM_ant = 999999999;
-        double EQM_atual = 1;
-        double epoca = 0;
-
+        
         while( (Math.abs(EQM_atual - EQM_ant) > PRECISAO)  && (EQM_atual > EQM_MAX) )
         {
             EQM_ant = EQM_atual;
@@ -223,6 +246,16 @@ public class Perceptron {
     public Camada getCamada(int index)
     {
         return camadas.get(index);
+    }
+
+    public Arquivo getArquivoTreino()
+    {
+        return this.arquivoTreino;
+    }
+
+    public Arquivo getArquivoTeste()
+    {
+        return this.arquivoTeste;
     }
 
     public void setBias(double bias) {

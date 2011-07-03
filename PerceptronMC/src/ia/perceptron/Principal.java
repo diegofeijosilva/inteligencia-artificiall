@@ -17,7 +17,8 @@ public class Principal {
 
     public static void main(String args[]) {
 
-        
+        Perceptron perceptron = new Perceptron(true);
+        perceptron.showInterface();
     }
 
 }
