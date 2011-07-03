@@ -203,6 +203,11 @@ public class PerceptronGUI extends javax.swing.JFrame implements Observer {
         });
 
         jButton2.setText("Gerar Gráfico");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel5.setText("Épocas:");
@@ -353,6 +358,10 @@ public class PerceptronGUI extends javax.swing.JFrame implements Observer {
         jLabelEpocas.setText(String.valueOf(perceptron.getEpocas()));
     }//GEN-LAST:event_jButtonTreinarActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        perceptron.gerarGráfico();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     private void configComponents()
     {
         jTableTeste.setDefaultRenderer(Object.class, new CellRenderer());
@@ -414,6 +423,11 @@ public class PerceptronGUI extends javax.swing.JFrame implements Observer {
 
         modelo.addRow(linha);
     }
+    
+//    imprimirLinhaResultadoTeste()
+//    {
+//
+//    }
 
      
 
