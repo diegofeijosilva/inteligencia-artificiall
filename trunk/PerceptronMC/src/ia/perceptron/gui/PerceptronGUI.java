@@ -393,6 +393,7 @@ public class PerceptronGUI extends javax.swing.JFrame implements Observer {
         jLabelEQM.setText(String.valueOf(perceptron.getEQM_atual()));
         jLabelEpocas.setForeground(Color.BLUE);
         jLabelEpocas.setText(String.valueOf(perceptron.getEpocas()));
+        jLabelNumeroCamadas.setText(String.valueOf(perceptron.getNumeroCamadas()));
     }//GEN-LAST:event_jButtonTreinarActionPerformed
 
     private void jButtonGerarGraficoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGerarGraficoActionPerformed
