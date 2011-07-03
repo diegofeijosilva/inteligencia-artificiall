@@ -125,7 +125,7 @@ public class Perceptron extends Observable {
             series.add(epoca,EQM_atual);
         }
         System.out.println("total de epocas: " + epoca);
-        //gerarGráfico();
+        //gerarGrafico();
     }
 
     public void testar()
@@ -225,7 +225,7 @@ public class Perceptron extends Observable {
         }
     }
 
-    public void gerarGráfico(){
+    public void gerarGrafico(){
          JFrame frame = new JFrame("Erro quadrático X Épocas");
          frame.setSize(new Dimension(1024,1024));
 
@@ -239,7 +239,7 @@ public class Perceptron extends Observable {
             frame.setContentPane(chartPanel);
             frame.setVisible(true);
 
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            //frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
      }
 
     public void criarCamada(int qtdNeuronios, int qtdEntradas) {
