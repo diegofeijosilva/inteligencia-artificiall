@@ -64,6 +64,12 @@ public class Perceptron extends Observable {
         Y = new double[arquivoTreino.getTotalLinhas()][3];
     }
 
+    public Perceptron(PerceptronGUI gui)
+    {
+        this();
+        this.janela = gui;
+    }
+
     public Perceptron(boolean gui)
     {
         this();
