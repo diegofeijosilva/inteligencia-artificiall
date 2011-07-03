@@ -150,6 +150,7 @@ public class Perceptron extends Observable {
             x = arquivoTeste.x(i);
             d = arquivoTeste.d(i);
             propagarEntradas();
+            Y[i] = Camada.copiarVetor(y);
             posProcessamento();
 
             for (int j = 0; j < d.length; j++) {
@@ -158,11 +159,11 @@ public class Perceptron extends Observable {
             }
             if (sucesso) {
                 System.out.println("OK   ---->  " + y[0] + "  " + y[1] + "  " + y[2]);
-                janela.imprimirLinhaResultadoTeste(y,"OK", i);
+                janela.imprimirLinhaResultadoTeste(y,Y[i],"OK", i);
                 acertos++;
             } else {
                 System.out.println("ERRO ---->  " + y[0] + "  " + y[1] + "  " + y[2]);
-                janela.imprimirLinhaResultadoTeste(y,"ERRO", i);
+                janela.imprimirLinhaResultadoTeste(y,Y[i],"ERRO", i);
             }
         }
 
@@ -293,6 +294,11 @@ public class Perceptron extends Observable {
     public double getEQM_atual()
     {
         return EQM_atual;
+    }
+
+    public double[] Y(int k)
+    {
+        return Camada.copiarVetor(Y[k]);
     }
 
     public void setEQM_atual(double EQM_atual)

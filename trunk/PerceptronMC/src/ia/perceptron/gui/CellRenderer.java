@@ -27,7 +27,7 @@ public class CellRenderer extends DefaultTableCellRenderer {
         Component component = super.getTableCellRendererComponent(table, value, isSelected,
                 hasFocus, row, column);
 
-        if (column == 0) {
+        if (column == 0 || (column >= 8 && column <= 10)) {
             component.setFont(component.getFont().deriveFont(Font.BOLD));
             component.setForeground(Color.BLUE);
         } else {
@@ -35,7 +35,7 @@ public class CellRenderer extends DefaultTableCellRenderer {
             component.setForeground(Color.BLACK);
         }
 
-        if (column == 11) {
+        if (column == 14) {
             component.setFont(component.getFont().deriveFont(Font.BOLD));
             if (value == "OK") {
                 component.setForeground(PerceptronGUI.verde);

@@ -125,7 +125,7 @@ public class PerceptronGUI extends javax.swing.JFrame implements Observer {
 
         jLabel10.setText("0.03");
 
-        jLabelTestadaRotulo.setFont(new java.awt.Font("Tahoma", 1, 12));
+        jLabelTestadaRotulo.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabelTestadaRotulo.setForeground(new java.awt.Color(102, 102, 102));
         jLabelTestadaRotulo.setText("Testada:");
 
@@ -182,8 +182,9 @@ public class PerceptronGUI extends javax.swing.JFrame implements Observer {
                         .addGap(117, 117, 117)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(4, 4, 4)
                                 .addComponent(jLabelTestadaRotulo)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabelTestada, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabelTreinadaRotulo)
@@ -204,8 +205,8 @@ public class PerceptronGUI extends javax.swing.JFrame implements Observer {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jLabelTaxaAprendizagem)
-                    .addComponent(jLabelTestadaRotulo)
-                    .addComponent(jLabelTestada))
+                    .addComponent(jLabelTestada)
+                    .addComponent(jLabelTestadaRotulo))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -346,11 +347,11 @@ public class PerceptronGUI extends javax.swing.JFrame implements Observer {
 
             },
             new String [] {
-                "Amostra", "x1", "x2", "x3", "x4", "d1", "d2", "d3", "y1", "y2", "y3", "status"
+                "Amostra", "x1", "x2", "x3", "x4", "d1", "d2", "d3", "y1 (pós)", "y2 (pós)", "y3 (pós)", "y1", "y2", "y3", "status"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -358,6 +359,13 @@ public class PerceptronGUI extends javax.swing.JFrame implements Observer {
             }
         });
         jScrollPane1.setViewportView(jTableTeste);
+        jTableTeste.getColumnModel().getColumn(0).setPreferredWidth(30);
+        jTableTeste.getColumnModel().getColumn(5).setPreferredWidth(27);
+        jTableTeste.getColumnModel().getColumn(6).setPreferredWidth(27);
+        jTableTeste.getColumnModel().getColumn(7).setPreferredWidth(27);
+        jTableTeste.getColumnModel().getColumn(8).setPreferredWidth(27);
+        jTableTeste.getColumnModel().getColumn(9).setPreferredWidth(27);
+        jTableTeste.getColumnModel().getColumn(10).setPreferredWidth(27);
 
         jButtonTestar.setText("Testar");
         jButtonTestar.addActionListener(new java.awt.event.ActionListener() {
@@ -549,14 +557,19 @@ public class PerceptronGUI extends javax.swing.JFrame implements Observer {
         modelo.addRow(linha);
     }
     
-    public void imprimirLinhaResultadoTeste(double[] y, String status, int linha)
+    public void imprimirLinhaResultadoTeste(double[] y, double[] Y, String status, int linha)
     {
         DefaultTableModel modelo = (DefaultTableModel) jTableTeste.getModel();
 
         for (int i = 8; i < 11; i++) {
             modelo.setValueAt(String.valueOf((int)y[i-8]), linha, i);
         }
-        modelo.setValueAt(status,linha,11);    
+        
+        for (int i = 11; i < 14; i++) {
+            modelo.setValueAt(String.valueOf(Y[i-11]), linha, i);
+        }
+
+        modelo.setValueAt(status,linha,14);
     }
 
     public void limparLinhaResultadoTeste(int linha)
