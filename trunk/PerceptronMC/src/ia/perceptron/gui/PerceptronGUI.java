@@ -423,6 +423,8 @@ public class PerceptronGUI extends javax.swing.JFrame implements Observer {
         perceptron.treinar();
         jLabelTreinada.setText("OK");
         jLabelTreinada.setForeground(Color.GREEN);
+        jLabelTestada.setText("NÃO");
+        jLabelTestada.setForeground(Color.RED);
         jLabelEQM.setForeground(Color.BLUE);
         jLabelEQM.setText(String.valueOf(perceptron.getEQM_atual()));
         jLabelEpocas.setForeground(Color.BLUE);
