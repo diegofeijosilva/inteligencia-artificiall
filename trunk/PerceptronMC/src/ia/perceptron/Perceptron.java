@@ -81,6 +81,7 @@ public class Perceptron extends Observable {
     public void showInterface()
     {
         inicializarInterface();
+        janela.setTitle("Perceptron Multicamadas");
         janela.setVisible(true);
     }
 
