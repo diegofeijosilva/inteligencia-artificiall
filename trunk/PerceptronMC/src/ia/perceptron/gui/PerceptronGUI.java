@@ -16,8 +16,6 @@ import ia.perceptron.arquivo.Arquivo;
 import java.awt.Color;
 import java.util.Observable;
 import java.util.Observer;
-import javax.swing.JDialog;
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -33,9 +31,6 @@ public class PerceptronGUI extends javax.swing.JFrame implements Observer {
         initComponents();
         configComponents();
         update(this.perceptron, null);
-        
-        
-        //JOptionPane.showMessageDialog(null,"Testando!!!");
     }
 
     /** This method is called from within the constructor to
@@ -442,21 +437,12 @@ public class PerceptronGUI extends javax.swing.JFrame implements Observer {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonTreinarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTreinarActionPerformed
-        //perceptron.treinar();
-         
         if(processo==null || processo.isInterrupted()) { //Instancia a thread SE não existir uma
             processo = new Thread(perceptron);
             processo.start();
         } else {
             System.out.println("O processo ainda está em execução");
         }
-
-//        if(processo.isInterrupted()) { //Instancia a thread SE não existir uma
-//             System.out.println("DENTRO DO IF!!!");
-//            processo = new Thread(perceptron);
-//            processo.start();
-//        }
-
         atualizarInterfacePosTreino();
     }//GEN-LAST:event_jButtonTreinarActionPerformed
 
@@ -523,7 +509,6 @@ public class PerceptronGUI extends javax.swing.JFrame implements Observer {
         jTableTeste.setDefaultRenderer(Object.class, new CellRenderer());
         jTableTreino.setDefaultRenderer(Object.class, new CellRenderer());
         jLabelNumeroCamadas.setText(String.valueOf(perceptron.getNumeroCamadas()));
-       // jLabelProcessando.setVisible(false);
     }
 
     public void imprimirArquivoTreino()
@@ -672,7 +657,7 @@ public class PerceptronGUI extends javax.swing.JFrame implements Observer {
     private javax.swing.JTable jTableTeste;
     private javax.swing.JTable jTableTreino;
     // End of variables declaration//GEN-END:variables
-    Perceptron perceptron;
+    private Perceptron perceptron;
     private Thread processo; 
     double[][] pesosc1;
     double[][] pesosc2;
