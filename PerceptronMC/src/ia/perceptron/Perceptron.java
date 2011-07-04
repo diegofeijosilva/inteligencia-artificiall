@@ -88,6 +88,7 @@ public class Perceptron extends Observable implements Runnable {
     public void showInterface()
     {
         inicializarInterface();
+        janela.recarregarParametros();
         janela.setTitle("Perceptron Multicamadas");
         janela.setVisible(true);
     }
@@ -318,6 +319,11 @@ public class Perceptron extends Observable implements Runnable {
     public double getTaxaAcerto()
     {
         return taxaAcerto;
+    }
+
+    public String getFuncaoAtivacao()
+    {
+        return funcao_ativacao;
     }
 
     protected void setEntrada(double[] entrada)
