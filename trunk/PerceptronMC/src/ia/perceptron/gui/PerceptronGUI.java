@@ -100,17 +100,22 @@ public class PerceptronGUI extends javax.swing.JFrame implements Observer {
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12));
         jLabel4.setText("Função de Ativação:");
 
+        jLabelNumeroCamadas.setForeground(new java.awt.Color(102, 102, 255));
         jLabelNumeroCamadas.setText("0");
 
+        jLabelTaxaAprendizagem.setForeground(new java.awt.Color(102, 102, 255));
         jLabelTaxaAprendizagem.setText("0.01");
 
+        jLabelPrecisao.setForeground(new java.awt.Color(102, 102, 255));
         jLabelPrecisao.setText("0.000001");
 
+        jLabelFuncaoAtivacao.setForeground(new java.awt.Color(102, 102, 255));
         jLabelFuncaoAtivacao.setText("SIGMÓIDE");
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 1, 12));
         jLabel11.setText("Fator de Momentum:");
 
+        jLabelFatorMomentum.setForeground(new java.awt.Color(102, 102, 255));
         jLabelFatorMomentum.setText("0.9");
 
         jLabelTreinadaRotulo.setFont(new java.awt.Font("Tahoma", 1, 12));
@@ -124,6 +129,7 @@ public class PerceptronGUI extends javax.swing.JFrame implements Observer {
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 12));
         jLabel9.setText("EQM Máximo:");
 
+        jLabel10.setForeground(new java.awt.Color(102, 102, 255));
         jLabel10.setText("0.03");
 
         jLabelTestadaRotulo.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
