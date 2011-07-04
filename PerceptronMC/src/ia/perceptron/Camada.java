@@ -36,7 +36,6 @@ public class Camada {
         I = new double[qtdNeuronios];
         Y = new double[qtdNeuronios];
         W_anterior = new double[qtdNeuronios][qtdEntradas+1];
-        //W_anterior_aux = new double[qtdNeuronios][qtdEntradas+1];
         
         inicializarNeuronios(qtdNeuronios);
         inicializarMatrizPesos(qtdNeuronios, qtdEntradas + 1);

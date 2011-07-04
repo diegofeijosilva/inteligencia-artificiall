@@ -131,14 +131,12 @@ public class Perceptron extends Observable implements Runnable {
             }
             setEQM_atual(EQM());
             epoca++;
-            //resetarPrimeiroAjuste();
             System.out.println("  epoca: " + epoca + "  EQM: " + EQM_atual);
             series.add(epoca,EQM_atual);
         }
         janela.finalizarProcessoTreino();
         System.out.println("total de epocas: " + epoca);
         System.out.println("EQM final: " + EQM_atual);
-        //gerarGrafico();
     }
 
     public void testar()
@@ -252,8 +250,6 @@ public class Perceptron extends Observable implements Runnable {
 
             frame.setContentPane(chartPanel);
             frame.setVisible(true);
-
-            //frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
      }
 
     public void run()
@@ -310,7 +306,6 @@ public class Perceptron extends Observable implements Runnable {
     public void setEQM_atual(double EQM_atual)
     {
         this.EQM_atual = EQM_atual;
-       // janela.mudarTextoEQM();
         setChanged();
         notifyObservers();
     }
