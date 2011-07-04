@@ -333,25 +333,25 @@ public class Perceptron extends Observable implements Runnable {
         x = entrada;
     }
 
-    public static void main(String[] args) {
-        Perceptron perceptron = new Perceptron();
-
-        double[][] pesosc1;
-        double[][] pesosc2;
-
-        perceptron.setBias(-1);
-
-        perceptron.criarCamada(15, 4);
-        perceptron.criarCamada(3, 15);
-
-        pesosc1 = perceptron.camadas.get(0).getW();
-        pesosc2 = perceptron.camadas.get(1).getW();
-
-        perceptron.setMomentum(true);
-        perceptron.treinar();
-        perceptron.testar();
-
-//        perceptron = new Perceptron(4);
+//    public static void main(String[] args) {
+//        Perceptron perceptron = new Perceptron();
+//
+//        double[][] pesosc1;
+//        double[][] pesosc2;
+//
+//        perceptron.setBias(-1);
+//
+//        perceptron.criarCamada(15, 4);
+//        perceptron.criarCamada(3, 15);
+//
+//        pesosc1 = perceptron.camadas.get(0).getW();
+//        pesosc2 = perceptron.camadas.get(1).getW();
+//
+//        perceptron.setMomentum(true);
+//        perceptron.treinar();
+//        perceptron.testar();
+//
+//        perceptron = new Perceptron();
 //
 //        perceptron.criarCamada(15, 4);
 //        perceptron.criarCamada(3, 15);
@@ -362,6 +362,6 @@ public class Perceptron extends Observable implements Runnable {
 //        perceptron.setMomentum(true);
 //        perceptron.treinar();
 //        perceptron.testar();
-
-    }
+//
+//    }
 }

@@ -624,15 +624,15 @@ public class PerceptronGUI extends javax.swing.JFrame implements Observer {
     /**
     * @param args the command line arguments
     */
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                Perceptron perceptron = new Perceptron();
-                perceptron.setMomentum(true);
-                new PerceptronGUI(perceptron).setVisible(true);
-            }
-        });
-    }
+//    public static void main(String args[]) {
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                Perceptron perceptron = new Perceptron();
+//                perceptron.setMomentum(true);
+//                new PerceptronGUI(perceptron).setVisible(true);
+//            }
+//        });
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonGerarGrafico;
