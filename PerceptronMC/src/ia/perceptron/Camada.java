@@ -96,8 +96,8 @@ public class Camada {
         }
     }
 
-     private double arredondar(double num) {
-        int decimalPlace = 2;
+     public static double arredondar(double num) {
+        int decimalPlace = 5;
         BigDecimal bd = new BigDecimal(num);
         bd = bd.setScale(decimalPlace,BigDecimal.ROUND_HALF_UP);
         num = bd.doubleValue();

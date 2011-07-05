@@ -11,6 +11,7 @@
 
 package ia.perceptron.gui;
 
+import ia.perceptron.Camada;
 import ia.perceptron.Perceptron;
 import ia.perceptron.arquivo.Arquivo;
 import java.awt.Color;
@@ -583,7 +584,7 @@ public class PerceptronGUI extends javax.swing.JFrame implements Observer {
         }
         
         for (int i = 11; i < 14; i++) {
-            modelo.setValueAt(String.valueOf(Y[i-11]), linha, i);
+            modelo.setValueAt(String.valueOf(Camada.arredondar(Y[i-11])), linha, i);
         }
 
         modelo.setValueAt(status,linha,14);
