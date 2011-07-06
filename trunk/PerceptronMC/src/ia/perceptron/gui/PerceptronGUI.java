@@ -621,7 +621,6 @@ public class PerceptronGUI extends javax.swing.JFrame implements Observer {
         processo.interrupt();
         if (processo.isInterrupted()) {
         processo = null;
-        System.out.println("TREAD INTERROMPIDA!!!");
         }
     }
 
