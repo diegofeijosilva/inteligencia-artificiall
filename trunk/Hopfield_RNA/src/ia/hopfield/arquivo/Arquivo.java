@@ -6,7 +6,7 @@
 package ia.hopfield.arquivo;
 
 import Jama.Matrix;
-import ia.hopfield.Utils;
+import ia.hopfield.Hopfield;
 
 /**
  *
@@ -35,8 +35,7 @@ public class Arquivo {
 
     public Matrix getPadrao(int index)
     {
-        //return Utils.copiarVetor(matriz_dados[index]);
-        return new Matrix(Utils.converterParaMatrizColuna(matriz_dados[index]));
+        return new Matrix(Hopfield.converterParaMatrizColuna(matriz_dados[index]));
     }
 
 }

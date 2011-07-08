@@ -9,16 +9,11 @@ import Jama.Matrix;
 import ia.hopfield.arquivo.Arquivo;
 import ia.hopfield.arquivo.ManipuladorArquivo;
 import ia.hopfield.gui.HopfieldGUI;
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  *
  * @author Neto
  */
 public class Hopfield {
-
-    //private List<Neuronio> neuronios;
 
     private ManipuladorArquivo fileHandler = new ManipuladorArquivo();
     private Arquivo arquivoPadroes;
@@ -40,8 +35,7 @@ public class Hopfield {
         fileHandler.carregarDados();
         arquivoPadroes = fileHandler.getArquivoPadroes();
         arquivoRuidos = fileHandler.getArquivoRuidos();
-        u = new Matrix(Utils.converterParaMatrizColuna(new double[qtdNeuronios]));
-        //inicializarNeuronios(qtdNeuronios);
+        u = new Matrix(Hopfield.converterParaMatrizColuna(new double[qtdNeuronios]));
         inicializarMatrizPesos();
         inicializarLimiares();
     }
@@ -69,40 +63,22 @@ public class Hopfield {
          janela.imprimirPadrao4();
     }
 
-//    private void inicializarNeuronios(int qtdNeuronios)
-//    {
-//        neuronios = new ArrayList();
-//        for (int j = 0; j < qtdNeuronios; j++) {
-//            neuronios.add(new Neuronio());
-//        }
-//    }
-
     private void inicializarMatrizPesos()
     {
         W = new Matrix(new double[qtdNeuronios][qtdNeuronios]);
         double aux = arquivoPadroes.getTotalLinhas() / qtdNeuronios;
         for (int k = 0; k < arquivoPadroes.getTotalLinhas(); k++) {
             Matrix padrao = arquivoPadroes.getPadrao(k);
-            //padrao.print(5, 0);
             Matrix padraoT = padrao.transpose();
-            //padraoT.print(5, 1);
             Matrix identidade = Matrix.identity(qtdNeuronios, qtdNeuronios);
-            //identidade.print(5, 1);
 
             Matrix primeiroTermo = padrao.times(padraoT);
-            //primeiroTermo.print(5, 1);
             Matrix segundoTermo = identidade.times(aux);
-            //segundoTermo.print(5, 5);
             Matrix subtracao = primeiroTermo.minus(segundoTermo);
-            //subtracao.print(5, 1);
-            //W.print(5, 1);
+     
             W.plusEquals(subtracao);
-            //W.print(5, 1);
-
-            //W.plus(padraoT.times(padrao).minus(identidade.times(aux)));
         }
         //W.timesEquals(1/qtdNeuronios);
-        //W.print(5, 5);
     }
     
     private void inicializarLimiares()
@@ -111,24 +87,19 @@ public class Hopfield {
         for (int i = 0; i < limiares.length; i++) {
             limiares[i] = -1;            
         }
-        i = new Matrix(Utils.converterParaMatrizColuna(limiares));
+        i = new Matrix(Hopfield.converterParaMatrizColuna(limiares));
     }
 
     public Matrix recuperarPadrao(Matrix padrao)
     {
         Matrix v_atual = padrao;
-        //padrao.print(5, 5);
         Matrix v_ant = Matrix.random(qtdNeuronios, 1);
-        //v_ant.print(5, 5);
-        int epocas = 0;
 
         while(!igual(v_ant, v_atual))
         {
             v_ant = v_atual.copy();
             u = W.times(v_ant).plus(i);
             v_atual = sinal(u);
-            epocas++;
-            //System.out.println("epoca: "+epocas);
         }
         imprimirPadrao(v_atual);
         return v_atual;
@@ -196,6 +167,16 @@ public class Hopfield {
         }
         return true;
     }
+
+    public static double[][] converterParaMatrizColuna(double[] vetor)
+    {
+        double[][] matriz = new double[vetor.length][1];
+        for (int i = 0; i < vetor.length; i++) {
+            matriz[i][0] = vetor[i];
+        }
+        return matriz;
+    }
+
 
     public Arquivo getArquivoPadroes()
     {

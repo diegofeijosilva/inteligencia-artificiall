@@ -13,11 +13,6 @@ package ia.hopfield.gui;
 
 import Jama.Matrix;
 import ia.hopfield.Hopfield;
-import java.awt.Container;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.JViewport;
-import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 
 /**
