@@ -207,58 +207,58 @@ public class Hopfield {
         return this.arquivoRuidos;
     }
 
-    public static void main(String[] args) {
-        
-
-        Hopfield hopfield = new Hopfield(45);
-        hopfield.imprimirPadrao(hopfield.getArquivoPadroes().getPadrao(0));
-        hopfield.imprimirPadrao(hopfield.getArquivoPadroes().getPadrao(1));
-        hopfield.imprimirPadrao(hopfield.getArquivoPadroes().getPadrao(2));
-        hopfield.imprimirPadrao(hopfield.getArquivoPadroes().getPadrao(3));
-
-          System.out.println("PRIMEIRO PADRÃO RUIDOSO:");
-          hopfield.imprimirPadrao(hopfield.getArquivoRuidos().getPadrao(1));
-          hopfield.recuperarPadrao(hopfield.getArquivoRuidos().getPadrao(1));
-
-          System.out.println("SEGUNDO PADRÃO RUIDOSO:");
-          hopfield.imprimirPadrao(hopfield.getArquivoRuidos().getPadrao(2));
-          hopfield.recuperarPadrao(hopfield.getArquivoRuidos().getPadrao(2));
-
-          System.out.println("TERCEIRO PADRÃO RUIDOSO:");
-          hopfield.imprimirPadrao(hopfield.getArquivoRuidos().getPadrao(3));
-          hopfield.recuperarPadrao(hopfield.getArquivoRuidos().getPadrao(3));
-
-          System.out.println("QUARTO PADRÃO RUIDOSO:");
-          hopfield.imprimirPadrao(hopfield.getArquivoRuidos().getPadrao(4));
-          hopfield.recuperarPadrao(hopfield.getArquivoRuidos().getPadrao(4));
-
-          System.out.println("QUINTO PADRÃO RUIDOSO:");
-          hopfield.imprimirPadrao(hopfield.getArquivoRuidos().getPadrao(5));
-          hopfield.recuperarPadrao(hopfield.getArquivoRuidos().getPadrao(5));
-
-           System.out.println("SEXTO PADRÃO RUIDOSO:");
-          hopfield.imprimirPadrao(hopfield.getArquivoRuidos().getPadrao(6));
-          hopfield.recuperarPadrao(hopfield.getArquivoRuidos().getPadrao(6));
-
-          System.out.println("SÉTIMO PADRÃO RUIDOSO:");
-          hopfield.imprimirPadrao(hopfield.getArquivoRuidos().getPadrao(7));
-          hopfield.recuperarPadrao(hopfield.getArquivoRuidos().getPadrao(7));
-
-          System.out.println("OITAVO PADRÃO RUIDOSO:");
-          hopfield.imprimirPadrao(hopfield.getArquivoRuidos().getPadrao(8));
-          hopfield.recuperarPadrao(hopfield.getArquivoRuidos().getPadrao(8));
-
-          System.out.println("NONO PADRÃO RUIDOSO:");
-          hopfield.imprimirPadrao(hopfield.getArquivoRuidos().getPadrao(9));
-          hopfield.recuperarPadrao(hopfield.getArquivoRuidos().getPadrao(9));
-
-          System.out.println("DÉCIMO PADRÃO RUIDOSO:");
-          hopfield.imprimirPadrao(hopfield.getArquivoRuidos().getPadrao(10));
-          hopfield.recuperarPadrao(hopfield.getArquivoRuidos().getPadrao(10));
-
-          System.out.println("DÉCIMO PRIMEIRO PADRÃO RUIDOSO:");
-          hopfield.imprimirPadrao(hopfield.getArquivoRuidos().getPadrao(11));
-          hopfield.recuperarPadrao(hopfield.getArquivoRuidos().getPadrao(11));
-    }
+//    public static void main(String[] args) {
+//
+//
+//        Hopfield hopfield = new Hopfield(45);
+//        hopfield.imprimirPadrao(hopfield.getArquivoPadroes().getPadrao(0));
+//        hopfield.imprimirPadrao(hopfield.getArquivoPadroes().getPadrao(1));
+//        hopfield.imprimirPadrao(hopfield.getArquivoPadroes().getPadrao(2));
+//        hopfield.imprimirPadrao(hopfield.getArquivoPadroes().getPadrao(3));
+//
+//          System.out.println("PRIMEIRO PADRÃO RUIDOSO:");
+//          hopfield.imprimirPadrao(hopfield.getArquivoRuidos().getPadrao(1));
+//          hopfield.recuperarPadrao(hopfield.getArquivoRuidos().getPadrao(1));
+//
+//          System.out.println("SEGUNDO PADRÃO RUIDOSO:");
+//          hopfield.imprimirPadrao(hopfield.getArquivoRuidos().getPadrao(2));
+//          hopfield.recuperarPadrao(hopfield.getArquivoRuidos().getPadrao(2));
+//
+//          System.out.println("TERCEIRO PADRÃO RUIDOSO:");
+//          hopfield.imprimirPadrao(hopfield.getArquivoRuidos().getPadrao(3));
+//          hopfield.recuperarPadrao(hopfield.getArquivoRuidos().getPadrao(3));
+//
+//          System.out.println("QUARTO PADRÃO RUIDOSO:");
+//          hopfield.imprimirPadrao(hopfield.getArquivoRuidos().getPadrao(4));
+//          hopfield.recuperarPadrao(hopfield.getArquivoRuidos().getPadrao(4));
+//
+//          System.out.println("QUINTO PADRÃO RUIDOSO:");
+//          hopfield.imprimirPadrao(hopfield.getArquivoRuidos().getPadrao(5));
+//          hopfield.recuperarPadrao(hopfield.getArquivoRuidos().getPadrao(5));
+//
+//           System.out.println("SEXTO PADRÃO RUIDOSO:");
+//          hopfield.imprimirPadrao(hopfield.getArquivoRuidos().getPadrao(6));
+//          hopfield.recuperarPadrao(hopfield.getArquivoRuidos().getPadrao(6));
+//
+//          System.out.println("SÉTIMO PADRÃO RUIDOSO:");
+//          hopfield.imprimirPadrao(hopfield.getArquivoRuidos().getPadrao(7));
+//          hopfield.recuperarPadrao(hopfield.getArquivoRuidos().getPadrao(7));
+//
+//          System.out.println("OITAVO PADRÃO RUIDOSO:");
+//          hopfield.imprimirPadrao(hopfield.getArquivoRuidos().getPadrao(8));
+//          hopfield.recuperarPadrao(hopfield.getArquivoRuidos().getPadrao(8));
+//
+//          System.out.println("NONO PADRÃO RUIDOSO:");
+//          hopfield.imprimirPadrao(hopfield.getArquivoRuidos().getPadrao(9));
+//          hopfield.recuperarPadrao(hopfield.getArquivoRuidos().getPadrao(9));
+//
+//          System.out.println("DÉCIMO PADRÃO RUIDOSO:");
+//          hopfield.imprimirPadrao(hopfield.getArquivoRuidos().getPadrao(10));
+//          hopfield.recuperarPadrao(hopfield.getArquivoRuidos().getPadrao(10));
+//
+//          System.out.println("DÉCIMO PRIMEIRO PADRÃO RUIDOSO:");
+//          hopfield.imprimirPadrao(hopfield.getArquivoRuidos().getPadrao(11));
+//          hopfield.recuperarPadrao(hopfield.getArquivoRuidos().getPadrao(11));
+//    }
 
 }

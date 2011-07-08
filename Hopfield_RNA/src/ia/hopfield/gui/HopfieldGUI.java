@@ -418,11 +418,8 @@ public class HopfieldGUI extends javax.swing.JFrame {
 
     public void imprimirPadrao1()
     {
-        System.out.println("NO IMPRIMIR PADRÃO1!");
         DefaultTableModel modelo = (DefaultTableModel) jTablePadrao1.getModel();
         Matrix matriz = hopfield.getArquivoPadroes().getPadrao(0);
-//        matriz.print(5, 5);
-//        modelo.addRow(new String[]{"teste","teste","teste","teste","teste"});
 
             int count = 0;
             double[] linha = new double[5];
@@ -446,12 +443,9 @@ public class HopfieldGUI extends javax.swing.JFrame {
     }
 
     public void imprimirPadrao2()
-    {
-        System.out.println("NO IMPRIMIR PADRÃO2!");
+    {   
         DefaultTableModel modelo = (DefaultTableModel) jTablePadrao2.getModel();
         Matrix matriz = hopfield.getArquivoPadroes().getPadrao(1);
-//        matriz.print(5, 5);
-//        modelo.addRow(new String[]{"teste","teste","teste","teste","teste"});
 
             int count = 0;
             double[] linha = new double[5];
@@ -476,11 +470,8 @@ public class HopfieldGUI extends javax.swing.JFrame {
 
     public void imprimirPadrao3()
     {
-        System.out.println("NO IMPRIMIR PADRÃO3!");
         DefaultTableModel modelo = (DefaultTableModel) jTablePadrao3.getModel();
         Matrix matriz = hopfield.getArquivoPadroes().getPadrao(2);
-//        matriz.print(5, 5);
-//        modelo.addRow(new String[]{"teste","teste","teste","teste","teste"});
 
             int count = 0;
             double[] linha = new double[5];
@@ -505,11 +496,8 @@ public class HopfieldGUI extends javax.swing.JFrame {
 
     public void imprimirPadrao4()
     {
-        System.out.println("NO IMPRIMIR PADRÃO4!");
         DefaultTableModel modelo = (DefaultTableModel) jTablePadrao4.getModel();
         Matrix matriz = hopfield.getArquivoPadroes().getPadrao(3);
-//        matriz.print(5, 5);
-//        modelo.addRow(new String[]{"teste","teste","teste","teste","teste"});
 
             int count = 0;
             double[] linha = new double[5];
@@ -534,7 +522,6 @@ public class HopfieldGUI extends javax.swing.JFrame {
 
     public void imprimirPadraoRuidoso()
     {
-        System.out.println("NO IMPRIMIR PADRÃO RUIDOSO!");
         DefaultTableModel modelo = (DefaultTableModel) jTablePadraoRuidoso.getModel();
 
         Matrix matriz = hopfield.getArquivoRuidos().getPadrao(padraoComboBox());
@@ -563,7 +550,6 @@ public class HopfieldGUI extends javax.swing.JFrame {
 
      public void imprimirPadraoRecuperado()
     {
-        System.out.println("NO IMPRIMIR PADRÃO RECUPERADO!");
         DefaultTableModel modelo = (DefaultTableModel) jTablePadraoRuidoso.getModel();
 
         Matrix matriz_ruidosa = hopfield.getArquivoRuidos().getPadrao(padraoComboBox());
