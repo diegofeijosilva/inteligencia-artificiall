@@ -66,7 +66,6 @@ public class HopfieldGUI extends javax.swing.JFrame {
         jScrollPane7 = new javax.swing.JScrollPane();
         jTablePadraoRecuperado = new javax.swing.JTable();
         jComboBoxPadroes = new javax.swing.JComboBox();
-        jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
@@ -75,10 +74,10 @@ public class HopfieldGUI extends javax.swing.JFrame {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Parâmetros", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12))); // NOI18N
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 12));
         jLabel5.setText("Número de Neuronios:");
 
-        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 12));
         jLabel6.setText("Função de Ativação:");
 
         jLabel7.setForeground(new java.awt.Color(102, 102, 255));
@@ -212,16 +211,16 @@ public class HopfieldGUI extends javax.swing.JFrame {
         jTablePadrao4.setTableHeader(null);
         jScrollPane5.setViewportView(jTablePadrao4);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12));
         jLabel1.setText("Padrão 1");
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12));
         jLabel2.setText("Padrão 2");
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12));
         jLabel3.setText("Padrão 3");
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12));
         jLabel4.setText("Padrão 4");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -315,11 +314,9 @@ public class HopfieldGUI extends javax.swing.JFrame {
         jScrollPane7.setViewportView(jTablePadraoRecuperado);
 
         jComboBoxPadroes.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Padrão 1", "Padrão 2", "Padrão 3", "Padrão 4", "Padrão 5", "Padrão 6", "Padrão 7", "Padrão 8", "Padrão 9", "Padrão 10", "Padrão 11", "Padrão 12" }));
-
-        jButton1.setText("Carregar Padrão");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jComboBoxPadroes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jComboBoxPadroesActionPerformed(evt);
             }
         });
 
@@ -330,10 +327,10 @@ public class HopfieldGUI extends javax.swing.JFrame {
             }
         });
 
-        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 12));
         jLabel9.setText("Imagem com ruído");
 
-        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 12));
         jLabel10.setText("Imagem recuperada");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -348,10 +345,8 @@ public class HopfieldGUI extends javax.swing.JFrame {
                         .addGap(183, 183, 183)
                         .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton1)
-                            .addComponent(jComboBoxPadroes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(258, 258, 258)
+                        .addComponent(jComboBoxPadroes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(297, 297, 297)
                         .addComponent(jButton2)))
                 .addGap(165, 165, 165))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
@@ -376,9 +371,7 @@ public class HopfieldGUI extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jComboBoxPadroes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1)
-                .addGap(35, 35, 35))
+                .addGap(69, 69, 69))
         );
 
         jTabbedPane1.addTab("Reconhecimento", jPanel3);
@@ -409,13 +402,14 @@ public class HopfieldGUI extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        imprimirPadraoRuidoso();
-    }//GEN-LAST:event_jButton1ActionPerformed
-
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         imprimirPadraoRecuperado();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jComboBoxPadroesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxPadroesActionPerformed
+        imprimirPadraoRuidoso();
+        clearTabelaRecuperado();
+    }//GEN-LAST:event_jComboBoxPadroesActionPerformed
 
     /**
     * @param args the command line arguments
@@ -430,6 +424,7 @@ public class HopfieldGUI extends javax.swing.JFrame {
         jTablePadraoRecuperado.setDefaultRenderer(Object.class, new CellRenderer());
         initTabelaRuidos();
         initTabelaRecuperado();
+        imprimirPadraoRuidoso();
     }
 
     public void imprimirPadrao1()
@@ -564,6 +559,17 @@ public class HopfieldGUI extends javax.swing.JFrame {
         }
     }
 
+    private void clearTabelaRecuperado()
+    {
+        DefaultTableModel modelo = (DefaultTableModel) jTablePadraoRecuperado.getModel();
+
+        for (int i = 0; i < jTablePadraoRecuperado.getRowCount(); i++) {
+            for (int j = 0; j < jTablePadraoRecuperado.getColumnCount(); j++) {
+                modelo.setValueAt("", i, j);
+            }
+        }
+    }
+
      public void imprimirPadraoRecuperado()
     {
         DefaultTableModel modelo = (DefaultTableModel) jTablePadraoRuidoso.getModel();
@@ -648,7 +654,6 @@ public class HopfieldGUI extends javax.swing.JFrame {
 //    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JComboBox jComboBoxPadroes;
     private javax.swing.JLabel jLabel1;
