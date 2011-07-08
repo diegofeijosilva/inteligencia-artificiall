@@ -56,8 +56,6 @@ public class ManipuladorArquivo {
         double[][] dados_padroes = new double[linhas][colunas];
         dados_padroes = lerArquivo(path_arqPadroes, linhas, colunas);
         arquivoPadroes = new Arquivo(dados_padroes);
-        arquivoPadroes.setLinhas(linhas);
-        //arquivoPadroes.separarDados();
     }
 
     private void carregarDadosRuidos()
@@ -68,7 +66,6 @@ public class ManipuladorArquivo {
         double[][] dados_ruidos = new double[linhas][colunas];
         dados_ruidos = lerArquivo(path_arqRuidos, linhas, colunas);
         arquivoRuidos = new Arquivo(dados_ruidos);
-        arquivoRuidos.setLinhas(linhas);
     }
 
     private double[][] lerArquivo( String arquivo, int linhas, int colunas ) {

@@ -21,8 +21,6 @@ public class Hopfield {
 
     private int qtdNeuronios;
 
-    private double[] x;
-    private double[] v;
     private Matrix i;
     private Matrix W;
     private Matrix u;

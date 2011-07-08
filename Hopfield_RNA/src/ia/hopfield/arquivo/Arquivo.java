@@ -16,16 +16,9 @@ public class Arquivo {
 
     private double[][] matriz_dados;
 
-    private int linhas;
-
     public Arquivo(double[][] matriz_dados)
     {
         this.matriz_dados = matriz_dados;
-    }
-
-    protected void setLinhas(int linhas)
-    {
-        this.linhas = linhas;
     }
 
     public int getTotalLinhas()
