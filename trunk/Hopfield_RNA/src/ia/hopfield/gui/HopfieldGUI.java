@@ -432,14 +432,14 @@ public class HopfieldGUI extends javax.swing.JFrame {
         DefaultTableModel modelo = (DefaultTableModel) jTablePadrao1.getModel();
         Matrix matriz = hopfield.getArquivoPadroes().getPadrao(0);
 
-            int count = 0;
-            double[] linha = new double[5];
-            String[] linhaStr = new String[5];
-            
-            for (int i = 0; i < matriz.getRowDimension(); i++) {
+        int count = 0;
+        double[] linha = new double[5];
+        String[] linhaStr = new String[5];
+
+        for (int i = 0; i < matriz.getRowDimension(); i++) {
             linha[count] = matriz.get(i, 0);
             count++;
-            if(count==5) {
+            if (count == 5) {
                 for (int j = 0; j < linha.length; j++) {
                     if (linha[j] == -1) {
                         linhaStr[j] = "";
@@ -458,14 +458,14 @@ public class HopfieldGUI extends javax.swing.JFrame {
         DefaultTableModel modelo = (DefaultTableModel) jTablePadrao2.getModel();
         Matrix matriz = hopfield.getArquivoPadroes().getPadrao(1);
 
-            int count = 0;
-            double[] linha = new double[5];
-            String[] linhaStr = new String[5];
+        int count = 0;
+        double[] linha = new double[5];
+        String[] linhaStr = new String[5];
 
-            for (int i = 0; i < matriz.getRowDimension(); i++) {
+        for (int i = 0; i < matriz.getRowDimension(); i++) {
             linha[count] = matriz.get(i, 0);
             count++;
-            if(count==5) {
+            if (count == 5) {
                 for (int j = 0; j < linha.length; j++) {
                     if (linha[j] == -1) {
                         linhaStr[j] = "";
@@ -484,14 +484,14 @@ public class HopfieldGUI extends javax.swing.JFrame {
         DefaultTableModel modelo = (DefaultTableModel) jTablePadrao3.getModel();
         Matrix matriz = hopfield.getArquivoPadroes().getPadrao(2);
 
-            int count = 0;
-            double[] linha = new double[5];
-            String[] linhaStr = new String[5];
+        int count = 0;
+        double[] linha = new double[5];
+        String[] linhaStr = new String[5];
 
-            for (int i = 0; i < matriz.getRowDimension(); i++) {
+        for (int i = 0; i < matriz.getRowDimension(); i++) {
             linha[count] = matriz.get(i, 0);
             count++;
-            if(count==5) {
+            if (count == 5) {
                 for (int j = 0; j < linha.length; j++) {
                     if (linha[j] == -1) {
                         linhaStr[j] = "";
@@ -510,14 +510,14 @@ public class HopfieldGUI extends javax.swing.JFrame {
         DefaultTableModel modelo = (DefaultTableModel) jTablePadrao4.getModel();
         Matrix matriz = hopfield.getArquivoPadroes().getPadrao(3);
 
-            int count = 0;
-            double[] linha = new double[5];
-            String[] linhaStr = new String[5];
+        int count = 0;
+        double[] linha = new double[5];
+        String[] linhaStr = new String[5];
 
-            for (int i = 0; i < matriz.getRowDimension(); i++) {
+        for (int i = 0; i < matriz.getRowDimension(); i++) {
             linha[count] = matriz.get(i, 0);
             count++;
-            if(count==5) {
+            if (count == 5) {
                 for (int j = 0; j < linha.length; j++) {
                     if (linha[j] == -1) {
                         linhaStr[j] = "";
@@ -535,16 +535,16 @@ public class HopfieldGUI extends javax.swing.JFrame {
     {
         DefaultTableModel modelo = (DefaultTableModel) jTablePadraoRuidoso.getModel();
 
-        Matrix matriz = hopfield.getArquivoRuidos().getPadrao(padraoComboBox()-1);
+        Matrix matriz = hopfield.getArquivoRuidos().getPadrao(padraoComboBox() - 1);
 
-            int count = 0,linhaTabela = 0;
-            double[] linha = new double[5];
-            String[] linhaStr = new String[5];
+        int count = 0, linhaTabela = 0;
+        double[] linha = new double[5];
+        String[] linhaStr = new String[5];
 
-            for (int i = 0; i < matriz.getRowDimension(); i++) {
+        for (int i = 0; i < matriz.getRowDimension(); i++) {
             linha[count] = matriz.get(i, 0);
             count++;
-            if(count==5) {
+            if (count == 5) {
                 for (int j = 0; j < linha.length; j++) {
                     if (linha[j] == -1) {
                         linhaStr[j] = "";
@@ -552,7 +552,7 @@ public class HopfieldGUI extends javax.swing.JFrame {
                         linhaStr[j] = "#";
                     }
                     imprimirLinhaPadraoRuidoso(linhaStr, linhaTabela);
-                }                
+                }
                 count = 0;
                 linhaTabela++;
             }
@@ -574,17 +574,17 @@ public class HopfieldGUI extends javax.swing.JFrame {
     {
         DefaultTableModel modelo = (DefaultTableModel) jTablePadraoRuidoso.getModel();
 
-        Matrix matriz_ruidosa = hopfield.getArquivoRuidos().getPadrao(padraoComboBox()-1);
+        Matrix matriz_ruidosa = hopfield.getArquivoRuidos().getPadrao(padraoComboBox() - 1);
         Matrix matriz = hopfield.recuperarPadrao(matriz_ruidosa);
 
-            int count = 0,linhaTabela = 0;
-            double[] linha = new double[5];
-            String[] linhaStr = new String[5];
+        int count = 0, linhaTabela = 0;
+        double[] linha = new double[5];
+        String[] linhaStr = new String[5];
 
-            for (int i = 0; i < matriz.getRowDimension(); i++) {
+        for (int i = 0; i < matriz.getRowDimension(); i++) {
             linha[count] = matriz.get(i, 0);
             count++;
-            if(count==5) {
+            if (count == 5) {
                 for (int j = 0; j < linha.length; j++) {
                     if (linha[j] == -1) {
                         linhaStr[j] = "";
