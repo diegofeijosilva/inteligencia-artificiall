@@ -639,9 +639,7 @@ public class HopfieldGUI extends javax.swing.JFrame {
     private int padraoComboBox()
     {
         String str = (String) jComboBoxPadroes.getSelectedItem();
-        System.out.println("substring: "+str.substring(6));
-        int padrao = Integer.parseInt(str.substring(7));
-        return padrao;
+        return Integer.parseInt(str.substring(7));
     }
 
 
