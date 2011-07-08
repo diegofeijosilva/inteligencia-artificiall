@@ -27,26 +27,6 @@ public class CellRenderer extends DefaultTableCellRenderer {
         Component component = super.getTableCellRendererComponent(table, value, isSelected,
                 hasFocus, row, column);
 
-//        if (column == 0 || (column >= 8 && column <= 10)) {
-//            component.setFont(component.getFont().deriveFont(Font.BOLD));
-//            component.setForeground(Color.BLUE);
-//        } else {
-//            component.setFont(component.getFont());
-//            component.setForeground(Color.BLACK);
-//        }
-//
-//        if (column == 14) {
-//            component.setFont(component.getFont().deriveFont(Font.BOLD));
-//            if (value == "OK") {
-//                //component.setForeground(PerceptronGUI.verde);
-//            } else if (value == "ERRO") {
-//                component.setForeground(Color.RED);
-//            }
-//        } else {
-//            component.setFont(component.getFont());
-//            component.setForeground(Color.BLACK);
-//        }
-
         if (value == "#") {
             component.setBackground(Color.blue);
             value = new String("");
@@ -54,7 +34,6 @@ public class CellRenderer extends DefaultTableCellRenderer {
         else {
             component.setBackground(Color.white);
         }
-
 
         return component;
     }
