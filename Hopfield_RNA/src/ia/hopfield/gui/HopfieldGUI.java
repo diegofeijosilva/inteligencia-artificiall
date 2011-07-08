@@ -524,7 +524,7 @@ public class HopfieldGUI extends javax.swing.JFrame {
     {
         DefaultTableModel modelo = (DefaultTableModel) jTablePadraoRuidoso.getModel();
 
-        Matrix matriz = hopfield.getArquivoRuidos().getPadrao(padraoComboBox());
+        Matrix matriz = hopfield.getArquivoRuidos().getPadrao(padraoComboBox()-1);
 
             int count = 0,linhaTabela = 0;
             double[] linha = new double[5];
@@ -552,7 +552,7 @@ public class HopfieldGUI extends javax.swing.JFrame {
     {
         DefaultTableModel modelo = (DefaultTableModel) jTablePadraoRuidoso.getModel();
 
-        Matrix matriz_ruidosa = hopfield.getArquivoRuidos().getPadrao(padraoComboBox());
+        Matrix matriz_ruidosa = hopfield.getArquivoRuidos().getPadrao(padraoComboBox()-1);
         Matrix matriz = hopfield.recuperarPadrao(matriz_ruidosa);
 
             int count = 0,linhaTabela = 0;
