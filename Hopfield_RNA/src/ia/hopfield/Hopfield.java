@@ -64,18 +64,25 @@ public class Hopfield {
     private void inicializarMatrizPesos()
     {
         W = new Matrix(new double[qtdNeuronios][qtdNeuronios]);
-        double aux = arquivoPadroes.getTotalLinhas() / qtdNeuronios;
+        Matrix primeiroTermo = new Matrix(new double[qtdNeuronios][qtdNeuronios]);
+        
+        double aux = (double) arquivoPadroes.getTotalLinhas() / qtdNeuronios;
+
+        Matrix identidade = Matrix.identity(qtdNeuronios, qtdNeuronios);
+        Matrix segundoTermo = identidade.times(aux);
+
         for (int k = 0; k < arquivoPadroes.getTotalLinhas(); k++) {
             Matrix padrao = arquivoPadroes.getPadrao(k);
             Matrix padraoT = padrao.transpose();
-            Matrix identidade = Matrix.identity(qtdNeuronios, qtdNeuronios);
-
-            Matrix primeiroTermo = padrao.times(padraoT);
-            Matrix segundoTermo = identidade.times(aux);
-            Matrix subtracao = primeiroTermo.minus(segundoTermo);
+            
+            primeiroTermo.plusEquals(padrao.times(padraoT));
+            
+           // Matrix subtracao = primeiroTermo.minus(segundoTermo);
      
-            W.plusEquals(subtracao);
+            //W.plusEquals(subtracao);
         }
+        primeiroTermo.timesEquals((double) 1/qtdNeuronios);
+        W = primeiroTermo.minus(segundoTermo);
         //W.timesEquals(1/qtdNeuronios);
     }
     
@@ -96,7 +103,8 @@ public class Hopfield {
         while(!igual(v_ant, v_atual))
         {
             v_ant = v_atual.copy();
-            u = W.times(v_ant).plus(i);
+            //u = W.times(v_ant).plus(i);
+            u = W.times(v_ant);
             v_atual = sinal(u);
         }
         imprimirPadrao(v_atual);
