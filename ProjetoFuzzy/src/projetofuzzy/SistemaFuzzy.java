@@ -17,7 +17,7 @@ public class SistemaFuzzy {
     public static final int QTD_VARIAVEIS_ENTRADA_DEFAULT = 2;
     public static final int QTD_VARIAVEIS_SAIDA_DEFAULT = 1;
 
-    List<VariavelLinguistica> variaveisLinguisticas = new ArrayList<VariavelLinguistica>();
+    private List<VariavelLinguistica> variaveisLinguisticas = new ArrayList<VariavelLinguistica>();
     private int qtdVarEntradas;
     private int qtdVarSaida;
 
@@ -27,10 +27,16 @@ public class SistemaFuzzy {
         qtdVarSaida = varSaida;
     }
 
-      public void fuzificar()
+    public void fuzificar()
     {
         qtdVarEntradas = QTD_VARIAVEIS_ENTRADA_DEFAULT;
         qtdVarSaida = QTD_VARIAVEIS_SAIDA_DEFAULT;
+        inicializarVariaveisLinguisticas();
+    }
+
+    public void inicializarVariaveisLinguisticas()
+    {
+
     }
 
     public void desfuzificar()

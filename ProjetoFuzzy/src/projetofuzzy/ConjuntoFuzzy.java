@@ -13,7 +13,7 @@ public class ConjuntoFuzzy {
 
     
     
-    private String variavelLinguistica;
+    private String valorLinguistico;
 
     private double m;
     private double n;
@@ -24,17 +24,18 @@ public class ConjuntoFuzzy {
 
     ConjuntoFuzzy(String var, int disc)
     {
-        this.variavelLinguistica = var;
+        this.valorLinguistico = var;
         this.discretizacao = disc;
+        initDefault();
     }
 
 
     public void initDefault() {
-        if (variavelLinguistica.equals("Temperatura")) {
+        if (valorLinguistico.equals("baixa")) {
 
-        } else if (variavelLinguistica.equals("Volume")) {
+        } else if (valorLinguistico.equals("media")) {
 
-        } else if (variavelLinguistica.equals("Pressao")) {
+        } else if (valorLinguistico.equals("alta")) {
         }
 
     }
