@@ -24,6 +24,8 @@ public class SistemaFuzzy {
     private int qtdVarSaida;
     public double[][] matrizInferencia;
     private VariavelLinguistica varAtual;
+    private int valorDiscretizacao;
+    private double[] vetorPertinencia;
 
     public SistemaFuzzy(int varEntradas, int varSaida)
     {
@@ -35,7 +37,7 @@ public class SistemaFuzzy {
     {
         qtdVarEntradas = QTD_VARIAVEIS_ENTRADA_DEFAULT;
         qtdVarSaida = QTD_VARIAVEIS_SAIDA_DEFAULT;
-
+        valorDiscretizacao = DISCRETIZACAO_DEFAULT;
         
     }
 
@@ -44,7 +46,7 @@ public class SistemaFuzzy {
         variaveisLinguisticas.add(new VariavelLinguistica(nome, universoMin, universoMax, qtdValoresLinguisticos));
     }
 
-    public void preFuzificar(String nomeVarLinguistica){
+    public void getVarLinguistica(String nomeVarLinguistica){
 
         varAtual = null;
         for(int i = 0; i<variaveisLinguisticas.size(); i++){
@@ -52,31 +54,30 @@ public class SistemaFuzzy {
                 varAtual = variaveisLinguisticas.get(i);
             }
         }
-
-        matrizInferencia = new double[DISCRETIZACAO_DEFAULT][varAtual.conjuntos.size()];
-
+        matrizInferencia = new double[valorDiscretizacao][varAtual.conjuntos.size()];
     }
 
-    public void fuzificar(String nomeVarLinguistica, double x) //tá incompleto, esse método...sóz fiz começar a idéia.
+    public void discretizar(String nomeVarLinguistica)
     {
-        preFuzificar(nomeVarLinguistica);
+        getVarLinguistica(nomeVarLinguistica);
+        double fatorPertinencia = 0;
+        double x = varAtual.getUniversoMin() + fatorPertinencia;
+        fatorPertinencia = (varAtual.getUniversoMax() - varAtual.getUniversoMin())/500;
 
+        for(int i=0; i<valorDiscretizacao; i++){
+            fuzificar(x);
+            x = x + fatorPertinencia;
+            matrizInferencia[i] = vetorPertinencia;
+        }
+    }
+
+    public void fuzificar(double x)
+    {        
+        vetorPertinencia = new double[varAtual.conjuntos.size()];     
         for(int i = 0; i<varAtual.conjuntos.size(); i++){
             ConjuntoFuzzy conjunto = varAtual.conjuntos.get(i);
-            inserirPertinenciaNaMatriz(conjunto.pertinencia(x));
-        }
-            
-
-    }
-
-    public void inserirPertinenciaNaMatriz(double pert){ //tá incompleto, esse método...sóz fiz começar a idéia.
-
-            for(int j=0; j<DISCRETIZACAO_DEFAULT; j++){
-                for(int k=0; k<varAtual.conjuntos.size(); k++){
-                    matrizInferencia[j][k] = pert;
-                }
-            }
-
+            vetorPertinencia[i] = conjunto.pertinencia(x);
+        }      
     }
 
     public void desfuzificar()
