@@ -5,7 +5,6 @@
 
 package projetofuzzy;
 
-import Jama.Matrix;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,6 +30,7 @@ public class SistemaFuzzy {
     {
         qtdVarEntradas = varEntradas;
         qtdVarSaida = varSaida;
+        valorDiscretizacao = DISCRETIZACAO_DEFAULT;
     }
 
     public SistemaFuzzy()
