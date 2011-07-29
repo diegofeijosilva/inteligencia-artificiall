@@ -26,11 +26,11 @@ public class SistemaFuzzy {
     private int valorDiscretizacao;
     private double[] vetorPertinencia;
 
-    public SistemaFuzzy(int varEntradas, int varSaida)
+    public SistemaFuzzy(int varEntradas, int varSaida, int valorDis)
     {
         qtdVarEntradas = varEntradas;
         qtdVarSaida = varSaida;
-        valorDiscretizacao = DISCRETIZACAO_DEFAULT;
+        valorDiscretizacao = valorDis;
     }
 
     public SistemaFuzzy()
