@@ -24,13 +24,13 @@ class VariavelLinguistica {
     
 
     public VariavelLinguistica(String nome, int min, int max, int qtdValoresLinguisticos){
-        this.setNome(nome);
-        this.setUniversoMin(min);
-        this.setUniversoMax(max);
+        this.nome = nome;
+        this.universoMin = min;
+        this.universoMax = max;
         inicializarConjuntos();
     }
 
-    public void inicializarConjuntos()
+    private void inicializarConjuntos()
     {
         if (nome.equals("Temperatura")) {
             conjuntos.add(new ConjuntoFuzzy("baixa", "trapezoidal", universoMax, universoMin));
@@ -51,29 +51,15 @@ class VariavelLinguistica {
 
 
 
-     public String getNome() {
+    public String getNome() {
         return nome;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
     public int getUniversoMax() {
         return universoMax;
-    }
-
-    public void setUniversoMax(int universoMax) {
-        this.universoMax = universoMax;
     }
 
     public int getUniversoMin() {
         return universoMin;
     }
-
-    public void setUniversoMin(int universoMin) {
-        this.universoMin = universoMin;
-    }
-
-
-
 }
