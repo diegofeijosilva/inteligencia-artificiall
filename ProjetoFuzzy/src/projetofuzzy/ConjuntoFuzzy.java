@@ -11,43 +11,54 @@ package projetofuzzy;
  */
 public class ConjuntoFuzzy {
 
-    
+    public static final int DISCRETIZACAO_DEFAULT = 500;
     
     private String valorLinguistico;
-
     private double m;
     private double n;
     private double a;
     private double b;
-
+    private int escopoMax;
+    private int escopoMin;
     private int discretizacao;
+    private String tipoFuncao;
 
-    ConjuntoFuzzy(String var, int disc)
+    public ConjuntoFuzzy(String valor, String tipoFuncao, int escopoMax, int escopoMin)
     {
-        this.valorLinguistico = var;
-        this.discretizacao = disc;
+        this.valorLinguistico = valor;
+        this.discretizacao = DISCRETIZACAO_DEFAULT;
+        this. escopoMax = escopoMax;
+        this.escopoMin = escopoMin;
+        this.tipoFuncao = tipoFuncao;
         initDefault();
     }
 
 
     public void initDefault() {
-        if (valorLinguistico.equals("baixa")) {
+    }
 
-        } else if (valorLinguistico.equals("media")) {
+    public double pertinencia(double x)
+    {
+        if(tipoFuncao.equals("triangular"))
+        {
+            return triangular(x);
 
-        } else if (valorLinguistico.equals("alta")) {
+        }else if(tipoFuncao.equals("trapezoidal"))
+        {
+            return trapezoidal(x);
         }
-
+        return 2;//valor impossivel
     }
 
-    private void pertinencia(double x)
+    private double triangular(double x)
     {
-
+        //fazer a função aki
+        return x;
     }
-
-    private void triangular(double x)
+     private double trapezoidal(double x)
     {
-
+        //fazer a função aki
+        return x;
     }
 
 }
