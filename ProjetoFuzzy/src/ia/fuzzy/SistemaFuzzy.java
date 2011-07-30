@@ -21,7 +21,6 @@ public class SistemaFuzzy {
     private List<VariavelLinguistica> variaveisLinguisticas = new ArrayList<VariavelLinguistica>();
     private int qtdVarEntradas;
     private int qtdVarSaida;
-    public double[][] matrizInferencia;
     private VariavelLinguistica varAtual;
     private int valorDiscretizacao;
     private double[] vetorPertinencia;
@@ -54,7 +53,7 @@ public class SistemaFuzzy {
                 varAtual = variaveisLinguisticas.get(i);
             }
         }
-        matrizInferencia = new double[valorDiscretizacao][varAtual.conjuntos.size()];
+        varAtual.inicializarMatrizInferencia(valorDiscretizacao, varAtual.conjuntos.size());
     }
 
     public void discretizar(String nomeVarLinguistica)
@@ -62,12 +61,14 @@ public class SistemaFuzzy {
         getVarLinguistica(nomeVarLinguistica);
         double fatorPertinencia = 0;
         double x = varAtual.getUniversoMin() + fatorPertinencia;
-        fatorPertinencia = (varAtual.getUniversoMax() - varAtual.getUniversoMin())/500;
+        double max = varAtual.getUniversoMax();
+        double min = varAtual.getUniversoMin();
+        fatorPertinencia = (max - min)/500;
 
         for(int i=0; i<valorDiscretizacao; i++){
             fuzificar(x);
             x = x + fatorPertinencia;
-            matrizInferencia[i] = vetorPertinencia;
+            varAtual.preencherMatrizInferencia(i, vetorPertinencia);
         }
     }
 
@@ -78,6 +79,10 @@ public class SistemaFuzzy {
             ConjuntoFuzzy conjunto = varAtual.conjuntos.get(i);
             vetorPertinencia[i] = conjunto.pertinencia(x);
         }      
+    }
+
+    public void mecanismoDeInferencia(){
+
     }
 
     public void desfuzificar()
