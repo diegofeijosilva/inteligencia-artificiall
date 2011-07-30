@@ -15,7 +15,11 @@ public class Principal {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+       SistemaFuzzy fuzzy = new SistemaFuzzy();
+       fuzzy.criarVariavelLinguistica("Temperatura", 800, 1200, 3);
+       fuzzy.criarVariavelLinguistica("Volume", 2, 12, 3);
+       fuzzy.discretizar("Temperatura");
+       fuzzy.discretizar("Volume");
     }
 
 }
