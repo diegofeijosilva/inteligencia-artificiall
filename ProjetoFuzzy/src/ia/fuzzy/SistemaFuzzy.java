@@ -17,6 +17,7 @@ public class SistemaFuzzy {
     public static final int QTD_VARIAVEIS_ENTRADA_DEFAULT = 2;
     public static final int QTD_VARIAVEIS_SAIDA_DEFAULT = 1;
     public static final int DISCRETIZACAO_DEFAULT = 500;
+    public static final int QTD_VALORES_LINGUISTICOS_DEFAULT = 3;
 
     private List<VariavelLinguistica> variaveisLinguisticas = new ArrayList<VariavelLinguistica>();
     private int qtdVarEntradas;
@@ -43,6 +44,10 @@ public class SistemaFuzzy {
     public void criarVariavelLinguistica(String nome, int universoMin, int universoMax, int qtdValoresLinguisticos)
     {
         variaveisLinguisticas.add(new VariavelLinguistica(nome, universoMin, universoMax, qtdValoresLinguisticos));
+    }
+    public void criarVariavelLinguistica(String nome, int universoMin, int universoMax)
+    {
+        variaveisLinguisticas.add(new VariavelLinguistica(nome, universoMin, universoMax, QTD_VALORES_LINGUISTICOS_DEFAULT));
     }
 
     public void getVarLinguistica(String nomeVarLinguistica){
