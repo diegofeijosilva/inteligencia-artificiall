@@ -16,10 +16,11 @@ public class Principal {
      */
     public static void main(String[] args) {
        SistemaFuzzy fuzzy = new SistemaFuzzy();
-       fuzzy.criarVariavelLinguistica("Temperatura", 800, 1200, 3);
-       fuzzy.criarVariavelLinguistica("Volume", 2, 12, 3);
+       fuzzy.criarVariavelLinguistica("Temperatura", 800, 1200);
+       fuzzy.criarVariavelLinguistica("Volume", 2, 12);
        fuzzy.discretizar("Temperatura");
        fuzzy.discretizar("Volume");
+       fuzzy.mecanismoDeInferencia();
     }
 
 }
