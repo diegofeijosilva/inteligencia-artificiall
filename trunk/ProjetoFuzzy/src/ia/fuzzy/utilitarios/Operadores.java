@@ -40,14 +40,14 @@ public class Operadores {
         }
     }
 
-    public double minimo(double x1, double x2){
+    private double minimo(double x1, double x2){
         if(x1<=x2)
             return x1;
         else if(x1>x2)
             return x2;
         return 2;
     }
-     public double maximo(double[] min){
+     private double maximo(double[] min){
         double aux = min[0];
         for(int i = 1; i <min.length; i++){
             if(min[i] > aux){
