@@ -109,13 +109,13 @@ Então (Pressão é Alta)
     private boolean TemperaturaBaixa(double temp){
         return false;
     }
-    private boolean VolumePequeno(double vol){
-        return false;
-    }
     private boolean TemperaturaMedia(double tem){
         return false;
     }
     private boolean TemperaturaAlta(double tem){
+        return false;
+    }
+    private boolean VolumePequeno(double vol){
         return false;
     }
     private boolean VolumeMedio(double vol){
