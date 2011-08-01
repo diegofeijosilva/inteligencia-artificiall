@@ -62,7 +62,13 @@ public class Operadores {
 
     }
 
-    public void agregacaoMaximo(){
-
+    public double[][] agregacaoMimimo(double[][] matrizTemperatura, double[][] matrizVolume){
+        double[][] matrizMinimo = new double[SistemaFuzzy.DISCRETIZACAO_DEFAULT][SistemaFuzzy.QTD_VALORES_LINGUISTICOS_DEFAULT];
+        for(int i=0; i<SistemaFuzzy.DISCRETIZACAO_DEFAULT; i++){
+            for(int j=0; j<SistemaFuzzy.QTD_VALORES_LINGUISTICOS_DEFAULT; j++){
+                matrizMinimo[i][j] = minimo(matrizTemperatura[i][j], matrizVolume[i][j]);
+            }
+        }
+        return matrizMinimo;
     }
 }
