@@ -5,6 +5,7 @@
 
 package ia.fuzzy;
 
+import ia.fuzzy.utilitarios.Operadores;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +21,7 @@ public class SistemaFuzzy {
     public static final int QTD_VALORES_LINGUISTICOS_DEFAULT = 3;
 
     private List<VariavelLinguistica> variaveisLinguisticas = new ArrayList<VariavelLinguistica>();
+    private Operadores operador = new Operadores();
     private int qtdVarEntradas;
     private int qtdVarSaida;
     private VariavelLinguistica varAtual;
@@ -86,8 +88,9 @@ public class SistemaFuzzy {
         }      
     }
 
-    public void mecanismoDeInferencia(){
-
+    public void mecanismoDeInferencia(){//fazendo ainda...
+        double[][] matrizAgregacao;
+        matrizAgregacao = operador.agregacaoMimimo(variaveisLinguisticas.get(0).matrizInferencia, variaveisLinguisticas.get(1).matrizInferencia);
     }
 
     public void desfuzificar()
