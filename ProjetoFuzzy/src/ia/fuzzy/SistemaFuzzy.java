@@ -5,6 +5,7 @@
 
 package ia.fuzzy;
 
+import ia.fuzzy.utilitarios.BaseDeRegras;
 import ia.fuzzy.utilitarios.Operadores;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +23,8 @@ public class SistemaFuzzy {
 
     private List<VariavelLinguistica> variaveisLinguisticas = new ArrayList<VariavelLinguistica>();
     private Operadores operador = new Operadores();
+    private BaseDeRegras regras;
+
     private int qtdVarEntradas;
     private int qtdVarSaida;
     private VariavelLinguistica varAtual;
@@ -88,9 +91,37 @@ public class SistemaFuzzy {
         }      
     }
 
-    public void mecanismoDeInferencia(){//fazendo ainda...
-        double[][] matrizAgregacao;
-        matrizAgregacao = operador.agregacaoMimimo(variaveisLinguisticas.get(0).matrizInferencia, variaveisLinguisticas.get(1).matrizInferencia);
+    public void mecanismoDeInferencia(double temperaturaEntrada, double volumeEntrada){//fazendo ainda...
+        double[][] matrizAgregacao = operador.agregacaoMimimo(variaveisLinguisticas.get(0).matrizInferencia, variaveisLinguisticas.get(1).matrizInferencia);
+        regras = new BaseDeRegras(variaveisLinguisticas.get(0).matrizInferencia, variaveisLinguisticas.get(1).matrizInferencia, temperaturaEntrada, volumeEntrada);
+
+       if(regras.regra1()){
+           //fazer aqui
+       }
+       if(regras.regra2()){
+           //fazer aqui
+       }
+       if(regras.regra3()){
+           //fazer aqui
+       }
+       if(regras.regra4()){
+           //fazer aqui
+       }
+       if(regras.regra5()){
+           //fazer aqui
+       }
+       if(regras.regra6()){
+           //fazer aqui
+       }
+       if(regras.regra7()){
+           //fazer aqui
+       }
+       if(regras.regra8()){
+           //fazer aqui
+       }
+       if(regras.regra9()){
+           //fazer aqui
+       }
     }
 
     public void desfuzificar()
