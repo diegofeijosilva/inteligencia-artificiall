@@ -6,7 +6,6 @@
 package ia.fuzzy.utilitarios;
 
 import ia.fuzzy.ConjuntoFuzzy;
-import ia.fuzzy.SistemaFuzzy;
 
 
 /**
@@ -23,6 +22,20 @@ public class BaseDeRegras {
     private double pertinenciaBaixa;
     private double pertinenciaMedia;
     private double pertinenciaAlta;
+    
+    private double alfaCorteTemperatura;
+    private double alfaCorteVolume;
+
+    public double[] valoresRegra1;
+    public double[] valoresRegra2;
+    public double[] valoresRegra3;
+    public double[] valoresRegra4;
+    public double[] valoresRegra5;
+    public double[] valoresRegra6;
+    public double[] valoresRegra7;
+    public double[] valoresRegra8;
+    public double[] valoresRegra9;
+
 
     public BaseDeRegras(double[][] mInferenciaTemperatura, double[][] mInferenciaVolume, double temp, double volume){
         this.mTemperatura = mInferenciaTemperatura;
@@ -33,6 +46,9 @@ public class BaseDeRegras {
 
     public boolean regra1(){
         if(TemperaturaBaixa(temp) && VolumePequeno(volume)){
+            valoresRegra1 = new double[2];
+            valoresRegra1[0] = getAlfaCorteTemperatura();
+            valoresRegra1[1] = getAlfaCorteVolume();
             return true; //ou seja, pressão é baixa
         }
         else{
@@ -41,6 +57,9 @@ public class BaseDeRegras {
     }
     public boolean regra2(){
         if(TemperaturaMedia(temp) && VolumePequeno(volume)){
+            valoresRegra2 = new double[2];
+            valoresRegra2[0] = getAlfaCorteTemperatura();
+            valoresRegra2[1] = getAlfaCorteVolume();
             return true; //ou seja, pressão é baixa
         }
         else{
@@ -49,6 +68,9 @@ public class BaseDeRegras {
     }
     public boolean regra3(){
         if(TemperaturaAlta(temp) && VolumePequeno(volume)){
+            valoresRegra3 = new double[2];
+            valoresRegra3[0] = getAlfaCorteTemperatura();
+            valoresRegra3[1] = getAlfaCorteVolume();
             return true; //ou seja, pressão é media
         }
         else{
@@ -57,6 +79,9 @@ public class BaseDeRegras {
     }
     public boolean regra4(){
         if(TemperaturaBaixa(temp) && VolumeMedio(volume)){
+            valoresRegra4 = new double[2];
+            valoresRegra4[0] = getAlfaCorteTemperatura();
+            valoresRegra4[1] = getAlfaCorteVolume();
             return true; //ou seja, pressão é baixa
         }
         else{
@@ -65,6 +90,9 @@ public class BaseDeRegras {
     }
     public boolean regra5(){
         if(TemperaturaMedia(temp) && VolumeMedio(volume)){
+            valoresRegra5 = new double[2];
+            valoresRegra5[0] = getAlfaCorteTemperatura();
+            valoresRegra5[1] = getAlfaCorteVolume();
             return true; //ou seja, pressão é media
         }
         else{
@@ -73,6 +101,9 @@ public class BaseDeRegras {
     }
     public boolean regra6(){
         if(TemperaturaAlta(temp) && VolumeMedio(volume)){
+            valoresRegra6 = new double[2];
+            valoresRegra6[0] = getAlfaCorteTemperatura();
+            valoresRegra6[1] = getAlfaCorteVolume();
             return true; //ou seja, pressão é alta
         }
         else{
@@ -81,6 +112,9 @@ public class BaseDeRegras {
     }
     public boolean regra7(){
         if(TemperaturaBaixa(temp) && VolumeGrande(volume)){
+            valoresRegra7 = new double[2];
+            valoresRegra7[0] = getAlfaCorteTemperatura();
+            valoresRegra7[1] = getAlfaCorteVolume();
             return true; //ou seja, pressão é meida
         }
         else{
@@ -89,6 +123,9 @@ public class BaseDeRegras {
     }
     public boolean regra8(){
         if(TemperaturaMedia(temp) && VolumeGrande(volume)){
+            valoresRegra8 = new double[2];
+            valoresRegra8[0] = getAlfaCorteTemperatura();
+            valoresRegra8[1] = getAlfaCorteVolume();
             return true; //ou seja, pressão é alta
         }
         else{
@@ -97,6 +134,9 @@ public class BaseDeRegras {
     }
     public boolean regra9(){
         if(TemperaturaAlta(temp) && VolumeGrande(volume)){
+            valoresRegra9 = new double[2];
+            valoresRegra9[0] = getAlfaCorteTemperatura();
+            valoresRegra9[1] = getAlfaCorteVolume();
             return true; //ou seja, pressão é alta
         }
         else{
@@ -104,7 +144,7 @@ public class BaseDeRegras {
         }
     }
 
-    private boolean TemperaturaBaixa(double temp){       
+    private boolean TemperaturaBaixa(double temp){
         conjunto = new ConjuntoFuzzy("baixa", "trapezoidal", 0, 1000, 800, 900);
         pertinenciaBaixa = conjunto.pertinencia(temp);
         conjunto = new ConjuntoFuzzy("media", "triangular", 900, 1100, 1000, 0);
@@ -113,6 +153,7 @@ public class BaseDeRegras {
         pertinenciaAlta = conjunto.pertinencia(temp);
 
         if(pertinenciaBaixa >= pertinenciaMedia && pertinenciaBaixa >= pertinenciaAlta){
+            setAlfaCorteTemperatura(pertinenciaBaixa);
             return true;
         }
         return false;
@@ -126,6 +167,7 @@ public class BaseDeRegras {
         pertinenciaAlta = conjunto.pertinencia(temp);
 
         if(pertinenciaMedia >= pertinenciaBaixa && pertinenciaMedia >= pertinenciaAlta){
+            setAlfaCorteTemperatura(pertinenciaMedia);
             return true;
         }
         return false;
@@ -139,6 +181,7 @@ public class BaseDeRegras {
         pertinenciaAlta = conjunto.pertinencia(temp);
 
         if(pertinenciaAlta >= pertinenciaMedia && pertinenciaAlta >= pertinenciaBaixa){
+            setAlfaCorteTemperatura(pertinenciaAlta);
             return true;
         }
         return false;
@@ -152,6 +195,7 @@ public class BaseDeRegras {
         pertinenciaAlta = conjunto.pertinencia(vol);
 
         if(pertinenciaBaixa >= pertinenciaMedia && pertinenciaBaixa >= pertinenciaAlta){
+            setAlfaCorteVolume(pertinenciaBaixa);
             return true;
         }
         return false;
@@ -165,6 +209,7 @@ public class BaseDeRegras {
         pertinenciaAlta = conjunto.pertinencia(vol);
 
         if(pertinenciaMedia >= pertinenciaBaixa && pertinenciaMedia >= pertinenciaAlta){
+            setAlfaCorteVolume(pertinenciaMedia);
             return true;
         }
         return false;
@@ -178,8 +223,24 @@ public class BaseDeRegras {
         pertinenciaAlta = conjunto.pertinencia(vol);
 
         if(pertinenciaAlta >= pertinenciaBaixa && pertinenciaAlta >= pertinenciaMedia){
+            setAlfaCorteVolume(pertinenciaAlta);
             return true;
         }
         return false;
+    }
+    public double getAlfaCorteTemperatura() {
+        return alfaCorteTemperatura;
+    }
+
+    public void setAlfaCorteTemperatura(double alfaCorteTemperatura) {
+        this.alfaCorteTemperatura = alfaCorteTemperatura;
+    }
+
+    public double getAlfaCorteVolume() {
+        return alfaCorteVolume;
+    }
+
+    public void setAlfaCorteVolume(double alfaCorteVolume) {
+        this.alfaCorteVolume = alfaCorteVolume;
     }
 }
