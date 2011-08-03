@@ -30,6 +30,9 @@ public class SistemaFuzzy {
     private VariavelLinguistica varAtual;
     private int valorDiscretizacao;
     private double[] vetorPertinencia;
+    private double alfaCorteTemperatura;
+    private double alfaCorteVolume;
+    private double alfaCorte;
 
     public SistemaFuzzy(int varEntradas, int varSaida, int valorDis)
     {
@@ -97,7 +100,7 @@ public class SistemaFuzzy {
 
         regras = new BaseDeRegras(variaveisLinguisticas.get(0).matrizInferencia, variaveisLinguisticas.get(1).matrizInferencia, temperaturaEntrada, volumeEntrada);
 
-
+        //se eu tiver mais de uma regra ativada eu faço o alfa-corte de cada uma e depois faço a união dos conjuntos
         if (regras.regra1()) {
             //fazer aqui
             System.out.println("regra 1");
@@ -129,6 +132,11 @@ public class SistemaFuzzy {
         if (regras.regra8()) {
             //fazer aqui
             System.out.println("regra 8");
+            alfaCorteTemperatura = regras.valoresRegra8[0];
+            alfaCorteVolume = regras.valoresRegra8[1];
+            if(alfaCorteTemperatura >= alfaCorteVolume){
+                alfaCorte = alfaCorteVolume;
+            }
         }
         if (regras.regra9()) {
             //fazer aqui
