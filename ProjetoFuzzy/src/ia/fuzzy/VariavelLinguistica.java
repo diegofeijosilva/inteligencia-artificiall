@@ -50,14 +50,15 @@ class VariavelLinguistica {
         }
     }
 
-    public void preencherMatrizInferencia(int posicao, double[] vetorPertinencia)
+    public void preencherMatrizInferencia(int posicao, double[] vetorPertinencia, double x)
     {
         this.matrizInferencia[posicao] = vetorPertinencia;
+        this.matrizInferencia[posicao][0] = x;
     }
 
      public void inicializarMatrizInferencia(int qtdDiscretizacao, int qtdConjuntos)
     {
-        this.matrizInferencia = new double[qtdDiscretizacao][qtdConjuntos];
+        this.matrizInferencia = new double[qtdDiscretizacao][qtdConjuntos +1];//mais um por causa do valor da posição
     }
 
     public String getNome() {

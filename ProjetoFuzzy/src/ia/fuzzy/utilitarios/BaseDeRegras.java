@@ -5,6 +5,7 @@
 
 package ia.fuzzy.utilitarios;
 
+import ia.fuzzy.ConjuntoFuzzy;
 import ia.fuzzy.SistemaFuzzy;
 
 
@@ -18,6 +19,10 @@ public class BaseDeRegras {
     private double[][] mVolume;
     private double temp;
     private double volume;
+    private ConjuntoFuzzy conjunto;
+    private double pertinenciaBaixa;
+    private double pertinenciaMedia;
+    private double pertinenciaAlta;
 
     public BaseDeRegras(double[][] mInferenciaTemperatura, double[][] mInferenciaVolume, double temp, double volume){
         this.mTemperatura = mInferenciaTemperatura;
@@ -99,51 +104,81 @@ public class BaseDeRegras {
         }
     }
 
-    private boolean TemperaturaBaixa(double temp){
-        for(int i=0; i< SistemaFuzzy.DISCRETIZACAO_DEFAULT; i++){
-            if(temp == mTemperatura[i][0]){
-                return true;
-            }
+    private boolean TemperaturaBaixa(double temp){       
+        conjunto = new ConjuntoFuzzy("baixa", "trapezoidal", 0, 1000, 800, 900);
+        pertinenciaBaixa = conjunto.pertinencia(temp);
+        conjunto = new ConjuntoFuzzy("media", "triangular", 900, 1100, 1000, 0);
+        pertinenciaMedia = conjunto.pertinencia(temp);
+        conjunto = new ConjuntoFuzzy("alta", "trapezoidal", 1000, 0, 1100, 1200);
+        pertinenciaAlta = conjunto.pertinencia(temp);
+
+        if(pertinenciaBaixa >= pertinenciaMedia && pertinenciaBaixa >= pertinenciaAlta){
+            return true;
         }
         return false;
     }
     private boolean TemperaturaMedia(double temp){
-        for(int i=0; i< SistemaFuzzy.DISCRETIZACAO_DEFAULT; i++){
-            if(temp == mTemperatura[i][1]){
-                return true;
-            }
+        conjunto = new ConjuntoFuzzy("baixa", "trapezoidal", 0, 1000, 800, 900);
+        pertinenciaBaixa = conjunto.pertinencia(temp);
+        conjunto = new ConjuntoFuzzy("media", "triangular", 900, 1100, 1000, 0);
+        pertinenciaMedia = conjunto.pertinencia(temp);
+        conjunto = new ConjuntoFuzzy("alta", "trapezoidal", 1000, 0, 1100, 1200);
+        pertinenciaAlta = conjunto.pertinencia(temp);
+
+        if(pertinenciaMedia >= pertinenciaBaixa && pertinenciaMedia >= pertinenciaAlta){
+            return true;
         }
         return false;
     }
     private boolean TemperaturaAlta(double temp){
-        for(int i=0; i< SistemaFuzzy.DISCRETIZACAO_DEFAULT; i++){
-            if(temp == mTemperatura[i][2]){
-                return true;
-            }
+        conjunto = new ConjuntoFuzzy("baixa", "trapezoidal", 0, 1000, 800, 900);
+        pertinenciaBaixa = conjunto.pertinencia(temp);
+        conjunto = new ConjuntoFuzzy("media", "triangular", 900, 1100, 1000, 0);
+        pertinenciaMedia = conjunto.pertinencia(temp);
+        conjunto = new ConjuntoFuzzy("alta", "trapezoidal", 1000, 0, 1100, 1200);
+        pertinenciaAlta = conjunto.pertinencia(temp);
+
+        if(pertinenciaAlta >= pertinenciaMedia && pertinenciaAlta >= pertinenciaBaixa){
+            return true;
         }
         return false;
     }
     private boolean VolumePequeno(double vol){
-        for(int i=0; i< SistemaFuzzy.DISCRETIZACAO_DEFAULT; i++){
-            if(vol == mVolume[i][0]){
-                return true;
-            }
+        conjunto = new ConjuntoFuzzy("pequeno","trapezoidal", 0, 7, 2, 4.5);
+        pertinenciaBaixa = conjunto.pertinencia(vol);
+        conjunto = new ConjuntoFuzzy("medio", "triangular", 4.5, 9.5, 7, 0);
+        pertinenciaMedia = conjunto.pertinencia(vol);
+        conjunto = new ConjuntoFuzzy("grande","trapezoidal", 7, 0, 9.5, 12);
+        pertinenciaAlta = conjunto.pertinencia(vol);
+
+        if(pertinenciaBaixa >= pertinenciaMedia && pertinenciaBaixa >= pertinenciaAlta){
+            return true;
         }
         return false;
     }
     private boolean VolumeMedio(double vol){
-        for(int i=0; i< SistemaFuzzy.DISCRETIZACAO_DEFAULT; i++){
-            if(vol == mVolume[i][1]){
-                return true;
-            }
+        conjunto = new ConjuntoFuzzy("pequeno","trapezoidal", 0, 7, 2, 4.5);
+        pertinenciaBaixa = conjunto.pertinencia(vol);
+        conjunto = new ConjuntoFuzzy("medio", "triangular", 4.5, 9.5, 7, 0);
+        pertinenciaMedia = conjunto.pertinencia(vol);
+        conjunto = new ConjuntoFuzzy("grande","trapezoidal", 7, 0, 9.5, 12);
+        pertinenciaAlta = conjunto.pertinencia(vol);
+
+        if(pertinenciaMedia >= pertinenciaBaixa && pertinenciaMedia >= pertinenciaAlta){
+            return true;
         }
         return false;
     }
     private boolean VolumeGrande(double vol){
-        for(int i=0; i< SistemaFuzzy.DISCRETIZACAO_DEFAULT; i++){
-            if(vol == mVolume[i][2]){
-                return true;
-            }
+        conjunto = new ConjuntoFuzzy("pequeno","trapezoidal", 0, 7, 2, 4.5);
+        pertinenciaBaixa = conjunto.pertinencia(vol);
+        conjunto = new ConjuntoFuzzy("medio", "triangular", 4.5, 9.5, 7, 0);
+        pertinenciaMedia = conjunto.pertinencia(vol);
+        conjunto = new ConjuntoFuzzy("grande","trapezoidal", 7, 0, 9.5, 12);
+        pertinenciaAlta = conjunto.pertinencia(vol);
+
+        if(pertinenciaAlta >= pertinenciaBaixa && pertinenciaAlta >= pertinenciaMedia){
+            return true;
         }
         return false;
     }
