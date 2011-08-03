@@ -16,8 +16,8 @@ public class Principal {
      */
     public static void main(String[] args) {
 
-       double temperaturaEntrada = 0;
-       double volumeEntrada = 0;
+       double temperaturaEntrada = 965;
+       double volumeEntrada = 11;
 
        SistemaFuzzy fuzzy = new SistemaFuzzy();
        fuzzy.criarVariavelLinguistica("Temperatura", 800, 1200);

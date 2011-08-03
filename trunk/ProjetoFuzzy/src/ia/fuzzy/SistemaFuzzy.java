@@ -74,54 +74,66 @@ public class SistemaFuzzy {
         double max = varAtual.getUniversoMax();
         double min = varAtual.getUniversoMin();
         fatorPertinencia = (max - min)/500;
-
+        
         for(int i=0; i<valorDiscretizacao; i++){
+            vetorPertinencia = new double[varAtual.conjuntos.size()+1];
             fuzificar(x);
+            varAtual.preencherMatrizInferencia(i, vetorPertinencia, x);
             x = x + fatorPertinencia;
-            varAtual.preencherMatrizInferencia(i, vetorPertinencia);
         }
     }
 
     public void fuzificar(double x)
-    {        
-        vetorPertinencia = new double[varAtual.conjuntos.size()];     
+    {              
         for(int i = 0; i<varAtual.conjuntos.size(); i++){
             ConjuntoFuzzy conjunto = varAtual.conjuntos.get(i);
-            vetorPertinencia[i] = conjunto.pertinencia(x);
+            vetorPertinencia[i+1] = conjunto.pertinencia(x);
         }      
     }
 
     public void mecanismoDeInferencia(double temperaturaEntrada, double volumeEntrada){//fazendo ainda...
         double[][] matrizAgregacao = operador.agregacaoMimimo(variaveisLinguisticas.get(0).matrizInferencia, variaveisLinguisticas.get(1).matrizInferencia);
+
+
         regras = new BaseDeRegras(variaveisLinguisticas.get(0).matrizInferencia, variaveisLinguisticas.get(1).matrizInferencia, temperaturaEntrada, volumeEntrada);
 
-       if(regras.regra1()){
-           //fazer aqui
-       }
-       if(regras.regra2()){
-           //fazer aqui
-       }
-       if(regras.regra3()){
-           //fazer aqui
-       }
-       if(regras.regra4()){
-           //fazer aqui
-       }
-       if(regras.regra5()){
-           //fazer aqui
-       }
-       if(regras.regra6()){
-           //fazer aqui
-       }
-       if(regras.regra7()){
-           //fazer aqui
-       }
-       if(regras.regra8()){
-           //fazer aqui
-       }
-       if(regras.regra9()){
-           //fazer aqui
-       }
+
+        if (regras.regra1()) {
+            //fazer aqui
+            System.out.println("regra 1");
+        }
+        if (regras.regra2()) {
+            //fazer aqui
+            System.out.println("regra 2");
+        }
+        if (regras.regra3()) {
+            //fazer aqui
+            System.out.println("regra 3");
+        }
+        if (regras.regra4()) {
+            //fazer aqui
+            System.out.println("regra 4");
+        }
+        if (regras.regra5()) {
+            //fazer aqui
+            System.out.println("regra 5");
+        }
+        if (regras.regra6()) {
+            //fazer aqui
+            System.out.println("regra 6");
+        }
+        if (regras.regra7()) {
+            //fazer aqui
+            System.out.println("regra 7");
+        }
+        if (regras.regra8()) {
+            //fazer aqui
+            System.out.println("regra 8");
+        }
+        if (regras.regra9()) {
+            //fazer aqui
+            System.out.println("regra 9");
+        }
     }
 
     public void desfuzificar()
