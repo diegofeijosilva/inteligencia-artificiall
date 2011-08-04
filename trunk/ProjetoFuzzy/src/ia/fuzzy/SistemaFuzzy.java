@@ -24,15 +24,15 @@ public class SistemaFuzzy {
     private List<VariavelLinguistica> variaveisLinguisticas = new ArrayList<VariavelLinguistica>();
     private Operadores operador = new Operadores();
     private BaseDeRegras regras;
-
+    private MecanismoInferencia mecanismo;
+    private double[][] matrizPressaoUniao;
     private int qtdVarEntradas;
     private int qtdVarSaida;
     private VariavelLinguistica varAtual;
     private int valorDiscretizacao;
     private double[] vetorPertinencia;
-    private double alfaCorteTemperatura;
-    private double alfaCorteVolume;
-    private double alfaCorte;
+    private double alfaCorte;    
+    private double[] regrasAtivadas = new double[9];
 
     public SistemaFuzzy(int varEntradas, int varSaida, int valorDis)
     {
@@ -66,7 +66,7 @@ public class SistemaFuzzy {
                 varAtual = variaveisLinguisticas.get(i);
             }
         }
-        varAtual.inicializarMatrizInferencia(valorDiscretizacao, varAtual.conjuntos.size());
+        varAtual.inicializarMatrizInferencia(valorDiscretizacao, varAtual.conjuntos.size()+1);
     }
 
     public void discretizar(String nomeVarLinguistica)
@@ -94,54 +94,41 @@ public class SistemaFuzzy {
         }      
     }
 
-    public void mecanismoDeInferencia(double temperaturaEntrada, double volumeEntrada){//fazendo ainda...
-        double[][] matrizAgregacao = operador.agregacaoMimimo(variaveisLinguisticas.get(0).matrizInferencia, variaveisLinguisticas.get(1).matrizInferencia);
+    public void executarMecanismoInferencia(double temperaturaEntrada, double volumeEntrada){
+        mecanismo = new MecanismoInferencia(variaveisLinguisticas);
+        mecanismo.tratarRegras(temperaturaEntrada, volumeEntrada);
+        String regrasAtivadas = mecanismo.getRegrasAtivadas();
+        String[] qtdDeRegras = regrasAtivadas.split("\\.");
+        int tam = qtdDeRegras.length;
+        int valor, valor2;
 
-
-        regras = new BaseDeRegras(variaveisLinguisticas.get(0).matrizInferencia, variaveisLinguisticas.get(1).matrizInferencia, temperaturaEntrada, volumeEntrada);
-
-        //se eu tiver mais de uma regra ativada eu faço o alfa-corte de cada uma e depois faço a união dos conjuntos
-        if (regras.regra1()) {
-            //fazer aqui
-            System.out.println("regra 1");
+        if (qtdDeRegras.length == 1) {
+            valor = Integer.parseInt(qtdDeRegras[0]);
+            matrizPressaoUniao = mecanismo.getMatrizPressaoComAlfaCorte(valor);
         }
-        if (regras.regra2()) {
-            //fazer aqui
-            System.out.println("regra 2");
-        }
-        if (regras.regra3()) {
-            //fazer aqui
-            System.out.println("regra 3");
-        }
-        if (regras.regra4()) {
-            //fazer aqui
-            System.out.println("regra 4");
-        }
-        if (regras.regra5()) {
-            //fazer aqui
-            System.out.println("regra 5");
-        }
-        if (regras.regra6()) {
-            //fazer aqui
-            System.out.println("regra 6");
-        }
-        if (regras.regra7()) {
-            //fazer aqui
-            System.out.println("regra 7");
-        }
-        if (regras.regra8()) {
-            //fazer aqui
-            System.out.println("regra 8");
-            alfaCorteTemperatura = regras.valoresRegra8[0];
-            alfaCorteVolume = regras.valoresRegra8[1];
-            if(alfaCorteTemperatura >= alfaCorteVolume){
-                alfaCorte = alfaCorteVolume;
+        else{
+            valor = Integer.parseInt(qtdDeRegras[0]);
+            matrizPressaoUniao = mecanismo.getMatrizPressaoComAlfaCorte(valor);
+            for(int i = 0; i < tam-1; i++){
+               valor = Integer.parseInt(qtdDeRegras[i+1]);
+               unirConjuntos(mecanismo.getMatrizPressaoComAlfaCorte(valor));
             }
         }
-        if (regras.regra9()) {
-            //fazer aqui
-            System.out.println("regra 9");
-        }
+        //pronto agora já tnho a matriz união, é só fazer o centro de area.
+        centroDeArea();
+    }
+
+    private void unirConjuntos(double[][] matriz1){
+
+        double[][] matrizAux = new double[DISCRETIZACAO_DEFAULT][QTD_VALORES_LINGUISTICOS_DEFAULT];
+
+        for (int i = 0; i < SistemaFuzzy.DISCRETIZACAO_DEFAULT; i++) {
+                for (int j = 1; j < QTD_VALORES_LINGUISTICOS_DEFAULT + 1; j++) {
+                    if(matrizPressaoUniao[i][j] < matriz1[i][j]){
+                        matrizPressaoUniao[i][j] = matriz1[i][j];
+                    }                    
+                }
+            }
     }
 
     public void desfuzificar()
