@@ -115,7 +115,7 @@ public class BaseDeRegras {
             valoresRegra7 = new double[2];
             valoresRegra7[0] = getAlfaCorteTemperatura();
             valoresRegra7[1] = getAlfaCorteVolume();
-            return true; //ou seja, pressão é meida
+            return true; //ou seja, pressão é media
         }
         else{
             return false;//ou seja pressão nao é media
