@@ -58,7 +58,7 @@ class VariavelLinguistica {
 
      public void inicializarMatrizInferencia(int qtdDiscretizacao, int qtdConjuntos)
     {
-        this.matrizInferencia = new double[qtdDiscretizacao][qtdConjuntos +1];//mais um por causa do valor da posição
+        this.matrizInferencia = new double[qtdDiscretizacao][qtdConjuntos];//mais um por causa do valor da posição
     }
 
     public String getNome() {

@@ -16,8 +16,16 @@ public class Principal {
      */
     public static void main(String[] args) {
 
-       double temperaturaEntrada = 965;
-       double volumeEntrada = 11;
+//       double temperaturaEntrada = 965;
+//       double volumeEntrada = 11;
+//       double temperaturaEntrada = 920;
+//       double volumeEntrada = 7.6;
+       double temperaturaEntrada = 1050;
+       double volumeEntrada = 6.3;
+//       double temperaturaEntrada = 843;
+//       double volumeEntrada = 8.6;
+//       double temperaturaEntrada = 1122;
+//       double volumeEntrada = 5.2;
 
        SistemaFuzzy fuzzy = new SistemaFuzzy();
        fuzzy.criarVariavelLinguistica("Temperatura", 800, 1200);
@@ -26,7 +34,7 @@ public class Principal {
        fuzzy.discretizar("Temperatura");
        fuzzy.discretizar("Volume");
        fuzzy.discretizar("Pressao");
-       fuzzy.mecanismoDeInferencia(temperaturaEntrada, volumeEntrada);
+       fuzzy.executarMecanismoInferencia(temperaturaEntrada, volumeEntrada);
     }
 
 }
