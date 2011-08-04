@@ -33,6 +33,7 @@ public class SistemaFuzzy {
     private double[] vetorPertinencia;
     private double alfaCorte;    
     private double[] regrasAtivadas = new double[9];
+    private double pressaoValorEncontrado;
 
     public SistemaFuzzy(int varEntradas, int varSaida, int valorDis)
     {
@@ -100,7 +101,7 @@ public class SistemaFuzzy {
         String regrasAtivadas = mecanismo.getRegrasAtivadas();
         String[] qtdDeRegras = regrasAtivadas.split("\\.");
         int tam = qtdDeRegras.length;
-        int valor, valor2;
+        int valor;
 
         if (qtdDeRegras.length == 1) {
             valor = Integer.parseInt(qtdDeRegras[0]);
@@ -115,29 +116,40 @@ public class SistemaFuzzy {
             }
         }
         //pronto agora já tnho a matriz união, é só fazer o centro de area.
-        centroDeArea();
+        pressaoValorEncontrado = centroDeArea();
+        System.out.println("Valor de pressão encontrado: " + pressaoValorEncontrado);
     }
 
-    private void unirConjuntos(double[][] matriz1){
-
-        double[][] matrizAux = new double[DISCRETIZACAO_DEFAULT][QTD_VALORES_LINGUISTICOS_DEFAULT];
-
-        for (int i = 0; i < SistemaFuzzy.DISCRETIZACAO_DEFAULT; i++) {
-                for (int j = 1; j < QTD_VALORES_LINGUISTICOS_DEFAULT + 1; j++) {
-                    if(matrizPressaoUniao[i][j] < matriz1[i][j]){
-                        matrizPressaoUniao[i][j] = matriz1[i][j];
-                    }                    
-                }
+    private void unirConjuntos(double[][] matriz1){        
+        for (int i = 0; i < SistemaFuzzy.DISCRETIZACAO_DEFAULT; i++) {        
+                    if(matrizPressaoUniao[i][1] < matriz1[i][1]){
+                        matrizPressaoUniao[i][1] = matriz1[i][1];
+                    }                                   
             }
     }
+    
 
-    public void desfuzificar()
-    {
-        centroDeArea();
+    public double centroDeArea(){
+        double dividendo = 0;
+        double divisor = 0;
+        for (int i = 0; i < SistemaFuzzy.DISCRETIZACAO_DEFAULT; i++) {
+                    dividendo += matrizPressaoUniao[i][0] * matrizPressaoUniao[i][1];
+                    divisor += matrizPressaoUniao[i][1];
+        }
+        return dividendo/divisor;
     }
 
-    public void centroDeArea(){
-
-    }
+//    private double maiorValor(int i){
+//        if(matrizPressaoUniao[i][1] >= matrizPressaoUniao[i][2] && matrizPressaoUniao[i][1] >= matrizPressaoUniao[i][3]){
+//            return matrizPressaoUniao[i][1];
+//        }
+//        else if(matrizPressaoUniao[i][2] >= matrizPressaoUniao[i][1] && matrizPressaoUniao[i][2] >= matrizPressaoUniao[i][3]){
+//            return matrizPressaoUniao[i][2];
+//        }
+//        else if(matrizPressaoUniao[i][3] >= matrizPressaoUniao[i][1] && matrizPressaoUniao[i][3] >= matrizPressaoUniao[i][2]){
+//            return matrizPressaoUniao[i][3];
+//        }
+//        return 2;
+//    }
 
 }
