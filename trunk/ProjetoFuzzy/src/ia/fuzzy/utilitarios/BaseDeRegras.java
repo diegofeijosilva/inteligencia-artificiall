@@ -6,6 +6,7 @@
 package ia.fuzzy.utilitarios;
 
 import ia.fuzzy.ConjuntoFuzzy;
+import ia.fuzzy.SistemaFuzzy;
 
 
 /**
@@ -145,150 +146,100 @@ public class BaseDeRegras {
     }
 
     private boolean TemperaturaBaixa(double temp){
-        conjunto = new ConjuntoFuzzy("baixa", "trapezoidal", 0, 1000, 800, 900);
-        pertinenciaBaixa = conjunto.pertinencia(temp);
-
-        if(pertinenciaBaixa > 0){
-            setAlfaCorteTemperatura(pertinenciaBaixa);
-            return true;
+        int indice = 0;
+        for(int i=0; i< SistemaFuzzy.DISCRETIZACAO_DEFAULT; i++){
+            if(mTemperatura[i][0] >= temp && mTemperatura[i-1][0] <= temp){
+                indice = valorMaisProximo(temp, mTemperatura[i][0], mTemperatura[i-1][0], i);
+                pertinenciaBaixa = mTemperatura[indice][1];
+                if (pertinenciaBaixa > 0) {
+                    setAlfaCorteTemperatura(pertinenciaBaixa);
+                    return true;
+                }
+            }
         }
         return false;
     }
     private boolean TemperaturaMedia(double temp){
-        conjunto = new ConjuntoFuzzy("media", "triangular", 900, 1100, 1000, 0);
-        pertinenciaMedia = conjunto.pertinencia(temp);
-        
-        if(pertinenciaMedia > 0){
-            setAlfaCorteTemperatura(pertinenciaMedia);
-            return true;
+        int indice = 0;
+        for (int i = 0; i < SistemaFuzzy.DISCRETIZACAO_DEFAULT; i++) {
+            if (mTemperatura[i][0] >= temp && mTemperatura[i - 1][0] <= temp) {
+                indice = valorMaisProximo(temp, mTemperatura[i][0], mTemperatura[i - 1][0], i);
+                pertinenciaMedia = mTemperatura[indice][2];
+                if (pertinenciaMedia > 0) {
+                    setAlfaCorteTemperatura(pertinenciaMedia);
+                    return true;
+                }
+            }
         }
         return false;
     }
     private boolean TemperaturaAlta(double temp){
-        conjunto = new ConjuntoFuzzy("alta", "trapezoidal", 1000, 0, 1100, 1200);
-        pertinenciaAlta = conjunto.pertinencia(temp);
-
-        if(pertinenciaAlta > 0){
-            setAlfaCorteTemperatura(pertinenciaAlta);
-            return true;
+        int indice = 0;
+        for (int i = 0; i < SistemaFuzzy.DISCRETIZACAO_DEFAULT; i++) {
+            if (mTemperatura[i][0] >= temp && mTemperatura[i - 1][0] <= temp) {
+                indice = valorMaisProximo(temp, mTemperatura[i][0], mTemperatura[i - 1][0], i);
+                pertinenciaAlta = mTemperatura[indice][3];
+                if (pertinenciaAlta > 0) {
+                    setAlfaCorteTemperatura(pertinenciaAlta);
+                    return true;
+                }
+            }
         }
         return false;
     }
     private boolean VolumePequeno(double vol){
-        conjunto = new ConjuntoFuzzy("pequeno","trapezoidal", 0, 7, 2, 4.5);
-        pertinenciaBaixa = conjunto.pertinencia(vol);
-
-        if(pertinenciaBaixa > 0){
-            setAlfaCorteVolume(pertinenciaBaixa);
-            return true;
+        int indice = 0;
+        for (int i = 0; i < SistemaFuzzy.DISCRETIZACAO_DEFAULT; i++) {
+            if (mVolume[i][0] >= vol && mVolume[i - 1][0] <= vol) {
+                indice = valorMaisProximo(vol, mVolume[i][0], mVolume[i - 1][0], i);
+                pertinenciaBaixa = mVolume[indice][1];
+                if (pertinenciaBaixa > 0) {
+                    setAlfaCorteVolume(pertinenciaBaixa);
+                    return true;
+                }
+            }
         }
         return false;
     }
     private boolean VolumeMedio(double vol){
-        conjunto = new ConjuntoFuzzy("medio", "triangular", 4.5, 9.5, 7, 0);
-        pertinenciaMedia = conjunto.pertinencia(vol);
-
-        if(pertinenciaMedia > 0){
-            setAlfaCorteVolume(pertinenciaMedia);
-            return true;
+        int indice = 0;
+        for (int i = 0; i < SistemaFuzzy.DISCRETIZACAO_DEFAULT; i++) {
+            if (mVolume[i][0] >= vol && mVolume[i - 1][0] <= vol) {
+                indice = valorMaisProximo(vol, mVolume[i][0], mVolume[i - 1][0], i);
+                pertinenciaMedia = mVolume[indice][2];
+                if (pertinenciaMedia > 0) {
+                    setAlfaCorteVolume(pertinenciaMedia);
+                    return true;
+                }
+            }
         }
         return false;
     }
     private boolean VolumeGrande(double vol){
-        conjunto = new ConjuntoFuzzy("grande","trapezoidal", 7, 0, 9.5, 12);
-        pertinenciaAlta = conjunto.pertinencia(vol);
-
-        if(pertinenciaAlta > 0){
-            setAlfaCorteVolume(pertinenciaAlta);
-            return true;
+        int indice = 0;
+        for (int i = 0; i < SistemaFuzzy.DISCRETIZACAO_DEFAULT; i++) {
+            if (mVolume[i][0] >= vol && mVolume[i - 1][0] <= vol) {
+                indice = valorMaisProximo(vol, mVolume[i][0], mVolume[i - 1][0], i);
+                pertinenciaAlta = mVolume[indice][3];
+                if (pertinenciaAlta > 0) {
+                    setAlfaCorteVolume(pertinenciaAlta);
+                    return true;
+                }
+            }
         }
         return false;
     }
 
-//    private boolean TemperaturaBaixa(double temp){
-//        conjunto = new ConjuntoFuzzy("baixa", "trapezoidal", 0, 1000, 800, 900);
-//        pertinenciaBaixa = conjunto.pertinencia(temp);
-//        conjunto = new ConjuntoFuzzy("media", "triangular", 900, 1100, 1000, 0);
-//        pertinenciaMedia = conjunto.pertinencia(temp);
-//        conjunto = new ConjuntoFuzzy("alta", "trapezoidal", 1000, 0, 1100, 1200);
-//        pertinenciaAlta = conjunto.pertinencia(temp);
-//
-//        if(pertinenciaBaixa >= pertinenciaMedia && pertinenciaBaixa >= pertinenciaAlta){
-//            setAlfaCorteTemperatura(pertinenciaBaixa);
-//            return true;
-//        }
-//        return false;
-//    }
-//    private boolean TemperaturaMedia(double temp){
-//        conjunto = new ConjuntoFuzzy("baixa", "trapezoidal", 0, 1000, 800, 900);
-//        pertinenciaBaixa = conjunto.pertinencia(temp);
-//        conjunto = new ConjuntoFuzzy("media", "triangular", 900, 1100, 1000, 0);
-//        pertinenciaMedia = conjunto.pertinencia(temp);
-//        conjunto = new ConjuntoFuzzy("alta", "trapezoidal", 1000, 0, 1100, 1200);
-//        pertinenciaAlta = conjunto.pertinencia(temp);
-//
-//        if(pertinenciaMedia >= pertinenciaBaixa && pertinenciaMedia >= pertinenciaAlta){
-//            setAlfaCorteTemperatura(pertinenciaMedia);
-//            return true;
-//        }
-//        return false;
-//    }
-//    private boolean TemperaturaAlta(double temp){
-//        conjunto = new ConjuntoFuzzy("baixa", "trapezoidal", 0, 1000, 800, 900);
-//        pertinenciaBaixa = conjunto.pertinencia(temp);
-//        conjunto = new ConjuntoFuzzy("media", "triangular", 900, 1100, 1000, 0);
-//        pertinenciaMedia = conjunto.pertinencia(temp);
-//        conjunto = new ConjuntoFuzzy("alta", "trapezoidal", 1000, 0, 1100, 1200);
-//        pertinenciaAlta = conjunto.pertinencia(temp);
-//
-//        if(pertinenciaAlta >= pertinenciaMedia && pertinenciaAlta >= pertinenciaBaixa){
-//            setAlfaCorteTemperatura(pertinenciaAlta);
-//            return true;
-//        }
-//        return false;
-//    }
-//    private boolean VolumePequeno(double vol){
-//        conjunto = new ConjuntoFuzzy("pequeno","trapezoidal", 0, 7, 2, 4.5);
-//        pertinenciaBaixa = conjunto.pertinencia(vol);
-//        conjunto = new ConjuntoFuzzy("medio", "triangular", 4.5, 9.5, 7, 0);
-//        pertinenciaMedia = conjunto.pertinencia(vol);
-//        conjunto = new ConjuntoFuzzy("grande","trapezoidal", 7, 0, 9.5, 12);
-//        pertinenciaAlta = conjunto.pertinencia(vol);
-//
-//        if(pertinenciaBaixa >= pertinenciaMedia && pertinenciaBaixa >= pertinenciaAlta){
-//            setAlfaCorteVolume(pertinenciaBaixa);
-//            return true;
-//        }
-//        return false;
-//    }
-//    private boolean VolumeMedio(double vol){
-//        conjunto = new ConjuntoFuzzy("pequeno","trapezoidal", 0, 7, 2, 4.5);
-//        pertinenciaBaixa = conjunto.pertinencia(vol);
-//        conjunto = new ConjuntoFuzzy("medio", "triangular", 4.5, 9.5, 7, 0);
-//        pertinenciaMedia = conjunto.pertinencia(vol);
-//        conjunto = new ConjuntoFuzzy("grande","trapezoidal", 7, 0, 9.5, 12);
-//        pertinenciaAlta = conjunto.pertinencia(vol);
-//
-//        if(pertinenciaMedia >= pertinenciaBaixa && pertinenciaMedia >= pertinenciaAlta){
-//            setAlfaCorteVolume(pertinenciaMedia);
-//            return true;
-//        }
-//        return false;
-//    }
-//    private boolean VolumeGrande(double vol){
-//        conjunto = new ConjuntoFuzzy("pequeno","trapezoidal", 0, 7, 2, 4.5);
-//        pertinenciaBaixa = conjunto.pertinencia(vol);
-//        conjunto = new ConjuntoFuzzy("medio", "triangular", 4.5, 9.5, 7, 0);
-//        pertinenciaMedia = conjunto.pertinencia(vol);
-//        conjunto = new ConjuntoFuzzy("grande","trapezoidal", 7, 0, 9.5, 12);
-//        pertinenciaAlta = conjunto.pertinencia(vol);
-//
-//        if(pertinenciaAlta >= pertinenciaBaixa && pertinenciaAlta >= pertinenciaMedia){
-//            setAlfaCorteVolume(pertinenciaAlta);
-//            return true;
-//        }
-//        return false;
-//    }
+    private int valorMaisProximo(double valorVerdadeiro, double atual, double anterior, int i){
+        double valor1 = atual - valorVerdadeiro;
+        double valor2 = valorVerdadeiro - anterior;
+        if(valor1 <= valor2){
+            return i;
+        }
+        else{
+            return i-1;
+        }
+    }
 
     public double getAlfaCorteTemperatura() {
         return alfaCorteTemperatura;
