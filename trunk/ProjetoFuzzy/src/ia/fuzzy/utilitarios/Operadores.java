@@ -5,7 +5,6 @@
 
 package ia.fuzzy.utilitarios;
 
-import Jama.Matrix;
 import ia.fuzzy.SistemaFuzzy;
 
 /**
