@@ -5,8 +5,6 @@
 
 package ia.fuzzy;
 
-import ia.fuzzy.utilitarios.BaseDeRegras;
-import ia.fuzzy.utilitarios.Operadores;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,41 +20,21 @@ public class SistemaFuzzy {
     public static final int QTD_VALORES_LINGUISTICOS_DEFAULT = 3;
 
     private List<VariavelLinguistica> variaveisLinguisticas = new ArrayList<VariavelLinguistica>();
-    private Operadores operador = new Operadores();
-    private BaseDeRegras regras;
     private MecanismoInferencia mecanismo;
     private double[][] matrizPressaoUniao;
-    private int qtdVarEntradas;
-    private int qtdVarSaida;
     private VariavelLinguistica varAtual;
     private int valorDiscretizacao;
     private double[] vetorPertinencia;
-    private double alfaCorte;    
-    private double[] regrasAtivadas = new double[9];
     private double pressaoValorEncontrado;
-
-    public SistemaFuzzy(int varEntradas, int varSaida, int valorDis)
-    {
-        qtdVarEntradas = varEntradas;
-        qtdVarSaida = varSaida;
-        valorDiscretizacao = valorDis;
-    }
 
     public SistemaFuzzy()
     {
-        qtdVarEntradas = QTD_VARIAVEIS_ENTRADA_DEFAULT;
-        qtdVarSaida = QTD_VARIAVEIS_SAIDA_DEFAULT;
-        valorDiscretizacao = DISCRETIZACAO_DEFAULT;
-        
+        valorDiscretizacao = DISCRETIZACAO_DEFAULT;   
     }
 
-    public void criarVariavelLinguistica(String nome, int universoMin, int universoMax, int qtdValoresLinguisticos)
-    {
-        variaveisLinguisticas.add(new VariavelLinguistica(nome, universoMin, universoMax, qtdValoresLinguisticos));
-    }
     public void criarVariavelLinguistica(String nome, int universoMin, int universoMax)
     {
-        variaveisLinguisticas.add(new VariavelLinguistica(nome, universoMin, universoMax, QTD_VALORES_LINGUISTICOS_DEFAULT));
+        variaveisLinguisticas.add(new VariavelLinguistica(nome, universoMin, universoMax));
     }
 
     public void getVarLinguistica(String nomeVarLinguistica){
@@ -140,18 +118,5 @@ public class SistemaFuzzy {
         }
         return dividendo/divisor;
     }
-
-//    private double maiorValor(int i){
-//        if(matrizPressaoUniao[i][1] >= matrizPressaoUniao[i][2] && matrizPressaoUniao[i][1] >= matrizPressaoUniao[i][3]){
-//            return matrizPressaoUniao[i][1];
-//        }
-//        else if(matrizPressaoUniao[i][2] >= matrizPressaoUniao[i][1] && matrizPressaoUniao[i][2] >= matrizPressaoUniao[i][3]){
-//            return matrizPressaoUniao[i][2];
-//        }
-//        else if(matrizPressaoUniao[i][3] >= matrizPressaoUniao[i][1] && matrizPressaoUniao[i][3] >= matrizPressaoUniao[i][2]){
-//            return matrizPressaoUniao[i][3];
-//        }
-//        return 2;
-//    }
 
 }
