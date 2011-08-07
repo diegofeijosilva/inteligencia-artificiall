@@ -13,8 +13,6 @@ import java.util.List;
  * @author Larissa
  */
 class VariavelLinguistica {
-    
-   // public static final int QTD_CONJUNTOS_FUZZY_DEFAULT = 3;
 
     private String nome;
     private int universoMin; //min e max do gráfico (universo de discurso)
@@ -24,7 +22,7 @@ class VariavelLinguistica {
 
     
 
-    public VariavelLinguistica(String nome, int min, int max, int qtdValoresLinguisticos){
+    public VariavelLinguistica(String nome, int min, int max){
         this.nome = nome;
         this.universoMin = min;
         this.universoMax = max;
