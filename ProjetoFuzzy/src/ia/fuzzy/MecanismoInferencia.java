@@ -6,8 +6,8 @@
 package ia.fuzzy;
 
 import ia.fuzzy.utilitarios.BaseDeRegras;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  *
@@ -16,7 +16,7 @@ import java.util.List;
 public class MecanismoInferencia {
 
     private BaseDeRegras regras;
-    private List<VariavelLinguistica> variaveisLinguisticas = new ArrayList<VariavelLinguistica>();
+    private Map<String, VariavelLinguistica> variaveisLinguisticas = new HashMap<String, VariavelLinguistica>();
     private double alfaCorteTemperatura;
     private double alfaCorteVolume;
     private double alfaCorte;
@@ -31,12 +31,12 @@ public class MecanismoInferencia {
     private double[][] matrizPressaoComAlfaCorte8;
     private double[][] matrizPressaoComAlfaCorte9;
 
-    public MecanismoInferencia(List<VariavelLinguistica> variaveisLinguisticas){
+    public MecanismoInferencia(Map variaveisLinguisticas){
         this.variaveisLinguisticas = variaveisLinguisticas;
     }
 
     public void tratarRegras(double temperaturaEntrada, double volumeEntrada){        
-        regras = new BaseDeRegras(variaveisLinguisticas.get(0).matrizInferencia, variaveisLinguisticas.get(1).matrizInferencia, temperaturaEntrada, volumeEntrada);
+        regras = new BaseDeRegras(variaveisLinguisticas.get("Temperatura").matrizInferencia, variaveisLinguisticas.get("Volume").matrizInferencia, temperaturaEntrada, volumeEntrada);
         regrasAtivadas = "";
         //se eu tiver mais de uma regra ativada, eu faço o alfa-corte de cada uma e depois faço a união dos conjuntos
         if (regras.regra1()) {
@@ -118,11 +118,7 @@ public class MecanismoInferencia {
 
         VariavelLinguistica varPressao = null;
 
-        for (int i = 0; i < variaveisLinguisticas.size(); i++) {
-            if (variaveisLinguisticas.get(i).getNome().equals("Pressao")) {
-                varPressao = variaveisLinguisticas.get(i);
-            }
-        }
+        varPressao = variaveisLinguisticas.get("Pressao");
 
         double[][] matrizAlfaCorte = new double[SistemaFuzzy.DISCRETIZACAO_DEFAULT][2];
         for (int i = 0; i < SistemaFuzzy.DISCRETIZACAO_DEFAULT; i++) {

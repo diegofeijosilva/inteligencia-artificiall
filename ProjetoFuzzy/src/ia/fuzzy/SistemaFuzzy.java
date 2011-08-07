@@ -5,8 +5,8 @@
 
 package ia.fuzzy;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  *
@@ -19,7 +19,7 @@ public class SistemaFuzzy {
     public static final int DISCRETIZACAO_DEFAULT = 500;
     public static final int QTD_VALORES_LINGUISTICOS_DEFAULT = 3;
 
-    private List<VariavelLinguistica> variaveisLinguisticas = new ArrayList<VariavelLinguistica>();
+    private Map<String, VariavelLinguistica> variaveisLinguisticas = new HashMap<String, VariavelLinguistica>();
     private MecanismoInferencia mecanismo;
     private double[][] matrizPressaoUniao;
     private VariavelLinguistica varAtual;
@@ -34,18 +34,12 @@ public class SistemaFuzzy {
 
     public void criarVariavelLinguistica(String nome, int universoMin, int universoMax)
     {
-        variaveisLinguisticas.add(new VariavelLinguistica(nome, universoMin, universoMax));
+        variaveisLinguisticas.put(nome, new VariavelLinguistica(nome, universoMin, universoMax));
         discretizar(nome);
     }
 
     public void getVarLinguistica(String nomeVarLinguistica){
-
-        varAtual = null;
-        for(int i = 0; i<variaveisLinguisticas.size(); i++){
-            if(variaveisLinguisticas.get(i).getNome().equals(nomeVarLinguistica)){
-                varAtual = variaveisLinguisticas.get(i);
-            }
-        }
+        varAtual = variaveisLinguisticas.get(nomeVarLinguistica);
         varAtual.inicializarMatrizInferencia(valorDiscretizacao, varAtual.conjuntos.size()+1);
     }
 
