@@ -95,7 +95,7 @@ public class SistemaFuzzy {
         }      
     }
 
-    public void executarMecanismoInferencia(double temperaturaEntrada, double volumeEntrada){
+    public double executarMecanismoInferencia(double temperaturaEntrada, double volumeEntrada){
         mecanismo = new MecanismoInferencia(variaveisLinguisticas);
         mecanismo.tratarRegras(temperaturaEntrada, volumeEntrada);
         String regrasAtivadas = mecanismo.getRegrasAtivadas();
@@ -118,6 +118,8 @@ public class SistemaFuzzy {
         //pronto agora já tnho a matriz união, é só fazer o centro de area.
         pressaoValorEncontrado = centroDeArea();
         System.out.println("Valor de pressão encontrado: " + pressaoValorEncontrado);
+
+        return pressaoValorEncontrado;
     }
 
     private void unirConjuntos(double[][] matriz1){        
