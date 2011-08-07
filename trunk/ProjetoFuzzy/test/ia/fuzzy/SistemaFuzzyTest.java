@@ -46,9 +46,6 @@ public class SistemaFuzzyTest {
        fuzzy.criarVariavelLinguistica("Temperatura", 800, 1200);
        fuzzy.criarVariavelLinguistica("Volume", 2, 12);
        fuzzy.criarVariavelLinguistica("Pressao", 4, 12);
-       fuzzy.discretizar("Temperatura");
-       fuzzy.discretizar("Volume");
-       fuzzy.discretizar("Pressao");
     }
 
     /**

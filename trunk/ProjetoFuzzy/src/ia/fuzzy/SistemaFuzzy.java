@@ -35,6 +35,7 @@ public class SistemaFuzzy {
     public void criarVariavelLinguistica(String nome, int universoMin, int universoMax)
     {
         variaveisLinguisticas.add(new VariavelLinguistica(nome, universoMin, universoMax));
+        discretizar(nome);
     }
 
     public void getVarLinguistica(String nomeVarLinguistica){
@@ -48,7 +49,7 @@ public class SistemaFuzzy {
         varAtual.inicializarMatrizInferencia(valorDiscretizacao, varAtual.conjuntos.size()+1);
     }
 
-    public void discretizar(String nomeVarLinguistica)
+    private void discretizar(String nomeVarLinguistica)
     {
         getVarLinguistica(nomeVarLinguistica);
         double fatorPertinencia = 0;
