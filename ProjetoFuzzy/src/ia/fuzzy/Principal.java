@@ -23,9 +23,6 @@ public class Principal {
        fuzzy.criarVariavelLinguistica("Temperatura", 800, 1200);
        fuzzy.criarVariavelLinguistica("Volume", 2, 12);
        fuzzy.criarVariavelLinguistica("Pressao", 4, 12);
-       fuzzy.discretizar("Temperatura");
-       fuzzy.discretizar("Volume");
-       fuzzy.discretizar("Pressao");
        fuzzy.executarMecanismoInferencia(temperaturaEntrada, volumeEntrada);
 
        temperaturaEntrada = 920;
@@ -35,9 +32,6 @@ public class Principal {
        fuzzy.criarVariavelLinguistica("Temperatura", 800, 1200);
        fuzzy.criarVariavelLinguistica("Volume", 2, 12);
        fuzzy.criarVariavelLinguistica("Pressao", 4, 12);
-       fuzzy.discretizar("Temperatura");
-       fuzzy.discretizar("Volume");
-       fuzzy.discretizar("Pressao");
        fuzzy.executarMecanismoInferencia(temperaturaEntrada, volumeEntrada);
 
        temperaturaEntrada = 1050;
@@ -47,9 +41,6 @@ public class Principal {
        fuzzy.criarVariavelLinguistica("Temperatura", 800, 1200);
        fuzzy.criarVariavelLinguistica("Volume", 2, 12);
        fuzzy.criarVariavelLinguistica("Pressao", 4, 12);
-       fuzzy.discretizar("Temperatura");
-       fuzzy.discretizar("Volume");
-       fuzzy.discretizar("Pressao");
        fuzzy.executarMecanismoInferencia(temperaturaEntrada, volumeEntrada);
 
        temperaturaEntrada = 843;
@@ -59,9 +50,6 @@ public class Principal {
        fuzzy.criarVariavelLinguistica("Temperatura", 800, 1200);
        fuzzy.criarVariavelLinguistica("Volume", 2, 12);
        fuzzy.criarVariavelLinguistica("Pressao", 4, 12);
-       fuzzy.discretizar("Temperatura");
-       fuzzy.discretizar("Volume");
-       fuzzy.discretizar("Pressao");
        fuzzy.executarMecanismoInferencia(temperaturaEntrada, volumeEntrada);
 
        temperaturaEntrada = 1122;
@@ -71,9 +59,6 @@ public class Principal {
        fuzzy.criarVariavelLinguistica("Temperatura", 800, 1200);
        fuzzy.criarVariavelLinguistica("Volume", 2, 12);
        fuzzy.criarVariavelLinguistica("Pressao", 4, 12);
-       fuzzy.discretizar("Temperatura");
-       fuzzy.discretizar("Volume");
-       fuzzy.discretizar("Pressao");
        fuzzy.executarMecanismoInferencia(temperaturaEntrada, volumeEntrada);
     }
 
