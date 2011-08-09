@@ -36,7 +36,7 @@ public class MecanismoInferencia {
     }
 
     public void tratarRegras(double temperaturaEntrada, double volumeEntrada){        
-        regras = new BaseDeRegras(variaveisLinguisticas.get("Temperatura").matrizInferencia, variaveisLinguisticas.get("Volume").matrizInferencia, temperaturaEntrada, volumeEntrada);
+        regras = new BaseDeRegras(variaveisLinguisticas.get("Temperatura").matrizPertinencia, variaveisLinguisticas.get("Volume").matrizPertinencia, temperaturaEntrada, volumeEntrada);
         regrasAtivadas = "";
         //se eu tiver mais de uma regra ativada, eu faço o alfa-corte de cada uma e depois faço a união dos conjuntos
         if (regras.regra1()) {
@@ -122,11 +122,11 @@ public class MecanismoInferencia {
 
         double[][] matrizAlfaCorte = new double[SistemaFuzzy.DISCRETIZACAO_DEFAULT][2];
         for (int i = 0; i < SistemaFuzzy.DISCRETIZACAO_DEFAULT; i++) {
-            matrizAlfaCorte[i][0] = varPressao.matrizInferencia[i][0];      
-                if (varPressao.matrizInferencia[i][indice] > alfaCorte) {
+            matrizAlfaCorte[i][0] = varPressao.matrizPertinencia[i][0];
+                if (varPressao.matrizPertinencia[i][indice] > alfaCorte) {
                     matrizAlfaCorte[i][1] = alfaCorte;
-                } else if (varPressao.matrizInferencia[i][indice] <= alfaCorte) {
-                    matrizAlfaCorte[i][1] = varPressao.matrizInferencia[i][indice];
+                } else if (varPressao.matrizPertinencia[i][indice] <= alfaCorte) {
+                    matrizAlfaCorte[i][1] = varPressao.matrizPertinencia[i][indice];
                 }            
         }
         return matrizAlfaCorte;
