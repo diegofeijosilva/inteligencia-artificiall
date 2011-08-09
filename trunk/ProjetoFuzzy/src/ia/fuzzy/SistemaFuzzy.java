@@ -14,8 +14,6 @@ import java.util.Map;
  */
 public class SistemaFuzzy {
 
-    public static final int QTD_VARIAVEIS_ENTRADA_DEFAULT = 2;
-    public static final int QTD_VARIAVEIS_SAIDA_DEFAULT = 1;
     public static final int DISCRETIZACAO_DEFAULT = 500;
     public static final int QTD_VALORES_LINGUISTICOS_DEFAULT = 3;
 
