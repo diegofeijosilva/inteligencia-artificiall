@@ -46,15 +46,25 @@ public class ConjuntoFuzzy {
         return 2;//valor impossivel
     }
 
-    public void discretizarUniverso(int numeroPontos, double valorMin, double valorMax)
+    public void discretizarUniverso(int numeroDePontos, double valorMin, double valorMax)
     {
-        double delta = (valorMax - valorMin)/numeroPontos;
+        double delta = (valorMax - valorMin)/numeroDePontos;
         double x = valorMin;
 
-        for (int i = 0; i < numeroPontos; i++) {
+        for (int i = 0; i < numeroDePontos; i++) {
             elementos.add(new Elemento(x, pertinencia(x)));
             x += delta;
         }
+    }
+
+    public Elemento getElemento(int idex)
+    {
+        return elementos.get(idex);
+    }
+
+    public int getTotalElementos()
+    {
+        return elementos.size();
     }
 
     private double triangular(double x)
