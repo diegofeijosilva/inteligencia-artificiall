@@ -21,9 +21,7 @@ public class SistemaFuzzy {
 
     private Map<String, VariavelLinguistica> variaveisLinguisticas = new HashMap<String, VariavelLinguistica>();
     private MecanismoInferencia mecanismo;
-    private double[][] matrizPressaoUniao;
     private int valorDiscretizacao;
-    private double pressaoValorEncontrado;
 
     public SistemaFuzzy()
     {
@@ -44,6 +42,7 @@ public class SistemaFuzzy {
     }
 
     public double executarMecanismoInferencia(double temperaturaEntrada, double volumeEntrada){
+        double resultado;
         mecanismo = new MecanismoInferencia(variaveisLinguisticas);
         mecanismo.tratarRegras(temperaturaEntrada, volumeEntrada);
         String regrasAtivadas = mecanismo.getRegrasAtivadas();
@@ -51,40 +50,43 @@ public class SistemaFuzzy {
         int tam = qtdDeRegras.length;
         int valor;
 
-        if (qtdDeRegras.length == 1) {
-            valor = Integer.parseInt(qtdDeRegras[0]);
-            matrizPressaoUniao = mecanismo.getMatrizPressaoComAlfaCorte(valor);
-        }
-        else{
-            valor = Integer.parseInt(qtdDeRegras[0]);
-            matrizPressaoUniao = mecanismo.getMatrizPressaoComAlfaCorte(valor);
+        valor = Integer.parseInt(qtdDeRegras[0]);
+        double[][] matrizPressaoUniao = mecanismo.getMatrizPressaoComAlfaCorte(valor);
+  
+        if (qtdDeRegras.length != 1){
             for(int i = 0; i < tam-1; i++){
                valor = Integer.parseInt(qtdDeRegras[i+1]);
-               unirConjuntos(mecanismo.getMatrizPressaoComAlfaCorte(valor));
+               matrizPressaoUniao = unirConjuntos(mecanismo.getMatrizPressaoComAlfaCorte(valor), matrizPressaoUniao);
             }
         }
         //pronto agora já tnho a matriz união, é só fazer o centro de area.
-        pressaoValorEncontrado = centroDeArea();
-        System.out.println("Valor de pressão encontrado: " + pressaoValorEncontrado);
+        resultado = desfuzificar(matrizPressaoUniao);
+        System.out.println("Valor de pressão encontrado: " + resultado);
 
-        return pressaoValorEncontrado;
+        return resultado;
     }
 
-    private void unirConjuntos(double[][] matriz1){        
+    private double desfuzificar (double[][] regiaoNebulosa)
+    {
+        return centroDeArea(regiaoNebulosa);
+    }
+
+    private double[][] unirConjuntos(double[][] matriz1, double[][] matriz2){
         for (int i = 0; i < SistemaFuzzy.DISCRETIZACAO_DEFAULT; i++) {        
-                    if(matrizPressaoUniao[i][1] < matriz1[i][1]){
-                        matrizPressaoUniao[i][1] = matriz1[i][1];
+                    if(matriz2[i][1] < matriz1[i][1]){
+                        matriz2[i][1] = matriz1[i][1];
                     }                                   
             }
+        return matriz2;
     }
     
 
-    private double centroDeArea(){
+    private double centroDeArea(double[][] regiaoNebulosa){
         double dividendo = 0;
         double divisor = 0;
         for (int i = 0; i < SistemaFuzzy.DISCRETIZACAO_DEFAULT; i++) {
-                    dividendo += matrizPressaoUniao[i][0] * matrizPressaoUniao[i][1];
-                    divisor += matrizPressaoUniao[i][1];
+                    dividendo += regiaoNebulosa[i][0] * regiaoNebulosa[i][1];
+                    divisor += regiaoNebulosa[i][1];
         }
         return dividendo/divisor;
     }
