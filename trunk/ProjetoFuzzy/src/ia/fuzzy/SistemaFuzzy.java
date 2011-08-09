@@ -42,44 +42,22 @@ public class SistemaFuzzy {
     }
 
     public double executarMecanismoInferencia(double temperaturaEntrada, double volumeEntrada){
-        double resultado;
+        double resultadoPressao = 0;
+        double [][] regiaoNebulosaDeSaida;
         mecanismo = new MecanismoInferencia(variaveisLinguisticas);
-        mecanismo.tratarRegras(temperaturaEntrada, volumeEntrada);
-        String regrasAtivadas = mecanismo.getRegrasAtivadas();
-        String[] qtdDeRegras = regrasAtivadas.split("\\.");
-        int tam = qtdDeRegras.length;
-        int valor;
 
-        valor = Integer.parseInt(qtdDeRegras[0]);
-        double[][] matrizPressaoUniao = mecanismo.getMatrizPressaoComAlfaCorte(valor);
-  
-        if (qtdDeRegras.length != 1){
-            for(int i = 0; i < tam-1; i++){
-               valor = Integer.parseInt(qtdDeRegras[i+1]);
-               matrizPressaoUniao = unirConjuntos(mecanismo.getMatrizPressaoComAlfaCorte(valor), matrizPressaoUniao);
-            }
-        }
-        //pronto agora já tnho a matriz união, é só fazer o centro de area.
-        resultado = desfuzificar(matrizPressaoUniao);
-        System.out.println("Valor de pressão encontrado: " + resultado);
+        regiaoNebulosaDeSaida = mecanismo.processar(temperaturaEntrada, volumeEntrada);
+     
+        resultadoPressao = desfuzificar(regiaoNebulosaDeSaida);
+        System.out.println("Valor de pressão encontrado: " + resultadoPressao);
 
-        return resultado;
+        return resultadoPressao;
     }
 
     private double desfuzificar (double[][] regiaoNebulosa)
     {
         return centroDeArea(regiaoNebulosa);
     }
-
-    private double[][] unirConjuntos(double[][] matriz1, double[][] matriz2){
-        for (int i = 0; i < SistemaFuzzy.DISCRETIZACAO_DEFAULT; i++) {        
-                    if(matriz2[i][1] < matriz1[i][1]){
-                        matriz2[i][1] = matriz1[i][1];
-                    }                                   
-            }
-        return matriz2;
-    }
-    
 
     private double centroDeArea(double[][] regiaoNebulosa){
         double dividendo = 0;

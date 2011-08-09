@@ -35,7 +35,39 @@ public class MecanismoInferencia {
         this.variaveisLinguisticas = variaveisLinguisticas;
     }
 
-    public void tratarRegras(double temperaturaEntrada, double volumeEntrada){        
+    public double[][] processar(double temperaturaEntrada, double volumeEntrada)
+    {
+        tratarRegras(temperaturaEntrada, volumeEntrada);
+        return combinarRegioesNebulosasDeSaida();
+    }
+
+    private double[][] combinarRegioesNebulosasDeSaida()
+    {
+        String[] regrasAtiv = getRegrasAtivadas().split("\\.");
+        int regra;
+
+        regra = Integer.parseInt(regrasAtiv[0]);
+        double[][] matrizPressaoUniao = getMatrizPressaoComAlfaCorte(regra);
+
+        if (regrasAtiv.length > 1){
+            for(int i = 0; i < regrasAtiv.length-1; i++){
+               regra = Integer.parseInt(regrasAtiv[i+1]);
+               matrizPressaoUniao = unirConjuntos(getMatrizPressaoComAlfaCorte(regra), matrizPressaoUniao);
+            }
+        }
+        return matrizPressaoUniao;
+    }
+
+    private double[][] unirConjuntos(double[][] matriz1, double[][] matriz2){
+        for (int i = 0; i < SistemaFuzzy.DISCRETIZACAO_DEFAULT; i++) {
+                    if(matriz2[i][1] < matriz1[i][1]){
+                        matriz2[i][1] = matriz1[i][1];
+                    }
+            }
+        return matriz2;
+    }
+
+    private void tratarRegras(double temperaturaEntrada, double volumeEntrada){
         regras = new BaseDeRegras(variaveisLinguisticas.get("Temperatura").matrizPertinencia, variaveisLinguisticas.get("Volume").matrizPertinencia, temperaturaEntrada, volumeEntrada);
         regrasAtivadas = "";
         //se eu tiver mais de uma regra ativada, eu faço o alfa-corte de cada uma e depois faço a união dos conjuntos
