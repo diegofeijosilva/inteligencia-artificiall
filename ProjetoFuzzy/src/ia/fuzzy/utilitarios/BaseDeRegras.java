@@ -5,7 +5,6 @@
 
 package ia.fuzzy.utilitarios;
 
-import ia.fuzzy.ConjuntoFuzzy;
 import ia.fuzzy.SistemaFuzzy;
 
 
@@ -19,7 +18,6 @@ public class BaseDeRegras {
     private double[][] mVolume;
     private double temp;
     private double volume;
-    private ConjuntoFuzzy conjunto;
     private double pertinenciaBaixa;
     private double pertinenciaMedia;
     private double pertinenciaAlta;

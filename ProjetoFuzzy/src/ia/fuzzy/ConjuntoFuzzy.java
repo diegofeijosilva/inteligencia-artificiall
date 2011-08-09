@@ -5,12 +5,17 @@
 
 package ia.fuzzy;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author Larissa
  */
 public class ConjuntoFuzzy {
-    
+
+    private List<Elemento> elementos = new ArrayList<Elemento>();
+
     private String valorLinguistico;
     private double m;
     private double n;
@@ -39,6 +44,17 @@ public class ConjuntoFuzzy {
             return trapezoidal(x);
         }
         return 2;//valor impossivel
+    }
+
+    public void discretizarUniverso(int numeroPontos, double valorMin, double valorMax)
+    {
+        double delta = (valorMax - valorMin)/numeroPontos;
+        double x = valorMin;
+
+        for (int i = 0; i < numeroPontos; i++) {
+            elementos.add(new Elemento(x, pertinencia(x)));
+            x += delta;
+        }
     }
 
     private double triangular(double x)

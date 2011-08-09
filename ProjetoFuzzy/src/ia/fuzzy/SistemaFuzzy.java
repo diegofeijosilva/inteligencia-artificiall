@@ -40,7 +40,7 @@ public class SistemaFuzzy {
 
     public void getVarLinguistica(String nomeVarLinguistica){
         varAtual = variaveisLinguisticas.get(nomeVarLinguistica);
-        varAtual.inicializarMatrizInferencia(valorDiscretizacao, varAtual.conjuntos.size()+1);
+        varAtual.inicializarMatrizPertinencia(valorDiscretizacao, varAtual.conjuntos.size()+1);
     }
 
     private void discretizar(String nomeVarLinguistica)
@@ -55,12 +55,12 @@ public class SistemaFuzzy {
         for(int i=0; i<valorDiscretizacao; i++){
             vetorPertinencia = new double[varAtual.conjuntos.size()+1];
             fuzificar(x);
-            varAtual.preencherMatrizInferencia(i, vetorPertinencia, x);
+            varAtual.preencherMatrizPertinencia(i, vetorPertinencia, x);
             x = x + fatorPertinencia;
         }
     }
 
-    public void fuzificar(double x)
+    private void fuzificar(double x)
     {              
         for(int i = 0; i<varAtual.conjuntos.size(); i++){
             ConjuntoFuzzy conjunto = varAtual.conjuntos.get(i);
@@ -104,7 +104,7 @@ public class SistemaFuzzy {
     }
     
 
-    public double centroDeArea(){
+    private double centroDeArea(){
         double dividendo = 0;
         double divisor = 0;
         for (int i = 0; i < SistemaFuzzy.DISCRETIZACAO_DEFAULT; i++) {

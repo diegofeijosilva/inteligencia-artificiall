@@ -17,7 +17,7 @@ class VariavelLinguistica {
     private String nome;
     private int universoMin; //min e max do gráfico (universo de discurso)
     private int universoMax;
-    public double[][] matrizInferencia;
+    public double[][] matrizPertinencia;
     public List<ConjuntoFuzzy> conjuntos = new ArrayList<ConjuntoFuzzy>();
 
     
@@ -48,15 +48,15 @@ class VariavelLinguistica {
         }
     }
 
-    public void preencherMatrizInferencia(int posicao, double[] vetorPertinencia, double x)
+    public void preencherMatrizPertinencia(int posicao, double[] vetorPertinencia, double x)
     {
-        this.matrizInferencia[posicao] = vetorPertinencia;
-        this.matrizInferencia[posicao][0] = x;
+        this.matrizPertinencia[posicao] = vetorPertinencia;
+        this.matrizPertinencia[posicao][0] = x;
     }
 
-     public void inicializarMatrizInferencia(int qtdDiscretizacao, int qtdConjuntos)
+     public void inicializarMatrizPertinencia(int qtdDiscretizacao, int qtdConjuntos)
     {
-        this.matrizInferencia = new double[qtdDiscretizacao][qtdConjuntos];//mais um por causa do valor da posição
+        this.matrizPertinencia = new double[qtdDiscretizacao][qtdConjuntos];//mais um por causa do valor da posição
     }
 
     public String getNome() {
