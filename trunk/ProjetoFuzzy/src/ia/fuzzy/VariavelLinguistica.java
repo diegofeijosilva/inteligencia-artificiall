@@ -12,7 +12,7 @@ import java.util.List;
  *
  * @author Larissa
  */
-class VariavelLinguistica {
+public class VariavelLinguistica {
 
     private String nome;
     private int universoMin; //min e max do gráfico (universo de discurso)

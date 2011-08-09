@@ -5,21 +5,31 @@
 
 package ia.fuzzy.gui;
 
-import java.awt.Color;
+import ia.fuzzy.VariavelLinguistica;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.Rectangle2D;
 import javax.swing.JPanel;
-
 /**
  *
  * @author Gabriel
  */
 public class PainelDeGraficos extends JPanel {
 
+    VariavelLinguistica var;
+
+    public PainelDeGraficos(VariavelLinguistica varLinguistica)
+    {
+        this.var = varLinguistica;
+    }
+
     @Override
     protected void paintComponent(Graphics g) {
+        desenharContainers(g);
+    }
 
+    private void desenharContainers(Graphics g)
+    {
         double width = 210;
         double height = 40;
 
@@ -34,7 +44,6 @@ public class PainelDeGraficos extends JPanel {
             y += 50;
         }
         g2d.dispose();
-        
     }
 
 

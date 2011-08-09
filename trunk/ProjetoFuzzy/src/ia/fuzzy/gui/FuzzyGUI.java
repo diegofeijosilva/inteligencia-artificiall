@@ -11,6 +11,8 @@
 
 package ia.fuzzy.gui;
 
+import ia.fuzzy.SistemaFuzzy;
+
 /**
  *
  * @author Gabriel
@@ -19,6 +21,7 @@ public class FuzzyGUI extends javax.swing.JFrame {
 
     /** Creates new form BckFuzzyGUI */
     public FuzzyGUI() {
+        initFuzzy();
         initComponents();
     }
 
@@ -31,13 +34,13 @@ public class FuzzyGUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">
     private void initComponents() {
 
-        jPanelTemperatura = new PainelDeGraficos();
+        jPanelTemperatura = new PainelDeGraficos(fuzzy.getVariaveisLinguisticas().get("Temperatura"));
         jLabel1 = new javax.swing.JLabel();
         jTextFieldTemperatura = new javax.swing.JTextField();
-        jPanelVolume = new PainelDeGraficos();
+        jPanelVolume = new PainelDeGraficos(fuzzy.getVariaveisLinguisticas().get("Volume"));
         jLabel2 = new javax.swing.JLabel();
         jTextFieldVolume = new javax.swing.JTextField();
-        jPanelPressao = new PainelDeGraficos();
+        jPanelPressao = new PainelDeGraficos(fuzzy.getVariaveisLinguisticas().get("Temperatura"));
         jLabel3 = new javax.swing.JLabel();
         jTextFieldPressao = new javax.swing.JTextField();
 
@@ -145,6 +148,13 @@ public class FuzzyGUI extends javax.swing.JFrame {
         pack();
     }// </editor-fold>
 
+    public void initFuzzy()
+    {
+        fuzzy.criarVariavelLinguistica("Temperatura", 800, 1200);
+        fuzzy.criarVariavelLinguistica("Volume", 2, 12);
+        fuzzy.criarVariavelLinguistica("Pressao", 4, 12);
+    }
+
     /**
     * @param args the command line arguments
     */
@@ -167,5 +177,7 @@ public class FuzzyGUI extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldTemperatura;
     private javax.swing.JTextField jTextFieldVolume;
     // End of variables declaration
+
+    private SistemaFuzzy fuzzy = new SistemaFuzzy();
 
 }
