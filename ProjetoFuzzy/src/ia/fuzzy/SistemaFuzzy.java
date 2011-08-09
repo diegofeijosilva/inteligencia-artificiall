@@ -67,4 +67,9 @@ public class SistemaFuzzy {
         return dividendo/divisor;
     }
 
+    public Map<String, VariavelLinguistica> getVariaveisLinguisticas()
+    {
+        return this.variaveisLinguisticas;
+    }
+
 }
