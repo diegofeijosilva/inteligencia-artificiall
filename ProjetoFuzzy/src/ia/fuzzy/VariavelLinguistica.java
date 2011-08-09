@@ -48,15 +48,40 @@ class VariavelLinguistica {
         }
     }
 
-    public void preencherMatrizPertinencia(int posicao, double[] vetorPertinencia, double x)
+    public void discretizarUniverso(int numeroDePontos)
     {
-        this.matrizPertinencia[posicao] = vetorPertinencia;
-        this.matrizPertinencia[posicao][0] = x;
+        discretizarConjuntosFuzzy(numeroDePontos);
+        inicializarMatrizPertinencia();
     }
 
-     public void inicializarMatrizPertinencia(int qtdDiscretizacao, int qtdConjuntos)
+    public void fuzificar()
     {
-        this.matrizPertinencia = new double[qtdDiscretizacao][qtdConjuntos];//mais um por causa do valor da posição
+        preencherMatrizPertinencia();
+    }
+
+    private void discretizarConjuntosFuzzy(int numeroDePontos)
+    {
+        for (ConjuntoFuzzy conjunto : conjuntos) {
+            conjunto.discretizarUniverso(numeroDePontos, universoMin, universoMax);
+        }
+    }
+
+    private void inicializarMatrizPertinencia()
+    {
+        int numeroDePontos = conjuntos.get(0).getTotalElementos();
+        int numeroDeConjuntos = conjuntos.size();
+
+        this.matrizPertinencia = new double[numeroDePontos][numeroDeConjuntos+1];
+    }
+
+    private void preencherMatrizPertinencia()
+    {
+         for (int i = 0; i < matrizPertinencia.length; i++) {
+            matrizPertinencia[i][0] = conjuntos.get(0).getElemento(i).getValor();
+            for (int j = 0; j < conjuntos.size(); j++) {
+                matrizPertinencia[i][j+1] = conjuntos.get(j).getElemento(i).getPertinencia();
+            }
+        }
     }
 
     public String getNome() {
@@ -70,4 +95,5 @@ class VariavelLinguistica {
     public int getUniversoMin() {
         return universoMin;
     }
+
 }

@@ -22,9 +22,7 @@ public class SistemaFuzzy {
     private Map<String, VariavelLinguistica> variaveisLinguisticas = new HashMap<String, VariavelLinguistica>();
     private MecanismoInferencia mecanismo;
     private double[][] matrizPressaoUniao;
-    private VariavelLinguistica varAtual;
     private int valorDiscretizacao;
-    private double[] vetorPertinencia;
     private double pressaoValorEncontrado;
 
     public SistemaFuzzy()
@@ -35,37 +33,14 @@ public class SistemaFuzzy {
     public void criarVariavelLinguistica(String nome, int universoMin, int universoMax)
     {
         variaveisLinguisticas.put(nome, new VariavelLinguistica(nome, universoMin, universoMax));
-        discretizar(nome);
+        fuzificar(nome);
     }
 
-    public void getVarLinguistica(String nomeVarLinguistica){
-        varAtual = variaveisLinguisticas.get(nomeVarLinguistica);
-        varAtual.inicializarMatrizPertinencia(valorDiscretizacao, varAtual.conjuntos.size()+1);
-    }
-
-    private void discretizar(String nomeVarLinguistica)
+    private void fuzificar(String nomeVarLinguistica)
     {
-        getVarLinguistica(nomeVarLinguistica);
-        double fatorPertinencia = 0;
-        double x = varAtual.getUniversoMin() + fatorPertinencia;
-        double max = varAtual.getUniversoMax();
-        double min = varAtual.getUniversoMin();
-        fatorPertinencia = (max - min)/500;
-        
-        for(int i=0; i<valorDiscretizacao; i++){
-            vetorPertinencia = new double[varAtual.conjuntos.size()+1];
-            fuzificar(x);
-            varAtual.preencherMatrizPertinencia(i, vetorPertinencia, x);
-            x = x + fatorPertinencia;
-        }
-    }
-
-    private void fuzificar(double x)
-    {              
-        for(int i = 0; i<varAtual.conjuntos.size(); i++){
-            ConjuntoFuzzy conjunto = varAtual.conjuntos.get(i);
-            vetorPertinencia[i+1] = conjunto.pertinencia(x);
-        }      
+        VariavelLinguistica var = variaveisLinguisticas.get(nomeVarLinguistica);
+        var.discretizarUniverso(valorDiscretizacao);
+        var.fuzificar();
     }
 
     public double executarMecanismoInferencia(double temperaturaEntrada, double volumeEntrada){
