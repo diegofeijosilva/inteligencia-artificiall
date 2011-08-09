@@ -34,26 +34,26 @@ public class SistemaFuzzy {
         fuzificar(nome);
     }
 
-    private void fuzificar(String nomeVarLinguistica)
-    {
-        VariavelLinguistica var = variaveisLinguisticas.get(nomeVarLinguistica);
-        var.discretizarUniverso(valorDiscretizacao);
-        var.fuzificar();
-    }
-
     public double executarMecanismoInferencia(double temperaturaEntrada, double volumeEntrada){
         double resultadoPressao = 0;
         double [][] regiaoNebulosaDeSaida;
         mecanismo = new MecanismoInferencia(variaveisLinguisticas);
 
         regiaoNebulosaDeSaida = mecanismo.processar(temperaturaEntrada, volumeEntrada);
-     
+
         resultadoPressao = desfuzificar(regiaoNebulosaDeSaida);
         System.out.println("Valor de pressão encontrado: " + resultadoPressao);
 
         return resultadoPressao;
     }
 
+    private void fuzificar(String nomeVarLinguistica)
+    {
+        VariavelLinguistica var = variaveisLinguisticas.get(nomeVarLinguistica);
+        var.discretizarUniverso(valorDiscretizacao);
+        var.fuzificar();
+    }
+   
     private double desfuzificar (double[][] regiaoNebulosa)
     {
         return centroDeArea(regiaoNebulosa);
