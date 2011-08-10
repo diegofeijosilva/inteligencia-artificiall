@@ -23,8 +23,11 @@ public class ConjuntoFuzzy {
     private double b;
     private String tipoFuncao;
 
-    public ConjuntoFuzzy(String valor, String tipoFuncao, double a, double b, double m, double n)
+    private VariavelLinguistica var;
+
+    public ConjuntoFuzzy(VariavelLinguistica var, String valor, String tipoFuncao, double a, double b, double m, double n)
     {
+        this.var = var;
         this.valorLinguistico = valor;
         this.tipoFuncao = tipoFuncao;
         this.a = a;
@@ -65,6 +68,11 @@ public class ConjuntoFuzzy {
     public int getTotalElementos()
     {
         return elementos.size();
+    }
+
+    public VariavelLinguistica getVarLinguistica()
+    {
+        return this.var;
     }
 
     private double triangular(double x)

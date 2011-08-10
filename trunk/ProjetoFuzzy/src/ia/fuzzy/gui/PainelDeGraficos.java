@@ -31,8 +31,8 @@ public class PainelDeGraficos extends JPanel {
     {
         List<ConjuntoFuzzy> conjuntos = var.getConjuntosFuzzy();
 
-        double width = 210;
-        double height = 40;
+        float width = 210;
+        float height = 40;
 
         float x = 50;
         float y = 80;
