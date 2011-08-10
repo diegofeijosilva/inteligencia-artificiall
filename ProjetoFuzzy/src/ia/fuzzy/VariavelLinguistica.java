@@ -18,7 +18,7 @@ public class VariavelLinguistica {
     private int universoMin; //min e max do gráfico (universo de discurso)
     private int universoMax;
     public double[][] matrizPertinencia;
-    public List<ConjuntoFuzzy> conjuntos = new ArrayList<ConjuntoFuzzy>();
+    private List<ConjuntoFuzzy> conjuntos = new ArrayList<ConjuntoFuzzy>();
 
     
 
@@ -94,6 +94,11 @@ public class VariavelLinguistica {
 
     public int getUniversoMin() {
         return universoMin;
+    }
+
+    public List<ConjuntoFuzzy> getConjuntosFuzzy()
+    {
+        return this.conjuntos;
     }
 
 }
