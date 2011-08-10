@@ -82,7 +82,7 @@ public class GraficoFuzzy {
                 pontos.add(new Ponto(xP, yP+height));
             }
 
-            if (yP < y + height) {
+            else if (yP < y + height) {
                 pontos.add(new Ponto(xP, yP));
             }
 
@@ -99,7 +99,7 @@ public class GraficoFuzzy {
 
     }
 
-    private void preencher(Graphics g, int xDaLinha)
+    public void preencher(Graphics g, int xDaLinha)
     {
         Graphics2D g2d = (Graphics2D) g.create();
 
@@ -114,6 +114,7 @@ public class GraficoFuzzy {
 
         for (int i = 0; i < pontos.size(); i++) {
             xPoints[i] = (int) pontos.get(i).x;
+            yPoints[i] = (int) pontos.get(i).y;
 
             if (pontos.get(i).y < yMin) {
                 yPoints[i] = yMin;

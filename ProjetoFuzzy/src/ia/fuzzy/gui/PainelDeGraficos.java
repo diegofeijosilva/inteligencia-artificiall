@@ -93,17 +93,26 @@ public class PainelDeGraficos extends JPanel {
 
     @Override
     protected void paintComponent(Graphics g) {
-        if (!var.getNome().equals("Pressao"))
-        desenharLinhaVertical(g);
-        plotarGraficos(g);
-        if (!var.getNome().equals("Pressao"))
-        desenharLinhaVertical(g); // armengue pra linha ficar por cima
+        if (!var.getNome().equals("Pressao")) {
+            desenharLinhaVertical(g);
+            preencherGraficos(g);
+            plotarGraficos(g);
+            //preencherGraficos(g);
+            desenharLinhaVertical(g); // armengue pra linha ficar por cima
+        }
     }
 
     private void plotarGraficos(Graphics g)
     {
         for (int i = 0; i < graficos.size(); i++) {
             graficos.get(i).plotarGrafico(g, i+1, (int) linha.getX1());
+        }
+    }
+
+    private void preencherGraficos(Graphics g)
+    {
+        for (int i = 0; i < graficos.size(); i++) {
+            graficos.get(i).preencher(g,(int) linha.getX1());
         }
     }
 
