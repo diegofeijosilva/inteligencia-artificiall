@@ -40,11 +40,11 @@ public class GraficoFuzzy {
         this.conjunto = conjunto;
     }
 
-    public void plotarGrafico(Graphics g, int index, int xDaLinha)
+    public void plotarGrafico(Graphics g, int index)
     {
         desenharContainer(g, index);
         plotar(g);
-        preencher(g, xDaLinha);
+        //preencher(g, xDaLinha);
     }
 
     private void desenharContainer(Graphics g, int index)
@@ -121,6 +121,40 @@ public class GraficoFuzzy {
             } else {
                 yPoints[i] = (int) pontos.get(i).y;
             }
+        }
+
+        //fazendo preenchimento
+        if (conjunto.getVarLinguistica().getNome().equals("Temperatura")) {
+            g2d.setColor(Color.yellow);
+        } else if (conjunto.getVarLinguistica().getNome().equals("Volume")) {
+            g2d.setColor(Color.blue);
+        }
+
+        g2d.fillPolygon(xPoints, yPoints, xPoints.length);
+    }
+
+    public void preencherResultado(Graphics g)
+    {
+        Graphics2D g2d = (Graphics2D) g.create();
+
+        int[] xPoints;
+        int[] yPoints;
+
+        //int yMin = getYMin(xDaLinha);
+
+        //vetores de pontos para fazer o preenchimento
+        xPoints = new int[pontos.size()];
+        yPoints = new int[pontos.size()];
+
+        for (int i = 0; i < pontos.size(); i++) {
+            xPoints[i] = (int) pontos.get(i).x;
+            yPoints[i] = (int) pontos.get(i).y;
+
+//            if (pontos.get(i).y < yMin) {
+//                yPoints[i] = yMin;
+//            } else {
+//                yPoints[i] = (int) pontos.get(i).y;
+//            }
         }
 
         //fazendo preenchimento

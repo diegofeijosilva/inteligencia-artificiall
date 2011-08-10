@@ -74,11 +74,11 @@ public class PainelDeGraficos extends JPanel {
 
         if(var.getNome().equals("Pressao")){
             for (ConjuntoFuzzy conjuntoFuzzy : conjuntos) {
-                for (int i = 0; i < 3; i++) {
+                //for (int i = 0; i < 3; i++) {
                    graficos.add(new GraficoFuzzy(x, y, width, height, conjuntoFuzzy));
                     y += 50;
                 }
-            }
+           // }
         }
     }
 
@@ -97,15 +97,18 @@ public class PainelDeGraficos extends JPanel {
             desenharLinhaVertical(g);
             preencherGraficos(g);
             plotarGraficos(g);
-            //preencherGraficos(g);
             desenharLinhaVertical(g); // armengue pra linha ficar por cima
+        }
+        else {
+            preencherGraficosResultados(g);
+            plotarGraficos(g);
         }
     }
 
     private void plotarGraficos(Graphics g)
     {
         for (int i = 0; i < graficos.size(); i++) {
-            graficos.get(i).plotarGrafico(g, i+1, (int) linha.getX1());
+            graficos.get(i).plotarGrafico(g, i+1 );
         }
     }
 
@@ -113,6 +116,13 @@ public class PainelDeGraficos extends JPanel {
     {
         for (int i = 0; i < graficos.size(); i++) {
             graficos.get(i).preencher(g,(int) linha.getX1());
+        }
+    }
+
+    private void preencherGraficosResultados(Graphics g)
+    {
+        for (int i = 0; i < graficos.size(); i++) {
+            graficos.get(i).preencherResultado(g);
         }
     }
 
