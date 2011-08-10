@@ -36,8 +36,9 @@ public class ConjuntoFuzzy {
         this.n = n;
     }
 
-    public ConjuntoFuzzy(double[][] matriz)
+    public ConjuntoFuzzy(VariavelLinguistica var, double[][] matriz)
     {
+        this.var = var;
         implementarMatriz(matriz);
     }
 
