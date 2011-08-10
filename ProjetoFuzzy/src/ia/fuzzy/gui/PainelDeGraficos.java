@@ -63,6 +63,7 @@ public class PainelDeGraficos extends JPanel {
     protected void paintComponent(Graphics g) {
         desenharLinhaVertical(g);     
         plotarGraficos(g);
+        desenharLinhaVertical(g); // armengue pra linha ficar por cima
     }
 
     private void plotarGraficos(Graphics g)
