@@ -23,11 +23,12 @@ import java.util.List;
 public class GraficoFuzzy {
 
     ConjuntoFuzzy conjunto;
+    List<Ponto> pontos = new ArrayList<Ponto>();
 
     private float width;
     private float height;
 
-    private float x;
+    private float x; //coordenadas iniciais do gráfico, do ponto superior esquerdo
     private float y;
 
     public GraficoFuzzy(float x, float y, float width, float height, ConjuntoFuzzy conjunto)
@@ -43,6 +44,7 @@ public class GraficoFuzzy {
     {
         desenharContainer(g, index);
         plotar(g);
+        preencher(g);
     }
 
     private void desenharContainer(Graphics g, int index)
@@ -64,16 +66,12 @@ public class GraficoFuzzy {
     private void plotar(Graphics g)
     {
         Graphics2D g2d = (Graphics2D) g.create();
-        List<Ponto> pontos = new ArrayList<Ponto>();
 
         double deltaX = width/500;
         double deltaY = height/100;
 
         double xP;
         double yP;
-
-        int[] xPoints;
-        int[] yPoints;
 
         //preenchendo lista de pontos para plotar, definindo coordenadas xP e yP para cada ponto
         for (int i = 0; i < conjunto.getTotalElementos(); i++) {
@@ -93,24 +91,33 @@ public class GraficoFuzzy {
             }
         }
 
-        //vetores de pontos para fazer o preenchimento
-        xPoints = new int[pontos.size()];
-        yPoints = new int[pontos.size()];
-        
-        for (int i = 0; i < pontos.size(); i++) {         
-            xPoints[i] = (int)pontos.get(i).x;
-            yPoints[i] = (int)pontos.get(i).y;
-        }
-
         //unindo os pontos com linhas
         for (int i = 0; i < pontos.size()-1; i++) {
             Line2D linha = new Line2D.Double(pontos.get(i).x, pontos.get(i).y, pontos.get(i+1).x, pontos.get(i+1).y);
             g2d.draw(linha);
         }
+
+    }
+
+    private void preencher(Graphics g)
+    {
+        Graphics2D g2d = (Graphics2D) g.create();
+
+        int[] xPoints;
+        int[] yPoints;
+
+        //vetores de pontos para fazer o preenchimento
+        xPoints = new int[pontos.size()];
+        yPoints = new int[pontos.size()];
+
+        for (int i = 0; i < pontos.size(); i++) {
+            xPoints[i] = (int)pontos.get(i).x;
+            yPoints[i] = (int)pontos.get(i).y;
+        }
+
         //fazendo preenchimento
         g2d.setColor(Color.yellow);
         g2d.fillPolygon(xPoints, yPoints, xPoints.length);
-
     }
 
     public static double arredondar(double num, int casas) {

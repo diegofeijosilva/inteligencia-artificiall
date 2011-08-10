@@ -22,6 +22,7 @@ public class PainelDeGraficos extends JPanel {
 
     VariavelLinguistica var;
     List<GraficoFuzzy> graficos = new ArrayList<GraficoFuzzy>();
+    Line2D linha;
     
 
     public PainelDeGraficos(VariavelLinguistica varLinguistica)
@@ -78,7 +79,7 @@ public class PainelDeGraficos extends JPanel {
         double linhaY2 = graficos.get(graficos.size()-1).getY() + graficos.get(0).getHeight() + 30;
 
         Graphics2D g2d = (Graphics2D) g.create();
-        Line2D linha = new Line2D.Double(linhaX, linhaY1, linhaX, linhaY2);
+        linha = new Line2D.Double(linhaX, linhaY1, linhaX, linhaY2);
         g2d.setColor(Color.red);
         g2d.draw(linha);
     }
