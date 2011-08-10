@@ -36,6 +36,11 @@ public class ConjuntoFuzzy {
         this.n = n;
     }
 
+    public ConjuntoFuzzy(double[][] matriz)
+    {
+        implementarMatriz(matriz);
+    }
+
     public double pertinencia(double x)
     {
         if(tipoFuncao.equals("triangular"))
@@ -57,6 +62,15 @@ public class ConjuntoFuzzy {
         for (int i = 0; i < numeroDePontos; i++) {
             elementos.add(new Elemento(x, pertinencia(x)));
             x += delta;
+        }
+    }
+
+    public void implementarMatriz(double[][] matriz)
+    {
+        elementos.clear();
+        System.out.println(matriz);
+        for (int i = 0; i < matriz.length; i++) {
+            elementos.add(new Elemento(matriz[i][0], matriz[i][1]));
         }
     }
 

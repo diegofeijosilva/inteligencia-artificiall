@@ -5,7 +5,9 @@
 
 package ia.fuzzy;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -38,11 +40,28 @@ public class SistemaFuzzy {
         mecanismo = new MecanismoInferencia(variaveisLinguisticas);
 
         regiaoNebulosaDeSaida = mecanismo.processar(temperaturaEntrada, volumeEntrada);
+        setarResultadosPressao();
 
         resultadoPressao = desfuzificar(regiaoNebulosaDeSaida);
         System.out.println("Valor de pressão encontrado: " + resultadoPressao);
 
         return resultadoPressao;
+    }
+
+
+    private void setarResultadosPressao()
+    {
+        List<ConjuntoFuzzy> resultados = variaveisLinguisticas.get("Pressao").getConjuntosFuzzy();
+        resultados = new ArrayList<ConjuntoFuzzy>();
+        for (int i = 0; i < 9; i++) {
+            resultados.add(new ConjuntoFuzzy(mecanismo.getMatrizPressaoComAlfaCorte(i+1)));
+        }
+
+    }
+
+    private ConjuntoFuzzy converterMatrizParaConjunto(double[][] matriz)
+    {
+        return new ConjuntoFuzzy(variaveisLinguisticas.get("Pressao"), "pequeno","trapezoidal", 0, 7, 2, 4.5);//temporário, vai sumir
     }
 
     private void fuzificar(String nomeVarLinguistica)
