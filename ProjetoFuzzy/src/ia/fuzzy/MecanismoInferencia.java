@@ -21,15 +21,15 @@ public class MecanismoInferencia {
     private double alfaCorteVolume;
     private double alfaCorte;
     private String regrasAtivadas;
-    private double[][] matrizPressaoComAlfaCorte1;
-    private double[][] matrizPressaoComAlfaCorte2;
-    private double[][] matrizPressaoComAlfaCorte3;
-    private double[][] matrizPressaoComAlfaCorte4;
-    private double[][] matrizPressaoComAlfaCorte5;
-    private double[][] matrizPressaoComAlfaCorte6;
-    private double[][] matrizPressaoComAlfaCorte7;
-    private double[][] matrizPressaoComAlfaCorte8;
-    private double[][] matrizPressaoComAlfaCorte9;
+    private double[][] matrizPressaoComAlfaCorte1 = new double[SistemaFuzzy.DISCRETIZACAO_DEFAULT][2];
+    private double[][] matrizPressaoComAlfaCorte2 = new double[SistemaFuzzy.DISCRETIZACAO_DEFAULT][2];
+    private double[][] matrizPressaoComAlfaCorte3 = new double[SistemaFuzzy.DISCRETIZACAO_DEFAULT][2];
+    private double[][] matrizPressaoComAlfaCorte4 = new double[SistemaFuzzy.DISCRETIZACAO_DEFAULT][2];
+    private double[][] matrizPressaoComAlfaCorte5 = new double[SistemaFuzzy.DISCRETIZACAO_DEFAULT][2];
+    private double[][] matrizPressaoComAlfaCorte6 = new double[SistemaFuzzy.DISCRETIZACAO_DEFAULT][2];
+    private double[][] matrizPressaoComAlfaCorte7 = new double[SistemaFuzzy.DISCRETIZACAO_DEFAULT][2];
+    private double[][] matrizPressaoComAlfaCorte8 = new double[SistemaFuzzy.DISCRETIZACAO_DEFAULT][2];
+    private double[][] matrizPressaoComAlfaCorte9 = new double[SistemaFuzzy.DISCRETIZACAO_DEFAULT][2];
 
     public MecanismoInferencia(Map variaveisLinguisticas){
         this.variaveisLinguisticas = variaveisLinguisticas;

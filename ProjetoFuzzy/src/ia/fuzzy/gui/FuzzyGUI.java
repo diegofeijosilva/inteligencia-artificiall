@@ -23,6 +23,10 @@ public class FuzzyGUI extends javax.swing.JFrame {
     public FuzzyGUI() {
         initFuzzy();
         initComponents();
+        double temperaturaInicial = (1200+800)/2;
+        double volumeInicial = (2+12)/2;
+        fuzzy.executarMecanismoInferencia(temperaturaInicial, volumeInicial);
+        jPanelPressao.initGraficosFuzzy();
     }
 
     /** This method is called from within the constructor to
@@ -40,7 +44,7 @@ public class FuzzyGUI extends javax.swing.JFrame {
         jPanelVolume = new PainelDeGraficos(fuzzy.getVariaveisLinguisticas().get("Volume"));
         jLabel2 = new javax.swing.JLabel();
         jTextFieldVolume = new javax.swing.JTextField();
-        jPanelPressao = new PainelDeGraficos(fuzzy.getVariaveisLinguisticas().get("Temperatura"));
+        jPanelPressao = new PainelDeGraficos(fuzzy.getVariaveisLinguisticas().get("Pressao"));
         jLabel3 = new javax.swing.JLabel();
         jTextFieldPressao = new javax.swing.JTextField();
 
