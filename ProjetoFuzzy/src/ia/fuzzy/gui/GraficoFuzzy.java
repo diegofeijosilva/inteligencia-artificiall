@@ -123,7 +123,12 @@ public class GraficoFuzzy {
         }
 
         //fazendo preenchimento
-        g2d.setColor(Color.yellow);
+        if (conjunto.getVarLinguistica().getNome().equals("Temperatura")) {
+            g2d.setColor(Color.yellow);
+        } else if (conjunto.getVarLinguistica().getNome().equals("Volume")) {
+            g2d.setColor(Color.blue);
+        }
+
         g2d.fillPolygon(xPoints, yPoints, xPoints.length);
     }
 
