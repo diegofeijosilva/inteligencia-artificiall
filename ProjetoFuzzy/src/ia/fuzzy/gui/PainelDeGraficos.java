@@ -7,7 +7,10 @@ package ia.fuzzy.gui;
 
 import ia.fuzzy.ConjuntoFuzzy;
 import ia.fuzzy.VariavelLinguistica;
+import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.geom.Line2D;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JPanel;
@@ -61,6 +64,15 @@ public class PainelDeGraficos extends JPanel {
         for (int i = 0; i < graficos.size(); i++) {
             graficos.get(i).plotarGrafico(g, i+1);
         }
+
+        double linhaX = graficos.get(0).getX() + (graficos.get(0).getWidth()/2);
+        double linhaY1 = graficos.get(0).getY() - 10;
+        double linhaY2 = graficos.get(graficos.size()-1).getY() + graficos.get(0).getHeight() + 30;
+
+        Graphics2D g2d = (Graphics2D) g.create();
+        Line2D linha = new Line2D.Double(linhaX, linhaY1, linhaX, linhaY2);
+        g2d.setColor(Color.red);
+        g2d.draw(linha);
     }
 
 }

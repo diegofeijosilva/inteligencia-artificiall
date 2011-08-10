@@ -93,6 +93,26 @@ public class GraficoFuzzy {
         return num;
     }
 
+    public float getX()
+    {
+        return x;
+    }
+
+    public float getY()
+    {
+        return y;
+    }
+
+    public float getWidth()
+    {
+        return width;
+    }
+
+    public float getHeight()
+    {
+        return height;
+    }
+
     class Ponto
     {
         double x;
