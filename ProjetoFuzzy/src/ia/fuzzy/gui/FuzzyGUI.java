@@ -23,10 +23,10 @@ public class FuzzyGUI extends javax.swing.JFrame {
     public FuzzyGUI() {
         initFuzzy();
         initComponents();
-        double temperaturaInicial = (1200+800)/2;
-        double volumeInicial = (2+12)/2;
-        fuzzy.executarMecanismoInferencia(temperaturaInicial, volumeInicial);
-        jPanelPressao.initGraficosFuzzy();
+//        double temperaturaInicial = (1200+800)/2;
+//        double volumeInicial = (2+12)/2;
+//        fuzzy.executarMecanismoInferencia(temperaturaInicial, volumeInicial);
+//        jPanelPressao.initGraficosPressao();
     }
 
     /** This method is called from within the constructor to

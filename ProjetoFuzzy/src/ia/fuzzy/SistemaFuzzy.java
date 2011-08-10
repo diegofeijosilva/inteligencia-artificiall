@@ -52,9 +52,10 @@ public class SistemaFuzzy {
     private void setarResultadosPressao()
     {
         List<ConjuntoFuzzy> resultados = variaveisLinguisticas.get("Pressao").getConjuntosFuzzy();
-        resultados = new ArrayList<ConjuntoFuzzy>();
+        //resultados = new ArrayList<ConjuntoFuzzy>();
+        resultados.clear();
         for (int i = 0; i < 9; i++) {
-            resultados.add(new ConjuntoFuzzy(mecanismo.getMatrizPressaoComAlfaCorte(i+1)));
+            resultados.add(new ConjuntoFuzzy(variaveisLinguisticas.get("Pressao"), mecanismo.getMatrizPressaoComAlfaCorte(i+1)));
         }
 
     }

@@ -29,6 +29,7 @@ public class PainelDeGraficos extends JPanel {
     {
         this.var = varLinguistica;
         initGraficosFuzzy();
+        if (!var.getNome().equals("Pressao"))
         initLinhaVertical();
     }
 
@@ -58,6 +59,19 @@ public class PainelDeGraficos extends JPanel {
                 }
             }
         }
+        
+    }
+
+    public void initGraficosPressao()
+    {
+        List<ConjuntoFuzzy> conjuntos = var.getConjuntosFuzzy();
+
+        float width = 210;
+        float height = 40;
+
+        float x = 50;
+        float y = 80;
+
         if(var.getNome().equals("Pressao")){
             for (ConjuntoFuzzy conjuntoFuzzy : conjuntos) {
                 for (int i = 0; i < 3; i++) {
@@ -79,8 +93,10 @@ public class PainelDeGraficos extends JPanel {
 
     @Override
     protected void paintComponent(Graphics g) {
-        desenharLinhaVertical(g);     
+        if (!var.getNome().equals("Pressao"))
+        desenharLinhaVertical(g);
         plotarGraficos(g);
+        if (!var.getNome().equals("Pressao"))
         desenharLinhaVertical(g); // armengue pra linha ficar por cima
     }
 
