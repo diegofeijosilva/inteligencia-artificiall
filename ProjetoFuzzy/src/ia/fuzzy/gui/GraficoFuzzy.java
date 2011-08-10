@@ -33,17 +33,17 @@ public class GraficoFuzzy {
         this.conjunto = conjunto;
     }
 
-    public void plotarGrafico(Graphics g)
+    public void plotarGrafico(Graphics g, int index)
     {
-        desenharContainer(g);
+        desenharContainer(g, index);
     }
 
-    private void desenharContainer(Graphics g)
+    private void desenharContainer(Graphics g, int index)
     {
         Graphics2D g2d = (Graphics2D) g.create();
 
         g2d.draw(new Rectangle2D.Double(x, y, width, height));
-        g2d.drawString(1 + "", x - 30, y + 25);
+        g2d.drawString(index + "", x - 30, y + 25);
 
         g2d.dispose();
     }

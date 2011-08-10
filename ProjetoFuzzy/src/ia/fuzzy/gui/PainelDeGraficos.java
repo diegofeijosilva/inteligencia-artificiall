@@ -8,8 +8,6 @@ package ia.fuzzy.gui;
 import ia.fuzzy.ConjuntoFuzzy;
 import ia.fuzzy.VariavelLinguistica;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JPanel;
@@ -39,37 +37,30 @@ public class PainelDeGraficos extends JPanel {
         float x = 50;
         float y = 80;
 
-        for (ConjuntoFuzzy conjuntoFuzzy : conjuntos) {
-            graficos.add(new GraficoFuzzy(x,y,width,height,conjuntoFuzzy));
-            y += 50;
+        if (var.getNome().equals("Temperatura")){
+            for (int i = 0; i < 3; i++) {
+                for (ConjuntoFuzzy conjuntoFuzzy : conjuntos) {
+                    graficos.add(new GraficoFuzzy(x, y, width, height, conjuntoFuzzy));
+                    y += 50;
+                }
+            }
+        }
+        if(var.getNome().equals("Volume")){
+            for (ConjuntoFuzzy conjuntoFuzzy : conjuntos) {
+                for (int i = 0; i < 3; i++) {
+                   graficos.add(new GraficoFuzzy(x, y, width, height, conjuntoFuzzy));
+                    y += 50;
+                }
+            }
         }
     }
 
     @Override
     protected void paintComponent(Graphics g) {
-        //desenharContainers(g);
-        for (GraficoFuzzy graficoFuzzy : graficos) {
-            graficoFuzzy.plotarGrafico(g);
+ 
+        for (int i = 0; i < graficos.size(); i++) {
+            graficos.get(i).plotarGrafico(g, i+1);
         }
     }
-
-    private void desenharContainers(Graphics g)
-    {
-        double width = 210;
-        double height = 40;
-
-        float x = 50;
-        float y = 80;
-
-        Graphics2D g2d = (Graphics2D) g.create();
-
-        for (int i = 0; i < 9; i++) {
-            g2d.draw(new Rectangle2D.Double(x, y, width, height));
-            g2d.drawString((i+1)+"", x-30, y+25);
-            y += 50;
-        }
-        g2d.dispose();
-    }
-
 
 }
