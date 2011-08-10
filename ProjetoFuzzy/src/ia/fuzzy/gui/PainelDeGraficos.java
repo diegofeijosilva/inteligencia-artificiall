@@ -61,20 +61,20 @@ public class PainelDeGraficos extends JPanel {
 
     @Override
     protected void paintComponent(Graphics g) {
-        plotarGraficos(g);
         desenharLinhaVertical(g);     
+        plotarGraficos(g);
     }
 
     private void plotarGraficos(Graphics g)
     {
         for (int i = 0; i < graficos.size(); i++) {
-            graficos.get(i).plotarGrafico(g, i+1);
+            graficos.get(i).plotarGrafico(g, i+1, (int) linha.getX1());
         }
     }
 
     private void desenharLinhaVertical(Graphics g)
     {
-        double linhaX = graficos.get(0).getX() + (graficos.get(0).getWidth()/2);
+        double linhaX = graficos.get(0).getX() + (graficos.get(0).getWidth()*2/3);
         double linhaY1 = graficos.get(0).getY() - 10;
         double linhaY2 = graficos.get(graficos.size()-1).getY() + graficos.get(0).getHeight() + 30;
 

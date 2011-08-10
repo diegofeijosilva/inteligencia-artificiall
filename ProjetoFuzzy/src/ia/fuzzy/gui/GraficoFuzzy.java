@@ -40,11 +40,11 @@ public class GraficoFuzzy {
         this.conjunto = conjunto;
     }
 
-    public void plotarGrafico(Graphics g, int index)
+    public void plotarGrafico(Graphics g, int index, int xDaLinha)
     {
         desenharContainer(g, index);
         plotar(g);
-        preencher(g);
+        preencher(g, xDaLinha);
     }
 
     private void desenharContainer(Graphics g, int index)
@@ -99,25 +99,41 @@ public class GraficoFuzzy {
 
     }
 
-    private void preencher(Graphics g)
+    private void preencher(Graphics g, int xDaLinha)
     {
         Graphics2D g2d = (Graphics2D) g.create();
 
         int[] xPoints;
         int[] yPoints;
 
+        int yMin = getYMin(xDaLinha);
+
         //vetores de pontos para fazer o preenchimento
         xPoints = new int[pontos.size()];
         yPoints = new int[pontos.size()];
 
         for (int i = 0; i < pontos.size(); i++) {
-            xPoints[i] = (int)pontos.get(i).x;
-            yPoints[i] = (int)pontos.get(i).y;
+            xPoints[i] = (int) pontos.get(i).x;
+
+            if (pontos.get(i).y < yMin) {
+                yPoints[i] = yMin;
+            } else {
+                yPoints[i] = (int) pontos.get(i).y;
+            }
         }
 
         //fazendo preenchimento
         g2d.setColor(Color.yellow);
         g2d.fillPolygon(xPoints, yPoints, xPoints.length);
+    }
+
+    private int getYMin(int x)
+    {
+        for (Ponto ponto : pontos) {
+            if (x==ponto.x || (ponto.x<=x+1 && ponto.x>=x-1))
+                return (int)ponto.y;
+        }
+        return (int) ((int) y + height);
     }
 
     public static double arredondar(double num, int casas) {
