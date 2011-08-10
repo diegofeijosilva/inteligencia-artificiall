@@ -5,10 +5,13 @@
 
 package ia.fuzzy.gui;
 
+import ia.fuzzy.ConjuntoFuzzy;
 import ia.fuzzy.VariavelLinguistica;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.Rectangle2D;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JPanel;
 /**
  *
@@ -17,15 +20,37 @@ import javax.swing.JPanel;
 public class PainelDeGraficos extends JPanel {
 
     VariavelLinguistica var;
+    List<GraficoFuzzy> graficos = new ArrayList<GraficoFuzzy>();
+    
 
     public PainelDeGraficos(VariavelLinguistica varLinguistica)
     {
         this.var = varLinguistica;
+        initGraficosFuzzy();
+    }
+
+    private void initGraficosFuzzy()
+    {
+        List<ConjuntoFuzzy> conjuntos = var.getConjuntosFuzzy();
+
+        double width = 210;
+        double height = 40;
+
+        float x = 50;
+        float y = 80;
+
+        for (ConjuntoFuzzy conjuntoFuzzy : conjuntos) {
+            graficos.add(new GraficoFuzzy(x,y,width,height,conjuntoFuzzy));
+            y += 50;
+        }
     }
 
     @Override
     protected void paintComponent(Graphics g) {
-        desenharContainers(g);
+        //desenharContainers(g);
+        for (GraficoFuzzy graficoFuzzy : graficos) {
+            graficoFuzzy.plotarGrafico(g);
+        }
     }
 
     private void desenharContainers(Graphics g)
