@@ -8,7 +8,12 @@ package ia.fuzzy.gui;
 import ia.fuzzy.ConjuntoFuzzy;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.geom.Line2D;
+import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -36,6 +41,7 @@ public class GraficoFuzzy {
     public void plotarGrafico(Graphics g, int index)
     {
         desenharContainer(g, index);
+        plotar(g);
     }
 
     private void desenharContainer(Graphics g, int index)
@@ -54,9 +60,49 @@ public class GraficoFuzzy {
         g2d.dispose();
     }
 
-    private void plotar()
+    private void plotar(Graphics g)
     {
+        Graphics2D g2d = (Graphics2D) g.create();
+        List<Ponto> pontos = new ArrayList<Ponto>();
 
+        double deltaX = width/500;
+        double deltaY = height/100;
+
+        double xP;
+        double yP;
+
+        for (int i = 0; i < conjunto.getTotalElementos(); i++) {
+            xP = x + (i+1)* deltaX;
+            yP = y - (arredondar(conjunto.getElemento(i).getPertinencia(),2) * 100 * deltaY) + height;
+            pontos.add(new Ponto(xP, yP));
+        }
+
+        for (int i = 0; i < pontos.size()-1; i++) {
+            Line2D linha = new Line2D.Double(pontos.get(i).x, pontos.get(i).y, pontos.get(i+1).x, pontos.get(i+1).y);
+            g2d.draw(linha);
+
+        }
+
+    }
+
+    public static double arredondar(double num, int casas) {
+        int decimalPlace = casas;
+        BigDecimal bd = new BigDecimal(num);
+        bd = bd.setScale(decimalPlace,BigDecimal.ROUND_HALF_UP);
+        num = bd.doubleValue();
+        return num;
+    }
+
+    class Ponto
+    {
+        double x;
+        double y;
+
+        Ponto(double x, double y)
+        {
+            this.x = x;
+            this.y = y;
+        }
     }
 
 
