@@ -101,4 +101,9 @@ public class VariavelLinguistica {
         return this.conjuntos;
     }
 
+    public void setConjuntosFuzzy(List<ConjuntoFuzzy> conjuntos)
+    {
+        this.conjuntos = conjuntos;
+    }
+
 }

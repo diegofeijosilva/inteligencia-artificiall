@@ -57,6 +57,8 @@ public class SistemaFuzzy {
         for (int i = 0; i < 9; i++) {
             resultados.add(new ConjuntoFuzzy(variaveisLinguisticas.get("Pressao"), mecanismo.getMatrizPressaoComAlfaCorte(i+1)));
         }
+        variaveisLinguisticas.get("Pressao").setConjuntosFuzzy(resultados);
+        System.out.println("QUANTIDADE DE CONJUNTOS FUZZY: " + resultados.size());
 
     }
 
