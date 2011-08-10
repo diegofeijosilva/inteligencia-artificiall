@@ -18,13 +18,13 @@ public class GraficoFuzzy {
 
     ConjuntoFuzzy conjunto;
 
-    private double width;
-    private double height;
+    private float width;
+    private float height;
 
     private float x;
     private float y;
 
-    public GraficoFuzzy(float x, float y, double width, double height, ConjuntoFuzzy conjunto)
+    public GraficoFuzzy(float x, float y, float width, float height, ConjuntoFuzzy conjunto)
     {
         this.x = x;
         this.y = y;
@@ -45,7 +45,18 @@ public class GraficoFuzzy {
         g2d.draw(new Rectangle2D.Double(x, y, width, height));
         g2d.drawString(index + "", x - 30, y + 25);
 
+        if(index==9)
+        {
+            g2d.drawString(String.valueOf(conjunto.getVarLinguistica().getUniversoMin()), x - 5 , y + 53);
+            g2d.drawString(String.valueOf(conjunto.getVarLinguistica().getUniversoMax()), x + width - 10, y + 53);
+        }
+
         g2d.dispose();
+    }
+
+    private void plotar()
+    {
+
     }
 
 
