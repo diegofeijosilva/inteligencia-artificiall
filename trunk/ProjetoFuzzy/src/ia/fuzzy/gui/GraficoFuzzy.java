@@ -6,6 +6,7 @@
 package ia.fuzzy.gui;
 
 import ia.fuzzy.ConjuntoFuzzy;
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.Line2D;
@@ -71,17 +72,44 @@ public class GraficoFuzzy {
         double xP;
         double yP;
 
+        int[] xPoints;
+        int[] yPoints;
+
+        //preenchendo lista de pontos para plotar, definindo coordenadas xP e yP para cada ponto
         for (int i = 0; i < conjunto.getTotalElementos(); i++) {
             xP = x + (i+1)* deltaX;
             yP = y - (arredondar(conjunto.getElemento(i).getPertinencia(),2) * 100 * deltaY) + height;
-            pontos.add(new Ponto(xP, yP));
+
+            if(i==0 && yP<=y)  {
+                pontos.add(new Ponto(xP, yP+height));
+            }
+
+            if (yP < y + height) {
+                pontos.add(new Ponto(xP, yP));
+            }
+
+            if(i==conjunto.getTotalElementos()-1 && yP<=y) {
+                pontos.add(new Ponto(xP, yP+height));
+            }
         }
 
+        //vetores de pontos para fazer o preenchimento
+        xPoints = new int[pontos.size()];
+        yPoints = new int[pontos.size()];
+        
+        for (int i = 0; i < pontos.size(); i++) {         
+            xPoints[i] = (int)pontos.get(i).x;
+            yPoints[i] = (int)pontos.get(i).y;
+        }
+
+        //unindo os pontos com linhas
         for (int i = 0; i < pontos.size()-1; i++) {
             Line2D linha = new Line2D.Double(pontos.get(i).x, pontos.get(i).y, pontos.get(i+1).x, pontos.get(i+1).y);
             g2d.draw(linha);
-
         }
+        //fazendo preenchimento
+        g2d.setColor(Color.yellow);
+        g2d.fillPolygon(xPoints, yPoints, xPoints.length);
 
     }
 
