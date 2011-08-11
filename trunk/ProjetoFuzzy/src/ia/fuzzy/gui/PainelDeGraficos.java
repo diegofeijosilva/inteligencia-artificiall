@@ -97,7 +97,7 @@ public class PainelDeGraficos extends JPanel {
             desenharLinhaVertical(g);
             plotarGraficos(g);
             preencherGraficos(g);
-            plotarGraficos(g);
+            //plotarGraficos(g);
             desenharLinhaVertical(g); // armengue pra linha ficar por cima
         }
         else {
