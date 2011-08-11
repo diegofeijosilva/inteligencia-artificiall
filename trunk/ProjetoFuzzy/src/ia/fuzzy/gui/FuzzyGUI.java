@@ -188,7 +188,8 @@ public class FuzzyGUI extends javax.swing.JFrame {
     {
         jTextFieldTemperatura.setText(String.valueOf(getTemperaturaMarcada()));
         jTextFieldVolume.setText(String.valueOf(getVolumeMarcado()));
-        //jTextFieldPressao.setText(String.valueOf(getPressaoMarcada()));
+
+        jTextFieldPressao.setText(String.valueOf(getPressaoAtual()));
     }
 
     public static double arredondar(double num, int casas) {
@@ -201,7 +202,7 @@ public class FuzzyGUI extends javax.swing.JFrame {
 
     public void executarInferencia()
     {
-        fuzzy.executarMecanismoInferencia(getTemperaturaMarcada(), getVolumeMarcado());
+        pressaoAtual = fuzzy.executarMecanismoInferencia(getTemperaturaMarcada(), getVolumeMarcado());
         jPanelPressao.atualizarGraficoResultante(fuzzy.getRegiaoNebulosaDeSaida());
         jPanelPressao.repaint();
     }
@@ -232,6 +233,10 @@ public class FuzzyGUI extends javax.swing.JFrame {
         return arredondar(vol, 2);
     }
 
+    private double getPressaoAtual()
+    {
+        return arredondar(pressaoAtual, 2);
+    }
     public SistemaFuzzy getFuzzy()
     {
         return this.fuzzy;
@@ -262,5 +267,6 @@ public class FuzzyGUI extends javax.swing.JFrame {
     // End of variables declaration
 
     private SistemaFuzzy fuzzy = new SistemaFuzzy();
+    private double pressaoAtual = 0;
 
 }
