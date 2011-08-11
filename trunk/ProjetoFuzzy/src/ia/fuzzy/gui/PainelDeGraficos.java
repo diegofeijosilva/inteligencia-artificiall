@@ -29,8 +29,10 @@ public class PainelDeGraficos extends JPanel {
     {
         this.var = varLinguistica;
         initGraficosFuzzy();
-        if (!var.getNome().equals("Pressao"))
-        initLinhaVertical();
+        if (!var.getNome().equals("Pressao")) {
+            initLinhaVertical();
+        }
+
     }
 
     public void initGraficosFuzzy()
@@ -100,7 +102,7 @@ public class PainelDeGraficos extends JPanel {
 
     private void initLinhaVertical()
     {
-        double linhaX = graficos.get(0).getX() + (graficos.get(0).getWidth()*2/3);
+        double linhaX = graficos.get(0).getX() + (graficos.get(0).getWidth()*1/3);
         double linhaY1 = graficos.get(0).getY() - 10;
         double linhaY2 = graficos.get(graficos.size()-1).getY() + graficos.get(0).getHeight() + 30;
 

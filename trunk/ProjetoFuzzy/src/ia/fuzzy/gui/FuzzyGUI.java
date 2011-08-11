@@ -13,6 +13,7 @@ package ia.fuzzy.gui;
 
 import ia.fuzzy.ConjuntoFuzzy;
 import ia.fuzzy.SistemaFuzzy;
+import java.math.BigDecimal;
 
 /**
  *
@@ -28,6 +29,7 @@ public class FuzzyGUI extends javax.swing.JFrame {
         double volumeInicial = (2+12)/2;
         fuzzy.executarMecanismoInferencia(temperaturaInicial, volumeInicial);
         jPanelPressao.addGraficoResultante(new ConjuntoFuzzy(fuzzy.getVariaveisLinguisticas().get("Pressao"), fuzzy.getRegiaoNebulosaDeSaida()));
+        initInputs();
         //jPanelPressao.getGraficos.add(new GraficoFuzzy(x, y+400, width, height, new ConjuntoFuzzy(fuzzy.getVariaveisLinguisticas().get("Pressao"), fuzzy.getRegiaoNebulosaDeSaida())));
         //jPanelPressao.initGraficosPressao();
     }
@@ -161,6 +163,48 @@ public class FuzzyGUI extends javax.swing.JFrame {
         fuzzy.criarVariavelLinguistica("Volume", 2, 12);
         fuzzy.criarVariavelLinguistica("Pressao", 4, 12);
     }
+
+    private void initInputs()
+    {
+        jTextFieldTemperatura.setText(String.valueOf(getTemperaturaMarcada()));
+        jTextFieldVolume.setText(String.valueOf(getVolumeMarcado()));
+        //jTextFieldPressao.setText(String.valueOf(getPressaoMarcada()));
+    }
+
+    public static double arredondar(double num, int casas) {
+        int decimalPlace = casas;
+        BigDecimal bd = new BigDecimal(num);
+        bd = bd.setScale(decimalPlace,BigDecimal.ROUND_HALF_UP);
+        num = bd.doubleValue();
+        return num;
+    }
+
+    private double getTemperaturaMarcada()
+    {
+        double x = jPanelTemperatura.getGraficos().get(0).getX();
+        double lineX = jPanelTemperatura.getValorInicialLinha();
+        double width = jPanelTemperatura.getGraficos().get(0).getWidth();
+
+        double deltaTemp = (1200-800)/500; //igual a 0.8
+        double deltaGraf = width/500;
+
+        double temp = 800 + ((lineX-x)/deltaGraf)*0.8;
+        return arredondar(temp, 5);
+    }
+
+    private double getVolumeMarcado()
+    {
+        double x = jPanelVolume.getGraficos().get(0).getX();
+        double lineX = jPanelVolume.getValorInicialLinha();
+        double width = jPanelVolume.getGraficos().get(0).getWidth();
+
+        double deltaVol = (12-2)/500; //igual a 0.02
+        double deltaGraf = width/500;
+
+        double vol = 2 + ((lineX-x)/deltaGraf)*0.02;
+        return arredondar(vol, 5);
+    }
+
 
     /**
     * @param args the command line arguments
