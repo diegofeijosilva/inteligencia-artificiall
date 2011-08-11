@@ -63,12 +63,19 @@ public class GraficoFuzzy {
         g2d.draw(new Rectangle2D.Double(x, y, width, height));
         g2d.drawString(index + "", x - 30, y + 25);
 
-        if(index==9)
+        if(index==9 && !conjunto.getVarLinguistica().getNome().equals("Pressao"))
         {
             g2d.drawString(String.valueOf(conjunto.getVarLinguistica().getUniversoMin()), x - 5 , y + 53);
             g2d.drawString(String.valueOf(conjunto.getVarLinguistica().getUniversoMax()), x + width - 10, y + 53);
         }
 
+        if (index == 10 && conjunto.getVarLinguistica().getNome().equals("Pressao"))
+        {
+            g2d.drawString(String.valueOf(conjunto.getVarLinguistica().getUniversoMin()), x - 5, y + 53);
+            g2d.drawString(String.valueOf(conjunto.getVarLinguistica().getUniversoMax()), x + width - 10, y + 53);
+            g2d.setColor(Color.blue);
+            g2d.draw(new Rectangle2D.Double(x, y, width, height));
+        }
         g2d.dispose();
     }
 
@@ -133,9 +140,9 @@ public class GraficoFuzzy {
         }
 
         //fazendo preenchimento
-        if (conjunto.getVarLinguistica().getNome().equals("Temperatura")) {
+        if (!conjunto.getVarLinguistica().getNome().equals("Pressao")) {
             g2d.setColor(Color.yellow);
-        } else if (conjunto.getVarLinguistica().getNome().equals("Volume")) {
+        } else if (conjunto.getVarLinguistica().getNome().equals("Pressao")) {
             g2d.setColor(Color.blue);
         }
 

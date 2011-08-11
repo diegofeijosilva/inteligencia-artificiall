@@ -22,6 +22,7 @@ public class SistemaFuzzy {
     private Map<String, VariavelLinguistica> variaveisLinguisticas = new HashMap<String, VariavelLinguistica>();
     private MecanismoInferencia mecanismo;
     private int valorDiscretizacao;
+    double [][] regiaoNebulosaDeSaida;
 
     public SistemaFuzzy()
     {
@@ -36,7 +37,7 @@ public class SistemaFuzzy {
 
     public double executarMecanismoInferencia(double temperaturaEntrada, double volumeEntrada){
         double resultadoPressao = 0;
-        double [][] regiaoNebulosaDeSaida;
+        
         mecanismo = new MecanismoInferencia(variaveisLinguisticas);
 
         regiaoNebulosaDeSaida = mecanismo.processar(temperaturaEntrada, volumeEntrada);
@@ -92,6 +93,11 @@ public class SistemaFuzzy {
     public Map<String, VariavelLinguistica> getVariaveisLinguisticas()
     {
         return this.variaveisLinguisticas;
+    }
+
+    public double[][] getRegiaoNebulosaDeSaida()
+    {
+        return regiaoNebulosaDeSaida;
     }
 
 }

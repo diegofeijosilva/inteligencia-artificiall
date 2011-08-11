@@ -59,7 +59,23 @@ public class PainelDeGraficos extends JPanel {
                 }
             }
         }
+        if(var.getNome().equals("Pressao")){
+            graficos.add(new GraficoFuzzy(x, y, width, height, conjuntos.get(0)));
+            graficos.add(new GraficoFuzzy(x, y+50, width, height, conjuntos.get(0)));
+            graficos.add(new GraficoFuzzy(x, y+100, width, height, conjuntos.get(1)));
+            graficos.add(new GraficoFuzzy(x, y+150, width, height, conjuntos.get(0)));
+            graficos.add(new GraficoFuzzy(x, y+200, width, height, conjuntos.get(1)));
+            graficos.add(new GraficoFuzzy(x, y+250, width, height, conjuntos.get(2)));
+            graficos.add(new GraficoFuzzy(x, y+300, width, height, conjuntos.get(1)));
+            graficos.add(new GraficoFuzzy(x, y+350, width, height, conjuntos.get(2)));
+            graficos.add(new GraficoFuzzy(x, y+400, width, height, conjuntos.get(2)));
+        }
         
+    }
+
+    public void addGraficoResultante(ConjuntoFuzzy conjunto)
+    {
+        graficos.add(new GraficoFuzzy(50, 80+450, 210, 40, conjunto));
     }
 
     public void initGraficosPressao()
@@ -101,9 +117,13 @@ public class PainelDeGraficos extends JPanel {
             plotarGraficos(g);
             desenharLinhaVertical(g); // armengue pra linha ficar por cima
         }
-        else {
-            preencherGraficosResultados(g);
+        else if(var.getNome().equals("Pressao")){
+           // desenharLinhaVertical(g);
             plotarGraficos(g);
+            setarPlanosDeFundo(g);
+            //preencherGraficos(g);
+            plotarGraficos(g);
+            //desenharLinhaVertical(g); // armengue pra linha ficar por cima
         }
     }
 
@@ -146,6 +166,11 @@ public class PainelDeGraficos extends JPanel {
     public double getValorInicialLinha()
     {
         return linha.getX1();
+    }
+
+    public List<GraficoFuzzy> getGraficos()
+    {
+        return graficos;
     }
 
 }

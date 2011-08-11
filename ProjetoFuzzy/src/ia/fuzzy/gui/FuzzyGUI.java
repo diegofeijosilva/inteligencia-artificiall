@@ -11,6 +11,7 @@
 
 package ia.fuzzy.gui;
 
+import ia.fuzzy.ConjuntoFuzzy;
 import ia.fuzzy.SistemaFuzzy;
 
 /**
@@ -26,7 +27,9 @@ public class FuzzyGUI extends javax.swing.JFrame {
         double temperaturaInicial = (1200+800)/2;
         double volumeInicial = (2+12)/2;
         fuzzy.executarMecanismoInferencia(temperaturaInicial, volumeInicial);
-        jPanelPressao.initGraficosPressao();
+        jPanelPressao.addGraficoResultante(new ConjuntoFuzzy(fuzzy.getVariaveisLinguisticas().get("Pressao"), fuzzy.getRegiaoNebulosaDeSaida()));
+        //jPanelPressao.getGraficos.add(new GraficoFuzzy(x, y+400, width, height, new ConjuntoFuzzy(fuzzy.getVariaveisLinguisticas().get("Pressao"), fuzzy.getRegiaoNebulosaDeSaida())));
+        //jPanelPressao.initGraficosPressao();
     }
 
     /** This method is called from within the constructor to
