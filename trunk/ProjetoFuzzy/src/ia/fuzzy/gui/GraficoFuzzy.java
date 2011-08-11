@@ -47,12 +47,18 @@ public class GraficoFuzzy {
         //preencher(g, xDaLinha);
     }
 
+    public void setarPlanoDeFundo(Graphics g)
+    {
+         Graphics2D g2d = (Graphics2D) g.create();
+
+        g2d.setColor(Color.white);
+        g2d.fillRect((int)x, (int)y, (int)width, (int)height);
+    }
+
     private void desenharContainer(Graphics g, int index)
     {
         Graphics2D g2d = (Graphics2D) g.create();
 
-        g2d.setColor(Color.white);
-        g2d.fillRect((int)x, (int)y, (int)width, (int)height);
         g2d.setColor(Color.black);
         g2d.draw(new Rectangle2D.Double(x, y, width, height));
         g2d.drawString(index + "", x - 30, y + 25);
