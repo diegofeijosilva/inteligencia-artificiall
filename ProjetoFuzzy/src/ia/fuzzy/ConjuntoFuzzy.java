@@ -90,6 +90,11 @@ public class ConjuntoFuzzy {
         return this.var;
     }
 
+    public String getValorLinguistico()
+    {
+        return valorLinguistico;
+    }
+
     private double triangular(double x)
     {
         if(x <= a)
