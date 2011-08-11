@@ -21,12 +21,14 @@ import javax.swing.JPanel;
 public class PainelDeGraficos extends JPanel {
 
     VariavelLinguistica var;
+    FuzzyGUI gui;
     List<GraficoFuzzy> graficos = new ArrayList<GraficoFuzzy>();
     Line2D linha;
     
 
-    public PainelDeGraficos(VariavelLinguistica varLinguistica)
+    public PainelDeGraficos(VariavelLinguistica varLinguistica, FuzzyGUI gui)
     {
+        this.gui = gui;
         this.var = varLinguistica;
         initGraficosFuzzy();
         if (!var.getNome().equals("Pressao")) {
@@ -111,13 +113,14 @@ public class PainelDeGraficos extends JPanel {
 
     @Override
     protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
         if (!var.getNome().equals("Pressao")) {
-            desenharLinhaVertical(g);
+            desenharLinhaVertical(g, Color.red);
             plotarGraficos(g);
             setarPlanosDeFundo(g);
             preencherGraficos(g);
             plotarGraficos(g);
-            desenharLinhaVertical(g); // armengue pra linha ficar por cima
+            desenharLinhaVertical(g, Color.red); // armengue pra linha ficar por cima
         }
         else if(var.getNome().equals("Pressao")){
            // desenharLinhaVertical(g);
@@ -157,22 +160,39 @@ public class PainelDeGraficos extends JPanel {
         }
     }
 
-    private void desenharLinhaVertical(Graphics g)
+    private void desenharLinhaVertical(Graphics g, Color cor)
     {
         Graphics2D g2d = (Graphics2D) g.create();
 
         g2d.setColor(Color.red);
         g2d.draw(linha);
+        g2d.dispose();
     }
+
+
 
     public double getValorInicialLinha()
     {
         return linha.getX1();
     }
 
+    public void setLinha(Line2D linha)
+    {
+
+        this.linha.setLine(linha);
+        //this.linha = linha;
+        this.
+        gui.initInputs();
+    }
+
     public List<GraficoFuzzy> getGraficos()
     {
         return graficos;
+    }
+
+    public Line2D getLinha()
+    {
+        return linha;
     }
 
 }

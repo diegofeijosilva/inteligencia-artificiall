@@ -25,6 +25,7 @@ public class FuzzyGUI extends javax.swing.JFrame {
     public FuzzyGUI() {
         initFuzzy();
         initComponents();
+        initListeners();
         double temperaturaInicial = (1200+800)/2;
         double volumeInicial = (2+12)/2;
         fuzzy.executarMecanismoInferencia(temperaturaInicial, volumeInicial);
@@ -43,13 +44,13 @@ public class FuzzyGUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">
     private void initComponents() {
 
-        jPanelTemperatura = new PainelDeGraficos(fuzzy.getVariaveisLinguisticas().get("Temperatura"));
+        jPanelTemperatura = new PainelDeGraficos(fuzzy.getVariaveisLinguisticas().get("Temperatura"), this);
         jLabel1 = new javax.swing.JLabel();
         jTextFieldTemperatura = new javax.swing.JTextField();
-        jPanelVolume = new PainelDeGraficos(fuzzy.getVariaveisLinguisticas().get("Volume"));
+        jPanelVolume = new PainelDeGraficos(fuzzy.getVariaveisLinguisticas().get("Volume"), this);
         jLabel2 = new javax.swing.JLabel();
         jTextFieldVolume = new javax.swing.JTextField();
-        jPanelPressao = new PainelDeGraficos(fuzzy.getVariaveisLinguisticas().get("Pressao"));
+        jPanelPressao = new PainelDeGraficos(fuzzy.getVariaveisLinguisticas().get("Pressao"), this);
         jLabel3 = new javax.swing.JLabel();
         jTextFieldPressao = new javax.swing.JTextField();
 
@@ -164,7 +165,18 @@ public class FuzzyGUI extends javax.swing.JFrame {
         fuzzy.criarVariavelLinguistica("Pressao", 4, 12);
     }
 
-    private void initInputs()
+    private void initListeners()
+    {
+        MouseHandler mouseHandler1 = new MouseHandler(jPanelTemperatura);
+        jPanelTemperatura.addMouseListener(mouseHandler1);
+        jPanelTemperatura.addMouseMotionListener(mouseHandler1);
+
+        MouseHandler mouseHandler2 = new MouseHandler(jPanelVolume);
+        jPanelVolume.addMouseListener(mouseHandler2);
+        jPanelVolume.addMouseMotionListener(mouseHandler2);
+    }
+
+    public void initInputs()
     {
         jTextFieldTemperatura.setText(String.valueOf(getTemperaturaMarcada()));
         jTextFieldVolume.setText(String.valueOf(getVolumeMarcado()));
@@ -189,7 +201,7 @@ public class FuzzyGUI extends javax.swing.JFrame {
         double deltaGraf = width/500;
 
         double temp = 800 + ((lineX-x)/deltaGraf)*0.8;
-        return arredondar(temp, 5);
+        return arredondar(temp, 2);
     }
 
     private double getVolumeMarcado()
@@ -202,7 +214,7 @@ public class FuzzyGUI extends javax.swing.JFrame {
         double deltaGraf = width/500;
 
         double vol = 2 + ((lineX-x)/deltaGraf)*0.02;
-        return arredondar(vol, 5);
+        return arredondar(vol, 2);
     }
 
 
