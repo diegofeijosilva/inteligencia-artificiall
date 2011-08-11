@@ -184,6 +184,7 @@ public class GraficoFuzzy {
     {
         double deltaY = height/100;
         double yP;
+        System.out.println("CONJUNTO: "+conjunto.getValorLinguistico() );
         System.out.println("VALOR DO ALFA CORTE: "+ valor);
         yP = y + height - (valor * 100 * deltaY) ;
         System.out.println("VALOR DO PONTO: " + yP);

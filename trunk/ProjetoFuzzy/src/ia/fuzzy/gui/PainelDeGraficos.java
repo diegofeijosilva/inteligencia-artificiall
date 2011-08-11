@@ -159,7 +159,7 @@ public class PainelDeGraficos extends JPanel {
     {
         for (int i = 0; i < graficos.size()-1; i++) {
             //System.out.println("VALOR DO OBJETO:"+(gui.getFuzzy().getMecanismo().getMatrizPressaoComAlfaCorte(i+1)==null));
-            double alfaCorte = this.gui.getFuzzy().getMecanismo().getMatrizPressaoComAlfaCorte(i+1)[0][1];
+            double alfaCorte = this.gui.getFuzzy().getMecanismo().getAlfaCorte(i+1);
             double yP = graficos.get(i).calcularCoordenadaY(alfaCorte);
             graficos.get(i).preencherResultado(g,(int)yP);
         }

@@ -7,6 +7,7 @@ package ia.fuzzy;
 
 import ia.fuzzy.utilitarios.BaseDeRegras;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -20,6 +21,7 @@ public class MecanismoInferencia {
     private double alfaCorteTemperatura;
     private double alfaCorteVolume;
     private double alfaCorte;
+    private double[] alfaCortes = new double[9];
     private String regrasAtivadas;
     private double[][] matrizPressaoComAlfaCorte1 = new double[SistemaFuzzy.DISCRETIZACAO_DEFAULT][2];
     private double[][] matrizPressaoComAlfaCorte2 = new double[SistemaFuzzy.DISCRETIZACAO_DEFAULT][2];
@@ -76,48 +78,48 @@ public class MecanismoInferencia {
             regrasAtivadas = regrasAtivadas + "1." ;
             alfaCorteTemperatura = regras.valoresRegra1[0];
             alfaCorteVolume = regras.valoresRegra1[1];
-            alfaCorte = pegarMenorValor();
-            matrizPressaoComAlfaCorte1 = criarMatrizPessaoAlfaCorte(1);
+            alfaCortes[0] = pegarMenorValor();
+            matrizPressaoComAlfaCorte1 = criarMatrizPessaoAlfaCorte(1,0);
         }
         if (regras.regra2()) {
             System.out.println("regra 2 - pressao baixa");
             regrasAtivadas = regrasAtivadas + "2.";
             alfaCorteTemperatura = regras.valoresRegra2[0];
             alfaCorteVolume = regras.valoresRegra2[1];
-            alfaCorte = pegarMenorValor();
-            matrizPressaoComAlfaCorte2 = criarMatrizPessaoAlfaCorte(1);
+            alfaCortes[1] = pegarMenorValor();
+            matrizPressaoComAlfaCorte2 = criarMatrizPessaoAlfaCorte(1,1);
         }
         if (regras.regra3()) {
             System.out.println("regra 3 - pressoa media");
             regrasAtivadas = regrasAtivadas + "3.";
             alfaCorteTemperatura = regras.valoresRegra3[0];
             alfaCorteVolume = regras.valoresRegra3[1];
-            alfaCorte = pegarMenorValor();
-            matrizPressaoComAlfaCorte3 = criarMatrizPessaoAlfaCorte(2);
+            alfaCortes[2] = pegarMenorValor();
+            matrizPressaoComAlfaCorte3 = criarMatrizPessaoAlfaCorte(2,2);
         }
         if (regras.regra4()) {
             System.out.println("regra 4 - pressao baixa");
             regrasAtivadas = regrasAtivadas + "4.";
             alfaCorteTemperatura = regras.valoresRegra4[0];
             alfaCorteVolume = regras.valoresRegra4[1];
-            alfaCorte = pegarMenorValor();
-            matrizPressaoComAlfaCorte4 = criarMatrizPessaoAlfaCorte(1);
+            alfaCortes[3] = pegarMenorValor();
+            matrizPressaoComAlfaCorte4 = criarMatrizPessaoAlfaCorte(1,3);
         }
         if (regras.regra5()) {
             System.out.println("regra 5 - pressao media");
             regrasAtivadas = regrasAtivadas + "5.";
             alfaCorteTemperatura = regras.valoresRegra5[0];
             alfaCorteVolume = regras.valoresRegra5[1];
-            alfaCorte = pegarMenorValor();
-            matrizPressaoComAlfaCorte5 = criarMatrizPessaoAlfaCorte(2);
+            alfaCortes[4] = pegarMenorValor();
+            matrizPressaoComAlfaCorte5 = criarMatrizPessaoAlfaCorte(2,4);
         }
         if (regras.regra6()) {
             System.out.println("regra 6 - pressao alta");
             regrasAtivadas = regrasAtivadas + "6.";
             alfaCorteTemperatura = regras.valoresRegra6[0];
             alfaCorteVolume = regras.valoresRegra6[1];
-            alfaCorte = pegarMenorValor();
-            matrizPressaoComAlfaCorte6 = criarMatrizPessaoAlfaCorte(3);
+            alfaCortes[5] = pegarMenorValor();
+            matrizPressaoComAlfaCorte6 = criarMatrizPessaoAlfaCorte(3,5);
         }
         if (regras.regra7()) {
 
@@ -125,28 +127,28 @@ public class MecanismoInferencia {
             regrasAtivadas = regrasAtivadas + "7.";
             alfaCorteTemperatura = regras.valoresRegra7[0];
             alfaCorteVolume = regras.valoresRegra7[1];
-            alfaCorte = pegarMenorValor();
-            matrizPressaoComAlfaCorte7 = criarMatrizPessaoAlfaCorte(2);
+            alfaCortes[6] = pegarMenorValor();
+            matrizPressaoComAlfaCorte7 = criarMatrizPessaoAlfaCorte(2,6);
         }
         if (regras.regra8()) {
             System.out.println("regra 8 - pressao alta");
             regrasAtivadas = regrasAtivadas + "8.";
             alfaCorteTemperatura = regras.valoresRegra8[0];
             alfaCorteVolume = regras.valoresRegra8[1];
-            alfaCorte = pegarMenorValor();            
-            matrizPressaoComAlfaCorte8 = criarMatrizPessaoAlfaCorte(3);//3 é o indic3 na matriz para o conjunto "alto"
+            alfaCortes[7] = pegarMenorValor();
+            matrizPressaoComAlfaCorte8 = criarMatrizPessaoAlfaCorte(3,7);//3 é o indic3 na matriz para o conjunto "alto"
         }
         if (regras.regra9()) {            
             System.out.println("regra 9 - pressao alta");
             regrasAtivadas = regrasAtivadas + "9.";
             alfaCorteTemperatura = regras.valoresRegra9[0];
             alfaCorteVolume = regras.valoresRegra9[1];
-            alfaCorte = pegarMenorValor();
-            matrizPressaoComAlfaCorte9 = criarMatrizPessaoAlfaCorte(3);
+            alfaCortes[8] = pegarMenorValor();
+            matrizPressaoComAlfaCorte9 = criarMatrizPessaoAlfaCorte(3,8);
         }
     }
 
-    private double[][] criarMatrizPessaoAlfaCorte(int indice){
+    private double[][] criarMatrizPessaoAlfaCorte(int indice, int alfaCorteIndex){
 
         VariavelLinguistica varPressao = null;
 
@@ -155,13 +157,18 @@ public class MecanismoInferencia {
         double[][] matrizAlfaCorte = new double[SistemaFuzzy.DISCRETIZACAO_DEFAULT][2];
         for (int i = 0; i < SistemaFuzzy.DISCRETIZACAO_DEFAULT; i++) {
             matrizAlfaCorte[i][0] = varPressao.matrizPertinencia[i][0];
-                if (varPressao.matrizPertinencia[i][indice] > alfaCorte) {
-                    matrizAlfaCorte[i][1] = alfaCorte;
-                } else if (varPressao.matrizPertinencia[i][indice] <= alfaCorte) {
+                if (varPressao.matrizPertinencia[i][indice] > alfaCortes[alfaCorteIndex]) {
+                    matrizAlfaCorte[i][1] = alfaCortes[alfaCorteIndex];
+                } else if (varPressao.matrizPertinencia[i][indice] <= alfaCortes[alfaCorteIndex]) {
                     matrizAlfaCorte[i][1] = varPressao.matrizPertinencia[i][indice];
                 }            
         }
         return matrizAlfaCorte;
+    }
+
+    public double getAlfaCorte(int index)
+    {
+        return alfaCortes[index-1];
     }
 
     private double pegarMenorValor() {
