@@ -122,13 +122,15 @@ public class PainelDeGraficos extends JPanel {
             plotarGraficos(g);
             desenharLinhaVertical(g, Color.red); // armengue pra linha ficar por cima
         }
-        else if(var.getNome().equals("Pressao")){
+        else if(var.getNome().equals("Pressao") && gui.getFuzzy().getMecanismo()!=null){
+            if(gui.getFuzzy().getMecanismo()!=null){
            // desenharLinhaVertical(g);
             plotarGraficos(g);
             setarPlanosDeFundo(g);
-            //preencherGraficos(g);
+            preencherGraficosResultados(g);
             plotarGraficos(g);
             //desenharLinhaVertical(g); // armengue pra linha ficar por cima
+            }
         }
     }
 
@@ -153,10 +155,13 @@ public class PainelDeGraficos extends JPanel {
         }
     }
 
-    private void preencherGraficosResultados(Graphics g)
+    public void preencherGraficosResultados(Graphics g)
     {
-        for (int i = 0; i < graficos.size(); i++) {
-            graficos.get(i).preencherResultado(g);
+        for (int i = 0; i < graficos.size()-1; i++) {
+            //System.out.println("VALOR DO OBJETO:"+(gui.getFuzzy().getMecanismo().getMatrizPressaoComAlfaCorte(i+1)==null));
+            double alfaCorte = this.gui.getFuzzy().getMecanismo().getMatrizPressaoComAlfaCorte(i+1)[0][1];
+            double yP = graficos.get(i).calcularCoordenadaY(alfaCorte);
+            graficos.get(i).preencherResultado(g,(int)yP);
         }
     }
 
@@ -193,6 +198,11 @@ public class PainelDeGraficos extends JPanel {
     public Line2D getLinha()
     {
         return linha;
+    }
+
+    public FuzzyGUI getGUI()
+    {
+        return this.gui;
     }
 
 }
