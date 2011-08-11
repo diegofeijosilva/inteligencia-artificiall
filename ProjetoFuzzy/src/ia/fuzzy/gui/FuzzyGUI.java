@@ -202,6 +202,7 @@ public class FuzzyGUI extends javax.swing.JFrame {
     public void executarInferencia()
     {
         fuzzy.executarMecanismoInferencia(getTemperaturaMarcada(), getVolumeMarcado());
+        jPanelPressao.atualizarGraficoResultante(fuzzy.getRegiaoNebulosaDeSaida());
         jPanelPressao.repaint();
     }
 

@@ -82,6 +82,11 @@ public class PainelDeGraficos extends JPanel {
         graficos.add(new GraficoFuzzy(50, 80+450, 210, 40, conjunto));
     }
 
+    public void atualizarGraficoResultante(double[][] matriz)
+    {
+        graficos.get(graficos.size()-1).implementarMatriz(matriz);
+    }
+
     public void initGraficosPressao()
     {
         List<ConjuntoFuzzy> conjuntos = var.getConjuntosFuzzy();
@@ -163,6 +168,7 @@ public class PainelDeGraficos extends JPanel {
             double yP = graficos.get(i).calcularCoordenadaY(alfaCorte);
             graficos.get(i).preencherResultado(g,(int)yP);
         }
+        graficos.get(graficos.size()-1).preencherAreaNebulosaFinal(g);
     }
 
     private void desenharLinhaVertical(Graphics g, Color cor)
@@ -186,8 +192,8 @@ public class PainelDeGraficos extends JPanel {
 
         this.linha.setLine(linha);
         //this.linha = linha;
-        this.
-        gui.initInputs();
+        this.gui.initInputs();
+        
     }
 
     public List<GraficoFuzzy> getGraficos()
