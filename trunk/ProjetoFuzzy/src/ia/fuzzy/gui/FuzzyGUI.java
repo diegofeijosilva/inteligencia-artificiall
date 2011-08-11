@@ -23,14 +23,22 @@ public class FuzzyGUI extends javax.swing.JFrame {
 
     /** Creates new form BckFuzzyGUI */
     public FuzzyGUI() {
-        initFuzzy();
+        
+        initFuzzy();       
         initComponents();
-        initListeners();
-        double temperaturaInicial = (1200+800)/2;
-        double volumeInicial = (2+12)/2;
-        fuzzy.executarMecanismoInferencia(temperaturaInicial, volumeInicial);
-        jPanelPressao.addGraficoResultante(new ConjuntoFuzzy(fuzzy.getVariaveisLinguisticas().get("Pressao"), fuzzy.getRegiaoNebulosaDeSaida()));
+
+        double temperaturaInicial = getTemperaturaMarcada();
+        double volumeInicial = getVolumeMarcado();
+
         initInputs();
+        fuzzy.executarMecanismoInferencia(temperaturaInicial, volumeInicial);
+        initListeners();
+
+        
+        
+        jPanelPressao.addGraficoResultante(new ConjuntoFuzzy(fuzzy.getVariaveisLinguisticas().get("Pressao"), fuzzy.getRegiaoNebulosaDeSaida()));
+        //jPanelPressao
+        
         //jPanelPressao.getGraficos.add(new GraficoFuzzy(x, y+400, width, height, new ConjuntoFuzzy(fuzzy.getVariaveisLinguisticas().get("Pressao"), fuzzy.getRegiaoNebulosaDeSaida())));
         //jPanelPressao.initGraficosPressao();
     }
@@ -191,6 +199,12 @@ public class FuzzyGUI extends javax.swing.JFrame {
         return num;
     }
 
+    public void executarInferencia()
+    {
+        fuzzy.executarMecanismoInferencia(getTemperaturaMarcada(), getVolumeMarcado());
+        jPanelPressao.repaint();
+    }
+
     private double getTemperaturaMarcada()
     {
         double x = jPanelTemperatura.getGraficos().get(0).getX();
@@ -215,6 +229,11 @@ public class FuzzyGUI extends javax.swing.JFrame {
 
         double vol = 2 + ((lineX-x)/deltaGraf)*0.02;
         return arredondar(vol, 2);
+    }
+
+    public SistemaFuzzy getFuzzy()
+    {
+        return this.fuzzy;
     }
 
 

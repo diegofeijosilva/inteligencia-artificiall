@@ -152,14 +152,12 @@ public class GraficoFuzzy {
         g2d.fillPolygon(xPoints, yPoints, xPoints.length);
     }
 
-    public void preencherResultado(Graphics g)
-    {
+    public void preencherResultado(Graphics g, int yMin)
+    {        
         Graphics2D g2d = (Graphics2D) g.create();
 
         int[] xPoints;
         int[] yPoints;
-
-        //int yMin = getYMin(xDaLinha);
 
         //vetores de pontos para fazer o preenchimento
         xPoints = new int[pontos.size()];
@@ -168,22 +166,30 @@ public class GraficoFuzzy {
         for (int i = 0; i < pontos.size(); i++) {
             xPoints[i] = (int) pontos.get(i).x;
             yPoints[i] = (int) pontos.get(i).y;
+            //yPoints[i] = yMin;
 
-//            if (pontos.get(i).y < yMin) {
-//                yPoints[i] = yMin;
-//            } else {
-//                yPoints[i] = (int) pontos.get(i).y;
-//            }
+
+            if (pontos.get(i).y < yMin) {
+                yPoints[i] = yMin;
+            } else {
+                yPoints[i] = (int) pontos.get(i).y;
+            }
         }
 
-        //fazendo preenchimento
-        if (conjunto.getVarLinguistica().getNome().equals("Temperatura")) {
-            g2d.setColor(Color.yellow);
-        } else if (conjunto.getVarLinguistica().getNome().equals("Volume")) {
-            g2d.setColor(Color.blue);
-        }
-
+        g2d.setColor(Color.blue);
         g2d.fillPolygon(xPoints, yPoints, xPoints.length);
+    }
+
+    public double calcularCoordenadaY(double valor)
+    {
+        double deltaY = height/100;
+        double yP;
+        System.out.println("VALOR DO ALFA CORTE: "+ valor);
+        yP = y + height - (valor * 100 * deltaY) ;
+        System.out.println("VALOR DO PONTO: " + yP);
+        System.out.println("VALOR DE Y: " + y );
+        System.out.println("VALOR DE Y+height: " + (y+height) + "\n\n");
+        return yP;
     }
 
     private int getYMin(int x)

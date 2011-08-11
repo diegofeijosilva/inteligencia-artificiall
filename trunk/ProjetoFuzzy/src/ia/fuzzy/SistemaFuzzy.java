@@ -100,4 +100,9 @@ public class SistemaFuzzy {
         return regiaoNebulosaDeSaida;
     }
 
+    public MecanismoInferencia getMecanismo()
+    {
+        return this.mecanismo;
+    }
+
 }

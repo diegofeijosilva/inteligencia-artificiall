@@ -33,6 +33,7 @@ public class MouseHandler implements MouseListener, MouseMotionListener{
             Line2D novaLinha = new Line2D.Double(e.getX(), linha.getY1(), e.getX(), linha.getY2());
             painel.setLinha(novaLinha);
         }
+        painel.getGUI().executarInferencia();
         painel.repaint();
     }
 
