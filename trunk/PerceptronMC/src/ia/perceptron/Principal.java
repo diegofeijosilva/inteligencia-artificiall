@@ -5,6 +5,9 @@
 
 package ia.perceptron;
 
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+
 
 /**
  *
@@ -15,7 +18,14 @@ public class Principal {
 
 
 
-    public static void main(String args[]) {
+    public static void main(String args[]) throws ClassNotFoundException, InstantiationException, IllegalAccessException {
+
+         try {
+           UIManager.setLookAndFeel(new com.jgoodies.looks.windows.WindowsLookAndFeel());
+        } catch (UnsupportedLookAndFeelException ex) {
+            ex.printStackTrace();
+        }
+
 
         Perceptron perceptron = new Perceptron(true);
         perceptron.criarCamada(15, 4);
