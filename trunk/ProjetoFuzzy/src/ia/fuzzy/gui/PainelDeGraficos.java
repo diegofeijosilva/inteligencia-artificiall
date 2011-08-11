@@ -95,6 +95,7 @@ public class PainelDeGraficos extends JPanel {
     protected void paintComponent(Graphics g) {
         if (!var.getNome().equals("Pressao")) {
             desenharLinhaVertical(g);
+            plotarGraficos(g);
             preencherGraficos(g);
             plotarGraficos(g);
             desenharLinhaVertical(g); // armengue pra linha ficar por cima
