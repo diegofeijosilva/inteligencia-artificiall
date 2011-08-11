@@ -107,6 +107,9 @@ public class GraficoFuzzy {
             }
         }
 
+        if(conjunto.getVarLinguistica().getNome().equals("Pressao"))
+            g2d.setColor(Color.blue);
+
         //unindo os pontos com linhas
         for (int i = 0; i < pontos.size()-1; i++) {
             Line2D linha = new Line2D.Double(pontos.get(i).x, pontos.get(i).y, pontos.get(i+1).x, pontos.get(i+1).y);
