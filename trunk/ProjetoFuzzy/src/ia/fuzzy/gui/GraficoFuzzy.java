@@ -91,14 +91,14 @@ public class GraficoFuzzy {
 
             if (i == 0 && yP <= y+height) {
                 //pontos.add(new Ponto(xP, yP + height));
-                pontos.add(new Ponto(xP, y + height));
+                pontos.add(new Ponto(x, y + height));
             } else if (yP < y + height) {
                 pontos.add(new Ponto(xP, yP));
             }
 
             if (i == conjunto.getTotalElementos() - 1 && yP <= y+height) {
                 //pontos.add(new Ponto(xP, yP + height));
-                pontos.add(new Ponto(xP+0.01, y + height));
+                pontos.add(new Ponto(x + width, y + height));
             }
         }
 
