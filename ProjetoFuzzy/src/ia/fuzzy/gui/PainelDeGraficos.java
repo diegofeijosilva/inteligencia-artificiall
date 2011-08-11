@@ -96,8 +96,9 @@ public class PainelDeGraficos extends JPanel {
         if (!var.getNome().equals("Pressao")) {
             desenharLinhaVertical(g);
             plotarGraficos(g);
+            setarPlanosDeFundo(g);
             preencherGraficos(g);
-            //plotarGraficos(g);
+            plotarGraficos(g);
             desenharLinhaVertical(g); // armengue pra linha ficar por cima
         }
         else {
@@ -110,6 +111,13 @@ public class PainelDeGraficos extends JPanel {
     {
         for (int i = 0; i < graficos.size(); i++) {
             graficos.get(i).plotarGrafico(g, i+1 );
+        }
+    }
+
+    private void setarPlanosDeFundo(Graphics g)
+    {
+        for (int i = 0; i < graficos.size(); i++) {
+            graficos.get(i).setarPlanoDeFundo(g);
         }
     }
 
