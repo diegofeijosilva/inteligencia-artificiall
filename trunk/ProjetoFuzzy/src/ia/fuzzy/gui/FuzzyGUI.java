@@ -13,6 +13,7 @@ package ia.fuzzy.gui;
 
 import ia.fuzzy.ConjuntoFuzzy;
 import ia.fuzzy.SistemaFuzzy;
+import java.awt.geom.Line2D;
 import java.math.BigDecimal;
 
 /**
@@ -34,13 +35,7 @@ public class FuzzyGUI extends javax.swing.JFrame {
         fuzzy.executarMecanismoInferencia(temperaturaInicial, volumeInicial);
         initListeners();
 
-        
-        
         jPanelPressao.addGraficoResultante(new ConjuntoFuzzy(fuzzy.getVariaveisLinguisticas().get("Pressao"), fuzzy.getRegiaoNebulosaDeSaida()));
-        //jPanelPressao
-        
-        //jPanelPressao.getGraficos.add(new GraficoFuzzy(x, y+400, width, height, new ConjuntoFuzzy(fuzzy.getVariaveisLinguisticas().get("Pressao"), fuzzy.getRegiaoNebulosaDeSaida())));
-        //jPanelPressao.initGraficosPressao();
     }
 
     /** This method is called from within the constructor to
@@ -188,8 +183,27 @@ public class FuzzyGUI extends javax.swing.JFrame {
     {
         jTextFieldTemperatura.setText(String.valueOf(getTemperaturaMarcada()));
         jTextFieldVolume.setText(String.valueOf(getVolumeMarcado()));
-
         jTextFieldPressao.setText(String.valueOf(getPressaoAtual()));
+
+        jTextFieldTemperatura.addKeyListener(new TecladoHandler(this, "Temperatura"));
+        jTextFieldVolume.addKeyListener(new TecladoHandler(this, "Volume"));
+    }
+
+    public void setTemperaturaInput()
+    {
+        Line2D linha = jPanelTemperatura.getLinha();
+        double c = 965;
+
+        Line2D novaLinha = new Line2D.Double(c, linha.getY1(), c, linha.getY2());
+        jPanelTemperatura.setLinha(novaLinha);
+        jPanelTemperatura.getGUI().executarInferencia();
+        jPanelTemperatura.repaint();
+
+    }
+
+    public void setVolumeInput()
+    {
+
     }
 
     public static double arredondar(double num, int casas) {
@@ -202,6 +216,7 @@ public class FuzzyGUI extends javax.swing.JFrame {
 
     public void executarInferencia()
     {
+        //fuzzy = new SistemaFuzzy();
         pressaoAtual = fuzzy.executarMecanismoInferencia(getTemperaturaMarcada(), getVolumeMarcado());
         jPanelPressao.atualizarGraficoResultante(fuzzy.getRegiaoNebulosaDeSaida());
         jPanelPressao.repaint();
@@ -233,6 +248,31 @@ public class FuzzyGUI extends javax.swing.JFrame {
         return arredondar(vol, 2);
     }
 
+    private double getCoordenadaTemperatura()
+    {
+        double temp = Double.parseDouble(jTextFieldTemperatura.getText());
+        //jTextFieldTemperatura.set
+        double width = jPanelTemperatura.getGraficos().get(0).getWidth();
+        double x0 = jPanelTemperatura.getGraficos().get(0).getX();
+
+        double deltaTemp = (1200-800)/500; //igual a 0.8
+        double deltaGraf = width/500;
+
+        double x = x0 + (temp/0.8)*deltaGraf;
+
+        System.out.println("VALOR DE X0: "+ x0);
+        System.out.println("VALOR DE X: "+ x);
+        System.out.println("VALOR DE X + Width: "+ (x+width));
+        System.out.println("VALOR DE temp/0.8: "+ (temp/0.8));
+        System.out.println("VALOR DE temp: "+ temp);
+        return x;
+    }
+
+//    private double getCoordenadaVolume()
+//    {
+//
+//    }
+
     private double getPressaoAtual()
     {
         return arredondar(pressaoAtual, 2);
@@ -243,6 +283,15 @@ public class FuzzyGUI extends javax.swing.JFrame {
     }
 
 
+//    private class HandlerText implements ActionListener {
+//
+//        public void actionPerformed(ActionEvent e) {
+//           if(e.getSource().equals(jTextFieldTemperatura))
+//                  //jPanelTemperatura.setLinha(new Line2D(jPanelTemperatura.getLinha().getX1()));
+//           else if(e.getSource().equals(jTextFieldVolume))
+//               //do stuff
+//        }  
+//    }
     /**
     * @param args the command line arguments
     */
