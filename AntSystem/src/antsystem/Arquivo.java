@@ -15,10 +15,10 @@ import java.io.IOException;
  */
 public class Arquivo {
 
-    public static final int LINHAS_ARQUIVO_DEFAULT = 2;
+    public static final int COLUNAS_ARQUIVO_DEFAULT = 2;
 
-    public double[][] lerArquivo( String arquivo, int colunas ) {
-        int linhas = LINHAS_ARQUIVO_DEFAULT;
+    public double[][] lerArquivo( String arquivo, int linhas ) {
+        int colunas = COLUNAS_ARQUIVO_DEFAULT;
         double[][] dados = new double[linhas][colunas];
 
         try {

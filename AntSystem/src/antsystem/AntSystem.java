@@ -21,14 +21,14 @@ public class AntSystem {
     private List<Formiga> listFormigas = new ArrayList<Formiga>();
     private List<Cidade> listCidades = new ArrayList<Cidade>();
     private int[][] matrizDistancias;
+    private double[][] matrizVisibilidade;
     private Arquivo arquivo = new Arquivo();
     private double[][] matrizCoordenadasCidades;
 
 
     public AntSystem(){
         initListFormigas();
-        initListCidades();
-        calcularDistanciaEntreCidades();
+        initListCidades();   
     }
 
     private void initListFormigas(){
@@ -46,15 +46,28 @@ public class AntSystem {
             y = (int) matrizCoordenadasCidades[i][1];
             listCidades.add(new Cidade(x, y));
         }
+        calcularDistanciaEntreCidadesEVisibilidade();
     }
 
-    private void calcularDistanciaEntreCidades(){
+    private void calcularDistanciaEntreCidadesEVisibilidade(){
         matrizDistancias = new int[QUANTIDADE_CIDADES_DEFAULT][QUANTIDADE_CIDADES_DEFAULT];
-
-        for(int i=0; i<QUANTIDADE_CIDADES_DEFAULT; i++){
-            matrizDistancias[i][i] = 0;
-            for(int j=1; j<QUANTIDADE_CIDADES_DEFAULT; j++){
-                matrizDistancias[i][j] = calcular(listCidades.get(i), listCidades.get(j));
+        matrizVisibilidade = new double[QUANTIDADE_CIDADES_DEFAULT][QUANTIDADE_CIDADES_DEFAULT];
+        double aux = 0;
+        int resultado = 0;
+        for(int i=0; i<QUANTIDADE_CIDADES_DEFAULT; i++){         
+            for(int j=0; j<QUANTIDADE_CIDADES_DEFAULT; j++){
+                if(i==j){
+                    matrizDistancias[i][i] = 0;
+                    matrizVisibilidade[i][i] = 0;
+                }
+                else if(matrizDistancias[i][j] == 0){
+                    resultado = calcular(listCidades.get(i), listCidades.get(j));
+                    matrizDistancias[i][j] = resultado;
+                    matrizDistancias[j][i] = resultado;
+                    aux = matrizDistancias[i][j];
+                    matrizVisibilidade[i][j] = 1/aux;
+                    matrizVisibilidade[j][i] = 1/aux;
+                }                
             }
         }
     }
@@ -64,11 +77,10 @@ public class AntSystem {
         int x2 = cidadeChegada.getX();
         int y2 = cidadeChegada.getY();
 
-        int d = 0;
-        //fazer calculo
+        double parte1 = Math.pow(x1 - x2, 2);
+        double parte2 = Math.pow(y1 - y2, 2);
+        int d = (int) Math.sqrt(parte1 + parte2);
         return d;
     }
-
-
 
 }
