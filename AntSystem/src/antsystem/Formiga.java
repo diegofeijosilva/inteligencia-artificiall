@@ -27,6 +27,7 @@ public class Formiga {
         for(int i=0; i<AntSystem.QUANTIDADE_CIDADES_DEFAULT; i++){
             this.tabuList[i] = i;
         }
+        retiraCidadeDeTabuList(cidadeIncial);//isso pq no inicio tabulist tem todas as cidades menos a cidade que a formiga está.
     }
     public void retiraCidadeDeTabuList(int cidade){
         tabuList[cidade] = AntSystem.QUANTIDADE_CIDADES_DEFAULT + 1;//para indentificar que esta cidade já foi visitada
