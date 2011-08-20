@@ -15,8 +15,15 @@ import java.util.List;
 public class AntSystem {
 
     public static final int QUANTIDADE_CIDADES_DEFAULT = 30;
+    public static final int QUANTIDADE_FORMIGAS_DEFAULT = QUANTIDADE_CIDADES_DEFAULT;
     public static final int QUANTIDADE_ITERACOES_DEFAULT = 3000;
     public static final String NOME_ARQUIVO_DEFAULT = "Oliver30.txt";
+    public static final double COEFICIENTE_DECAIMENTO_DEFAULT = 0.5;
+    public static final int ALFA_DEFAULT = 1;
+    public static final int BETA_DEFAULT = 5;
+    public static final int Q_DEFAULT = 100;//ordem de magnitude do caminho otimo, que é 420
+    public static final int e_DEFAULT = 5;//formigas elitistas
+    public static final double FEROMONIO_INICIAL_DEFAULT = 0.00001;
 
     private List<Formiga> listFormigas = new ArrayList<Formiga>();
     private List<Cidade> listCidades = new ArrayList<Cidade>();
@@ -24,15 +31,19 @@ public class AntSystem {
     private double[][] matrizVisibilidade;
     private Arquivo arquivo = new Arquivo();
     private double[][] matrizCoordenadasCidades;
+    private double[][] trilhaDeFeromonio;
+    private int[] percussoOtimo; //T+
+    private int tamanhoPercussoOtimo;//L+
 
 
     public AntSystem(){
-        initListFormigas();
-        initListCidades();   
+        //initListFormigas();
+        //initListCidades();
+        //initTrilhaDeFeromonio();
     }
 
     private void initListFormigas(){
-        for(int i=0; i<QUANTIDADE_CIDADES_DEFAULT; i++){
+        for(int i=0; i<QUANTIDADE_FORMIGAS_DEFAULT; i++){
             listFormigas.add(new Formiga(i));
         }
     }
@@ -82,5 +93,86 @@ public class AntSystem {
         int d = (int) Math.sqrt(parte1 + parte2);
         return d;
     }
+
+    private void initTrilhaDeFeromonio(){
+        for(int i=0; i<QUANTIDADE_CIDADES_DEFAULT; i++){
+            for(int j=0; j>QUANTIDADE_CIDADES_DEFAULT; j++){
+                trilhaDeFeromonio[i][j] = FEROMONIO_INICIAL_DEFAULT;
+            }
+        }
+    }
+
+    private void menorCaminho(){
+        initTrilhaDeFeromonio();
+        initListFormigas();
+        initListCidades();
+
+        percussoOtimo = new int[QUANTIDADE_CIDADES_DEFAULT];
+        tamanhoPercussoOtimo = 0;
+        int tamanhoPercussoAtual = 0;
+        int cidadeCorrente = QUANTIDADE_CIDADES_DEFAULT +1; //valor impossivel de cidade, só para iniciar
+        int cidadeEscolhida = QUANTIDADE_CIDADES_DEFAULT +1; //valor impossivel de cidade, só para iniciar
+        double[][] probabilidade;
+
+        //loop principal
+        for(int t=0; t<QUANTIDADE_ITERACOES_DEFAULT; t++){//t representa iterações
+            for(int k=0; k<QUANTIDADE_FORMIGAS_DEFAULT; k++){//k representa a formiga
+                
+                //para a formiga k na iteração t deve ser construido o percusso dela, escolhendo a proxima cidade com a roleta
+                for(int i=0; i<QUANTIDADE_CIDADES_DEFAULT-1; i++){
+                    cidadeCorrente = listFormigas.get(k).getCidadeCorrente();
+                    probabilidade = new double[QUANTIDADE_CIDADES_DEFAULT][QUANTIDADE_CIDADES_DEFAULT];
+                    probabilidade = calculaProbabilidade(listFormigas.get(k), cidadeCorrente);//passo a formiga atual
+                    cidadeEscolhida = roleta(probabilidade);
+                    listFormigas.get(k).setTour(cidadeEscolhida);
+                    tamanhoPercussoAtual = matrizDistancias[cidadeCorrente][cidadeEscolhida];
+                    listFormigas.get(k).setTamanhoDoPercursso(tamanhoPercussoAtual);
+                }
+            }
+        }
+
+    }
+    
+    private double[][] calculaProbabilidade(Formiga formigaAtual, int cidadeCorrente){
+
+        double[][] matrizProbabilidade = new double[QUANTIDADE_CIDADES_DEFAULT][QUANTIDADE_CIDADES_DEFAULT];
+        int cidadeProvavel = QUANTIDADE_CIDADES_DEFAULT +1; //valor impossivel de cidade, só para iniciar
+
+        for(int i=0; i<QUANTIDADE_CIDADES_DEFAULT -1; i++){                    
+                    if(cidadeCorrente != i){
+                        cidadeProvavel = i;
+                        matrizProbabilidade[cidadeCorrente][cidadeProvavel] = funcaoProbabilidade(formigaAtual, cidadeCorrente, cidadeProvavel);
+                    }                                        
+                }
+        return matrizProbabilidade;
+    }
+
+    private double funcaoProbabilidade(Formiga formigaAtual, int i, int j){
+        double resultado = 0;
+        double parte1 = 0;
+        double parte2 = 0;
+        int[] tabuList;
+        
+        tabuList = formigaAtual.getTabuList();
+        if(tabuList[j] == QUANTIDADE_CIDADES_DEFAULT+1){//a cidade j já foi visitada
+            return 0;
+        }
+        
+        parte1 = Math.pow(trilhaDeFeromonio[i][j], ALFA_DEFAULT) * Math.pow(matrizVisibilidade[i][j], BETA_DEFAULT);
+        for(int l=0; l<formigaAtual.getQtdCidadesQueFaltamVisitar(); l++){
+
+            if(tabuList[l] == l)//ou seja, a cidade l ainda não foi visitada
+                parte2 += Math.pow(trilhaDeFeromonio[i][l], ALFA_DEFAULT) * Math.pow(matrizVisibilidade[i][l], BETA_DEFAULT);
+        }
+        resultado = parte1/parte2;
+        return resultado;
+    }
+
+    private int roleta(double[][] probabilidade){
+        return 0;
+    }
+
+
+    
 
 }
