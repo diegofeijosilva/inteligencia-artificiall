@@ -24,17 +24,16 @@ public class AntSystem {
     public static final int BETA_DEFAULT = 5;
     public static final int Q_DEFAULT = 100;//ordem de magnitude do caminho otimo, que é 420
     public static final int e_DEFAULT = 5;//formigas elitistas
-    public static final double FEROMONIO_INICIAL_DEFAULT = 0.000001;
 
+    private Feromonio feromonio;
     private List<Formiga> listFormigas = new ArrayList<Formiga>();
     private List<Cidade> listCidades = new ArrayList<Cidade>();
     private int[][] matrizDistancias;
     private double[][] matrizVisibilidade;
     private Arquivo arquivo = new Arquivo();
-    private double[][] matrizCoordenadasCidades;
-    private double[][] trilhaDeFeromonio;
-    private int[] percussoOtimo; //T+
-    private int tamanhoPercussoOtimo;//L+
+    private double[][] matrizCoordenadasCidades;    
+    private int[] PERCUSSO_OTIMO; //T+
+    private int TAMANHO_PERCURSSO_OTIMO;//L+
 
 
     public AntSystem(){
@@ -93,15 +92,11 @@ public class AntSystem {
         double parte2 = Math.pow(y1 - y2, 2);
         int d = (int) Math.sqrt(parte1 + parte2);
         return d;
-    }
+    }    
 
     private void initTrilhaDeFeromonio(){
-        trilhaDeFeromonio = new double[QUANTIDADE_CIDADES_DEFAULT][QUANTIDADE_CIDADES_DEFAULT];
-        for(int i=0; i<QUANTIDADE_CIDADES_DEFAULT; i++){
-            for(int j=0; j<QUANTIDADE_CIDADES_DEFAULT; j++){
-                trilhaDeFeromonio[i][j] = FEROMONIO_INICIAL_DEFAULT;
-            }
-        }
+        feromonio = new Feromonio();
+        feromonio.initTrilhaDeFeromonio();
     }
 
     public void menorCaminho(){
@@ -109,8 +104,9 @@ public class AntSystem {
         initListFormigas();
         initListCidades();
 
-        percussoOtimo = new int[QUANTIDADE_CIDADES_DEFAULT];
-        tamanhoPercussoOtimo = 0;
+        PERCUSSO_OTIMO = new int[QUANTIDADE_CIDADES_DEFAULT];
+        TAMANHO_PERCURSSO_OTIMO = 0;
+
         int tamanhoPercussoAtual = 0;
         int cidadeCorrente = QUANTIDADE_CIDADES_DEFAULT +1; //valor impossivel de cidade, só para iniciar
         int cidadeEscolhida = QUANTIDADE_CIDADES_DEFAULT +1; //valor impossivel de cidade, só para iniciar
@@ -119,7 +115,7 @@ public class AntSystem {
         //loop principal
         for(int t=0; t<QUANTIDADE_ITERACOES_DEFAULT; t++){//t representa iterações
             for(int k=0; k<QUANTIDADE_FORMIGAS_DEFAULT; k++){//k representa a formiga
-                
+                tamanhoPercussoAtual = 0;
                 //para a formiga k na iteração t deve ser construido o percusso dela, escolhendo a proxima cidade com a roleta
                 for(int i=0; i<QUANTIDADE_CIDADES_DEFAULT-1; i++){
                     cidadeCorrente = listFormigas.get(k).getCidadeCorrente();
@@ -133,6 +129,32 @@ public class AntSystem {
                     listFormigas.get(k).retiraCidadeDeTabuList(cidadeEscolhida);
                 }
             }
+            //agora pegar o melhor tamanho do percursso e o melhor percursso dessa iteraçao
+            int tamanhoPercussoOtimoDessaIteracao = listFormigas.get(0).getTamanhoDoPercursso();
+            int percurssoAux = 0;
+            int formidaDePercurssoOtimoDessaIteracao = 0;
+            int[] percurssoOtimoDessaIteracao = new int[QUANTIDADE_CIDADES_DEFAULT];
+            for(int k=1; k<QUANTIDADE_FORMIGAS_DEFAULT; k++){
+                percurssoAux = listFormigas.get(k).getTamanhoDoPercursso();
+                if(tamanhoPercussoOtimoDessaIteracao > percurssoAux ){
+                    tamanhoPercussoOtimoDessaIteracao = percurssoAux;
+                    formidaDePercurssoOtimoDessaIteracao = k;
+                }
+            }
+            percurssoOtimoDessaIteracao = listFormigas.get(formidaDePercurssoOtimoDessaIteracao).getTour();
+
+            //agora tem que comparar se o percursso otimo geral é menor que o percursso dessa iteração
+            if(t==0){
+                TAMANHO_PERCURSSO_OTIMO = tamanhoPercussoOtimoDessaIteracao;
+                PERCUSSO_OTIMO = percurssoOtimoDessaIteracao;
+            }
+            else if(TAMANHO_PERCURSSO_OTIMO > tamanhoPercussoOtimoDessaIteracao){
+                TAMANHO_PERCURSSO_OTIMO = tamanhoPercussoOtimoDessaIteracao;
+                PERCUSSO_OTIMO = percurssoOtimoDessaIteracao;
+            }
+
+            //agora é necessário atualizar a trilha de feromonio
+
         }
 
     }
@@ -171,11 +193,10 @@ public class AntSystem {
             return 0;
         }
         
-        parte1 = Math.pow(trilhaDeFeromonio[i][j], ALFA_DEFAULT) * Math.pow(matrizVisibilidade[i][j], BETA_DEFAULT);
+        parte1 = Math.pow(feromonio.trilhaDeFeromonio[i][j], ALFA_DEFAULT) * Math.pow(matrizVisibilidade[i][j], BETA_DEFAULT);
         for(int l=0; l<QUANTIDADE_CIDADES_DEFAULT; l++){
-
             if(tabuList[l] == l){//ou seja, a cidade l ainda não foi visitada
-                aux = Math.pow(trilhaDeFeromonio[i][l], ALFA_DEFAULT) * Math.pow(matrizVisibilidade[i][l], BETA_DEFAULT);
+                aux = Math.pow(feromonio.trilhaDeFeromonio[i][l], ALFA_DEFAULT) * Math.pow(matrizVisibilidade[i][l], BETA_DEFAULT);
                 parte2 += aux;
             }
         }
