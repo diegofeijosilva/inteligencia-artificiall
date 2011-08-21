@@ -95,14 +95,15 @@ public class AntSystem {
     }
 
     private void initTrilhaDeFeromonio(){
+        trilhaDeFeromonio = new double[QUANTIDADE_CIDADES_DEFAULT][QUANTIDADE_CIDADES_DEFAULT];
         for(int i=0; i<QUANTIDADE_CIDADES_DEFAULT; i++){
-            for(int j=0; j>QUANTIDADE_CIDADES_DEFAULT; j++){
+            for(int j=0; j<QUANTIDADE_CIDADES_DEFAULT; j++){
                 trilhaDeFeromonio[i][j] = FEROMONIO_INICIAL_DEFAULT;
             }
         }
     }
 
-    private void menorCaminho(){
+    public void menorCaminho(){
         initTrilhaDeFeromonio();
         initListFormigas();
         initListCidades();
