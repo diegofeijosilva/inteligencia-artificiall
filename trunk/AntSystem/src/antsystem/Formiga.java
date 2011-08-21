@@ -24,7 +24,7 @@ public class Formiga {
         this.tamanhoDoPercursso = 0;
         this.cidadeCorrente = cidadeIncial;
         this.posicaoTour = 0;
-        this.qtdCidadesQueFaltamVisitar = 29;
+        this.qtdCidadesQueFaltamVisitar = 30;
         initTabuList();
         initTour();
     }
