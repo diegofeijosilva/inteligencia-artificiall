@@ -6,6 +6,7 @@
 package antsystem;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -23,7 +24,7 @@ public class AntSystem {
     public static final int BETA_DEFAULT = 5;
     public static final int Q_DEFAULT = 100;//ordem de magnitude do caminho otimo, que é 420
     public static final int e_DEFAULT = 5;//formigas elitistas
-    public static final double FEROMONIO_INICIAL_DEFAULT = 0.00001;
+    public static final double FEROMONIO_INICIAL_DEFAULT = 0.000001;
 
     private List<Formiga> listFormigas = new ArrayList<Formiga>();
     private List<Cidade> listCidades = new ArrayList<Cidade>();
@@ -113,7 +114,7 @@ public class AntSystem {
         int tamanhoPercussoAtual = 0;
         int cidadeCorrente = QUANTIDADE_CIDADES_DEFAULT +1; //valor impossivel de cidade, só para iniciar
         int cidadeEscolhida = QUANTIDADE_CIDADES_DEFAULT +1; //valor impossivel de cidade, só para iniciar
-        double[][] probabilidade;
+        double[] probabilidade;
 
         //loop principal
         for(int t=0; t<QUANTIDADE_ITERACOES_DEFAULT; t++){//t representa iterações
@@ -122,30 +123,40 @@ public class AntSystem {
                 //para a formiga k na iteração t deve ser construido o percusso dela, escolhendo a proxima cidade com a roleta
                 for(int i=0; i<QUANTIDADE_CIDADES_DEFAULT-1; i++){
                     cidadeCorrente = listFormigas.get(k).getCidadeCorrente();
-                    probabilidade = new double[QUANTIDADE_CIDADES_DEFAULT][QUANTIDADE_CIDADES_DEFAULT];
+                    probabilidade = new double[QUANTIDADE_CIDADES_DEFAULT];
                     probabilidade = calculaProbabilidade(listFormigas.get(k), cidadeCorrente);//passo a formiga atual
                     cidadeEscolhida = roleta(probabilidade);
                     listFormigas.get(k).setTour(cidadeEscolhida);
-                    tamanhoPercussoAtual = matrizDistancias[cidadeCorrente][cidadeEscolhida];
+                    tamanhoPercussoAtual += matrizDistancias[cidadeCorrente][cidadeEscolhida];
                     listFormigas.get(k).setTamanhoDoPercursso(tamanhoPercussoAtual);
+                    listFormigas.get(k).setCidadeCorrente(cidadeEscolhida);
+                    listFormigas.get(k).retiraCidadeDeTabuList(cidadeEscolhida);
                 }
             }
         }
 
     }
     
-    private double[][] calculaProbabilidade(Formiga formigaAtual, int cidadeCorrente){
+    private double[] calculaProbabilidade(Formiga formigaAtual, int cidadeCorrente){
 
-        double[][] matrizProbabilidade = new double[QUANTIDADE_CIDADES_DEFAULT][QUANTIDADE_CIDADES_DEFAULT];
+        double[] vetorProbabilidade = new double[QUANTIDADE_CIDADES_DEFAULT];
         int cidadeProvavel = QUANTIDADE_CIDADES_DEFAULT +1; //valor impossivel de cidade, só para iniciar
 
-        for(int i=0; i<QUANTIDADE_CIDADES_DEFAULT -1; i++){                    
-                    if(cidadeCorrente != i){
-                        cidadeProvavel = i;
-                        matrizProbabilidade[cidadeCorrente][cidadeProvavel] = funcaoProbabilidade(formigaAtual, cidadeCorrente, cidadeProvavel);
-                    }                                        
-                }
-        return matrizProbabilidade;
+        for (int i = 0; i < QUANTIDADE_CIDADES_DEFAULT; i++) {
+            if (cidadeCorrente != i) {
+                cidadeProvavel = i;
+                vetorProbabilidade[cidadeProvavel] = funcaoProbabilidade(formigaAtual, cidadeCorrente, cidadeProvavel);
+            }
+            else
+                vetorProbabilidade[i] = 0;
+        }
+        //somando, para verificar se a probabilidade está correta
+        double soma=0;
+        for(int i=0; i<QUANTIDADE_CIDADES_DEFAULT; i++){
+            soma += vetorProbabilidade[i];
+        }
+        System.out.println("soma das probabilidades: " + soma + "da formiga " + formigaAtual.getCidadeIncial());
+        return vetorProbabilidade;
     }
 
     private double funcaoProbabilidade(Formiga formigaAtual, int i, int j){
@@ -153,6 +164,7 @@ public class AntSystem {
         double parte1 = 0;
         double parte2 = 0;
         int[] tabuList;
+        double aux=0;
         
         tabuList = formigaAtual.getTabuList();
         if(tabuList[j] == QUANTIDADE_CIDADES_DEFAULT+1){//a cidade j já foi visitada
@@ -160,17 +172,34 @@ public class AntSystem {
         }
         
         parte1 = Math.pow(trilhaDeFeromonio[i][j], ALFA_DEFAULT) * Math.pow(matrizVisibilidade[i][j], BETA_DEFAULT);
-        for(int l=0; l<formigaAtual.getQtdCidadesQueFaltamVisitar(); l++){
+        for(int l=0; l<QUANTIDADE_CIDADES_DEFAULT; l++){
 
-            if(tabuList[l] == l)//ou seja, a cidade l ainda não foi visitada
-                parte2 += Math.pow(trilhaDeFeromonio[i][l], ALFA_DEFAULT) * Math.pow(matrizVisibilidade[i][l], BETA_DEFAULT);
+            if(tabuList[l] == l){//ou seja, a cidade l ainda não foi visitada
+                aux = Math.pow(trilhaDeFeromonio[i][l], ALFA_DEFAULT) * Math.pow(matrizVisibilidade[i][l], BETA_DEFAULT);
+                parte2 += aux;
+            }
         }
         resultado = parte1/parte2;
         return resultado;
     }
 
-    private int roleta(double[][] probabilidade){
-        return 0;
+    private int roleta(double[] probabilidade){
+        double[] probabilidadeCopia = new double[QUANTIDADE_CIDADES_DEFAULT];
+        probabilidadeCopia = probabilidade.clone();
+        Arrays.sort(probabilidade);
+        double numeroSorteado;
+        double aux = 0;
+        numeroSorteado = Math.random()*1;        
+        for(int j=0; j<QUANTIDADE_CIDADES_DEFAULT; j++){
+            aux +=probabilidade[j];
+            if(aux >= numeroSorteado){
+                for(int z=0; z<QUANTIDADE_CIDADES_DEFAULT; z++){
+                    if(probabilidadeCopia[z]==probabilidade[j])
+                        return z;
+                }
+            }
+        }
+        return 31;//cidade inexistente
     }
 
 

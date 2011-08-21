@@ -18,6 +18,7 @@ public class Main {
         // TODO code application logic here
         AntSystem sistema = new AntSystem();
         sistema.menorCaminho();
+        System.out.println("main");
     }
 
 }
