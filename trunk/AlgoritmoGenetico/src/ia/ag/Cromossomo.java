@@ -79,6 +79,11 @@ public class Cromossomo implements Comparable<Cromossomo>{
         return arredondar(x,6);
     }
 
+    public int[] getGenes()
+    {
+        return this.genes;
+    }
+
     public void setGenes(int[] genes)
     {
         this.genes = genes;
