@@ -11,7 +11,7 @@ import java.math.BigDecimal;
  *
  * @author Gabriel
  */
-public class Cromossomo {
+public class Cromossomo implements Comparable<Cromossomo>{
 
     private int[] genes = new int[22];
 
@@ -94,5 +94,19 @@ public class Cromossomo {
 
     public static void main(String[] args) {
         Cromossomo cromossomo = new Cromossomo();
+    }
+
+    public int compareTo(Cromossomo outro) {
+        AlgoritmoGenetico ag = new AlgoritmoGenetico();
+
+        if (ag.eval(this) < ag.eval(outro)) {
+            return -1;
+        }
+
+        if (ag.eval(this) > ag.eval(outro)) {
+            return 1;
+        }
+        return 0;
+
     }
 }

@@ -28,8 +28,11 @@ public class AlgoritmoGenetico {
 
     private void executarMutacao()
     {
-        int index = (int) Math.random()*100; // gera um indice aleatório para escolher o cromossomo a ser mutado
-        cromossomos.get(index).mutar();
+        for (Cromossomo cromossomo : cromossomos) {
+            double random = Math.random() * 100;
+            if(random <= 1)
+                cromossomo.mutar();
+        }
     }
 
     public double eval(Cromossomo c)
