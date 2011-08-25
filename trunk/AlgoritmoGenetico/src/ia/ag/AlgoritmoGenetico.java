@@ -42,8 +42,21 @@ public class AlgoritmoGenetico {
             System.out.println("VALOR DE T: "+t);
             t++;
             cromossomos = selecionar();
-            //alterarPopulacao();
-            System.out.println("\n\n Valor máximo: "+Collections.max(cromossomos).getValor());
+            alterarPopulacao();
+            double valorMaior=-1;
+            Cromossomo cromossomoMaior = new Cromossomo();
+
+            for(int cont = 0; cont<TAMANHO_POPULACAO; cont++){
+
+                Cromossomo cromAtual = new Cromossomo(cromossomos.get(cont).getGenes());
+                // System.out.println("C "+cont+": "+ cromSorteado.getValor());
+                if(f(cromAtual.getValor())>=valorMaior){
+                    cromossomoMaior = cromAtual;
+                    valorMaior = f(cromAtual.getValor());
+                }
+            }
+            System.out.println("\n\n Valor máximo: "+f(cromossomoMaior.getValor()));
+           // System.out.println("\n\n Valor máximo: "+f(Collections.max(cromossomos).getValor()) );
         }
     }
 
@@ -134,15 +147,31 @@ public class AlgoritmoGenetico {
         int i3 = (int) (Math.random() * 100);
 
         for (int i = 0; i < TAMANHO_POPULACAO; i++) {
-            i1 = (int) (Math.random() * 100);
-            i2 = (int) (Math.random() * 100);
-            i3 = (int) (Math.random() * 100);
+            
+//            i2 = (int) (Math.random() * 100);
+//            i3 = (int) (Math.random() * 100);
+            double valorMaior=-1;
+            Cromossomo cromossomoMaior = new Cromossomo();
 
-            torneio.add(new Cromossomo(cromossomos.get(i1).getGenes()));
-            torneio.add(new Cromossomo(cromossomos.get(i2).getGenes()));
-            torneio.add(new Cromossomo(cromossomos.get(i3).getGenes()));
-
-            proxGeracao.add(Collections.max(torneio));
+            for(int cont = 0; cont<3; cont++){
+                i1 = (int) (Math.random() * 100);
+                Cromossomo cromSorteado = new Cromossomo(cromossomos.get(i1).getGenes());
+                // System.out.println("C "+cont+": "+ cromSorteado.getValor());
+                if(f(cromSorteado.getValor())>=valorMaior){
+                    cromossomoMaior = cromSorteado;
+                    valorMaior = f(cromSorteado.getValor());
+                }
+            }
+//            torneio.add(new Cromossomo(cromossomos.get(i1).getGenes()));
+//            torneio.add(new Cromossomo(cromossomos.get(i2).getGenes()));
+//            torneio.add(new Cromossomo(cromossomos.get(i3).getGenes()));
+//
+//            System.out.println("C1 "+ cromossomos.get(i1).getValor());
+//            System.out.println("C2 "+ cromossomos.get(i2).getValor());
+//            System.out.println("C3 "+ cromossomos.get(i3).getValor());
+//            Cromossomo cMaior = Collections.max(torneio);
+          //  System.out.println("CMaior "+ cromossomoMaior.getValor());
+            proxGeracao.add(cromossomoMaior);
         }
         return proxGeracao;
     }
