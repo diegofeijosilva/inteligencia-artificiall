@@ -40,6 +40,7 @@ public class Feromonio {
             j = tourDaFormiga[k+1];
             resultado =  Q/tamPercusso;
             matrizVariacaoFeromonio[i][j] = resultado;
+            matrizVariacaoFeromonio[j][i] = resultado;
            // dePara = dePara + Integer.toString(i) + "." + Integer.toString(j) + ".";
         }
         return matrizVariacaoFeromonio;
@@ -55,7 +56,8 @@ public class Feromonio {
             i = percussoOtimo[k];
             j = percussoOtimo[k+1];
             resultado =  Q/tamPercurssoOtimo;
-            matrizVariacaoFeromonioElitista[i][j] = resultado;           
+            matrizVariacaoFeromonioElitista[i][j] = resultado;
+            matrizVariacaoFeromonioElitista[i][j] = resultado;  
         }
         return matrizVariacaoFeromonioElitista;
     }
