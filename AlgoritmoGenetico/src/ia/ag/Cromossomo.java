@@ -14,15 +14,18 @@ import java.math.BigDecimal;
 public class Cromossomo implements Comparable<Cromossomo>{
 
     private int[] genes = new int[22];
+    private double valor = 0;
 
     public Cromossomo()
     {
         gerarValorAleatorio();
+        valor = getRealValue();
     }
 
     public Cromossomo(int genes[])
     {
         this.genes = genes;
+        valor = getRealValue();
     }
 
     public void mutar()
@@ -32,10 +35,8 @@ public class Cromossomo implements Comparable<Cromossomo>{
 
     private void mutacaoSimples()
     {
-        for (int i = 0; i < 3; i++) { //gera tres indices aleatórios para escolher os genes a serem mutados
-            int index = (int) Math.random() * 21;
-            genes[index] = alternarBit(genes[index]);
-        }
+        int index = (int) Math.random() * 21;
+        genes[index] = alternarBit(genes[index]);
     }
 
     private int alternarBit(int bit)
@@ -50,7 +51,7 @@ public class Cromossomo implements Comparable<Cromossomo>{
         for (int i = 0; i < genes.length; i++) {
             temp = (double) Math.random();
             genes[i] = arredondarBit(temp);
-            System.out.println(genes[i]);
+            //System.out.print(genes[i]);
         }
     }
 
@@ -87,6 +88,12 @@ public class Cromossomo implements Comparable<Cromossomo>{
     public void setGenes(int[] genes)
     {
         this.genes = genes;
+        valor = getRealValue();
+    }
+
+    public double getValor()
+    {
+        return this.valor;
     }
 
     public static double arredondar(double num, int casas) {
@@ -95,10 +102,6 @@ public class Cromossomo implements Comparable<Cromossomo>{
         bd = bd.setScale(decimalPlace,BigDecimal.ROUND_HALF_UP);
         num = bd.doubleValue();
         return num;
-    }
-
-    public static void main(String[] args) {
-        Cromossomo cromossomo = new Cromossomo();
     }
 
     public int compareTo(Cromossomo outro) {
@@ -114,4 +117,8 @@ public class Cromossomo implements Comparable<Cromossomo>{
         return 0;
 
     }
+
+//    public static void main(String[] args) {
+//        Cromossomo cromossomo = new Cromossomo();
+//    }
 }
