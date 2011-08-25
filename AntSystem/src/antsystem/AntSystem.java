@@ -116,9 +116,10 @@ public class AntSystem {
 
         //loop principal
         //for(int t=0; t<QUANTIDADE_ITERACOES_DEFAULT; t++){//t representa iterações
-        for(int t=0; t<20; t++){//t representa iterações
+        for(int t=0; t<3000; t++){//t representa iterações
             initListFormigas();
-            for(int k=0; k<QUANTIDADE_FORMIGAS_DEFAULT; k++){//k representa a formiga
+            System.out.println("Iteração: " + t);
+            for(int k=0; k<QUANTIDADE_FORMIGAS_DEFAULT; k++){//k representa a formiga               
                 tamanhoPercussoAtual = 0;
                 //para a formiga k na iteração t deve ser construido o percusso dela, escolhendo a proxima cidade com a roleta
                 for(int i=0; i<QUANTIDADE_CIDADES_DEFAULT-1; i++){
@@ -126,11 +127,32 @@ public class AntSystem {
                     probabilidade = new double[QUANTIDADE_CIDADES_DEFAULT];
                     probabilidade = calculaProbabilidade(listFormigas.get(k), cidadeCorrente);//passo a formiga atual
                     cidadeEscolhida = roleta(probabilidade);
+                    while( cidadeEscolhida == 31 || cidadeJaFoiEscolhida(cidadeEscolhida, listFormigas.get(k))){
+                        int[] tabu;
+                        if(listFormigas.get(k).getQtdCidadesQueFaltamVisitar() == 1){
+                            for(int h=0; h<QUANTIDADE_CIDADES_DEFAULT; h++){
+                                tabu = listFormigas.get(k).getTabuList();
+                                if(tabu[h] != 31){
+                                    cidadeEscolhida = tabu[h];
+                                }
+                            }
+                        }
+
+                        //cidadeEscolhida = roleta(probabilidade);
+                    }
                     listFormigas.get(k).setTour(cidadeEscolhida);
-                    tamanhoPercussoAtual += matrizDistancias[cidadeCorrente][cidadeEscolhida];
+                    if(  (cidadeCorrente < 0 || cidadeCorrente >30)  || (cidadeEscolhida <0 || cidadeEscolhida >30) ){
+                        System.out.println("erro");
+                    }
+                    tamanhoPercussoAtual += matrizDistancias[cidadeCorrente][cidadeEscolhida];                    
                     listFormigas.get(k).setTamanhoDoPercursso(tamanhoPercussoAtual);
                     listFormigas.get(k).setCidadeCorrente(cidadeEscolhida);
                     listFormigas.get(k).retiraCidadeDeTabuList(cidadeEscolhida);
+                }
+                tamanhoPercussoAtual += matrizDistancias[cidadeEscolhida][listFormigas.get(k).getCidadeIncial()];
+                listFormigas.get(k).setTamanhoDoPercursso(tamanhoPercussoAtual);
+                if(t==1000){
+                    System.out.println("1000");
                 }
             }
             //agora pegar o melhor tamanho do percursso e o melhor percursso dessa iteraçao
@@ -170,6 +192,7 @@ public class AntSystem {
                     origem = listFormigas.get(i).getTour()[j];
                     destino = listFormigas.get(i).getTour()[j+1];
                     matrizVariacaoFeromonioSoma[origem][destino] += matrizVariacaoFeromonio[origem][destino];
+                    matrizVariacaoFeromonioSoma[destino][origem] += matrizVariacaoFeromonio[origem][destino];
                 }
             }
 
@@ -178,18 +201,28 @@ public class AntSystem {
             matrizFormigasElitista = feromonio.calculaVariacaoFeromonioElitista(TAMANHO_PERCURSSO_OTIMO, PERCUSSO_OTIMO);
 
             //atualizar o feromonio agora
+            double calc1, calc2, calc3;
             for(int i=0; i<QUANTIDADE_CIDADES_DEFAULT; i++){
                 for(int j=0; j<QUANTIDADE_CIDADES_DEFAULT; j++){
-                    feromonio.trilhaDeFeromonio[i][j] = (1-COEFICIENTE_DECAIMENTO_DEFAULT)*feromonio.trilhaDeFeromonio[i][j] + matrizVariacaoFeromonioSoma[i][j] + e_DEFAULT*matrizFormigasElitista[i][j];
+                    calc1 = 1-COEFICIENTE_DECAIMENTO_DEFAULT;
+                    calc2 = calc1 *feromonio.trilhaDeFeromonio[i][j];
+                    calc3 = calc2 + matrizVariacaoFeromonioSoma[i][j];
+                    feromonio.trilhaDeFeromonio[i][j] = calc3 + e_DEFAULT*matrizFormigasElitista[i][j];
                 }
             }
 
-        }
-
-        System.out.println("acabou");
-
+        }        
     }
-    
+
+    private boolean cidadeJaFoiEscolhida(int cidadeEscolhida, Formiga formiga){
+
+        int[] tabuList = formiga.getTabuList();
+        if(cidadeEscolhida == tabuList[cidadeEscolhida]){
+                return false;
+        }
+        return true;
+    }
+
     private double[] calculaProbabilidade(Formiga formigaAtual, int cidadeCorrente){
 
         double[] vetorProbabilidade = new double[QUANTIDADE_CIDADES_DEFAULT];
@@ -208,7 +241,7 @@ public class AntSystem {
         for(int i=0; i<QUANTIDADE_CIDADES_DEFAULT; i++){
             soma += vetorProbabilidade[i];
         }
-        System.out.println("soma das probabilidades: " + soma + "da formiga " + formigaAtual.getCidadeIncial());
+        //System.out.println("soma das probabilidades: " + soma + "da formiga " + formigaAtual.getCidadeIncial());
         return vetorProbabilidade;
     }
 
@@ -226,10 +259,13 @@ public class AntSystem {
         
         parte1 = Math.pow(feromonio.trilhaDeFeromonio[i][j], ALFA_DEFAULT) * Math.pow(matrizVisibilidade[i][j], BETA_DEFAULT);
         for(int l=0; l<QUANTIDADE_CIDADES_DEFAULT; l++){
-            if(tabuList[l] == l){//ou seja, a cidade l ainda não foi visitada
+            if(tabuList[l] == l && l !=i){//ou seja, a cidade l ainda não foi visitada
                 aux = Math.pow(feromonio.trilhaDeFeromonio[i][l], ALFA_DEFAULT) * Math.pow(matrizVisibilidade[i][l], BETA_DEFAULT);
                 parte2 += aux;
             }
+        }
+        if(parte2 == 0){
+            return 0;
         }
         resultado = parte1/parte2;
         return resultado;
@@ -254,6 +290,12 @@ public class AntSystem {
         return 31;//cidade inexistente
     }
 
+    public int[] getPercurssoOtimo(){
+        return this.PERCUSSO_OTIMO;
+    }
+    public int getTamanhoPercurssoOtimo(){
+        return this.TAMANHO_PERCURSSO_OTIMO;
+    }
 
     
 
