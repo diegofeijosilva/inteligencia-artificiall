@@ -20,7 +20,7 @@ public class Main {
         sistema.menorCaminho();      
         System.out.println("Tamanho ótimo: " + sistema.getTamanhoPercurssoOtimo());
         System.out.print("Percursso ótimo: ");
-        for(int i=0; i<sistema.QUANTIDADE_CIDADES_DEFAULT; i++){
+        for(int i=0; i<sistema.QUANTIDADE_CIDADES_DEFAULT+1; i++){
             System.out.print(sistema.getPercurssoOtimo()[i] + " , ");
         }
     }

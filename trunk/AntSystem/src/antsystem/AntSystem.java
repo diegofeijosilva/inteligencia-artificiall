@@ -115,8 +115,8 @@ public class AntSystem {
         double[] probabilidade;
 
         //loop principal
-        //for(int t=0; t<QUANTIDADE_ITERACOES_DEFAULT; t++){//t representa iterações
-        for(int t=0; t<3000; t++){//t representa iterações
+        for(int t=0; t<QUANTIDADE_ITERACOES_DEFAULT; t++){//t representa iterações
+        //for(int t=0; t<10; t++){//t representa iterações
             initListFormigas();
             System.out.println("Iteração: " + t);
             for(int k=0; k<QUANTIDADE_FORMIGAS_DEFAULT; k++){//k representa a formiga               
@@ -151,15 +151,13 @@ public class AntSystem {
                 }
                 tamanhoPercussoAtual += matrizDistancias[cidadeEscolhida][listFormigas.get(k).getCidadeIncial()];
                 listFormigas.get(k).setTamanhoDoPercursso(tamanhoPercussoAtual);
-                if(t==1000){
-                    System.out.println("1000");
-                }
+                listFormigas.get(k).setTour(listFormigas.get(k).getCidadeIncial());
             }
             //agora pegar o melhor tamanho do percursso e o melhor percursso dessa iteraçao
             int tamanhoPercussoOtimoDessaIteracao = listFormigas.get(0).getTamanhoDoPercursso();
             int percurssoAux = 0;
             int formidaDePercurssoOtimoDessaIteracao = 0;
-            int[] percurssoOtimoDessaIteracao = new int[QUANTIDADE_CIDADES_DEFAULT];
+            int[] percurssoOtimoDessaIteracao = new int[QUANTIDADE_CIDADES_DEFAULT+1];
             for(int k=1; k<QUANTIDADE_FORMIGAS_DEFAULT; k++){
                 percurssoAux = listFormigas.get(k).getTamanhoDoPercursso();
                 if(tamanhoPercussoOtimoDessaIteracao > percurssoAux ){

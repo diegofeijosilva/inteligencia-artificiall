@@ -30,7 +30,7 @@ public class Formiga {
     }
 
     private void initTour(){
-        this.tour = new int[AntSystem.QUANTIDADE_CIDADES_DEFAULT];
+        this.tour = new int[AntSystem.QUANTIDADE_CIDADES_DEFAULT+1];
         tour[posicaoTour] = cidadeIncial;
         posicaoTour++;
     }

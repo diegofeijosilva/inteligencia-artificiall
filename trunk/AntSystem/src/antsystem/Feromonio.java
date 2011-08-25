@@ -20,7 +20,8 @@ public class Feromonio {
         trilhaDeFeromonio = new double[AntSystem.QUANTIDADE_CIDADES_DEFAULT][AntSystem.QUANTIDADE_CIDADES_DEFAULT];
         for(int i=0; i<AntSystem.QUANTIDADE_CIDADES_DEFAULT; i++){
             for(int j=0; j<AntSystem.QUANTIDADE_CIDADES_DEFAULT; j++){
-                trilhaDeFeromonio[i][j] = FEROMONIO_INICIAL_DEFAULT;
+                if(i != j)
+                    trilhaDeFeromonio[i][j] = FEROMONIO_INICIAL_DEFAULT;
             }
         }
     }
@@ -35,10 +36,10 @@ public class Feromonio {
         double resultado = 0;
         double Q = AntSystem.Q_DEFAULT;
         double tamPercusso = formiga.getTamanhoDoPercursso();
+        resultado =  Q/tamPercusso;
         for(int k=0; k<AntSystem.QUANTIDADE_FORMIGAS_DEFAULT-1; k++){
             i = tourDaFormiga[k];
-            j = tourDaFormiga[k+1];
-            resultado =  Q/tamPercusso;
+            j = tourDaFormiga[k+1];            
             matrizVariacaoFeromonio[i][j] = resultado;
             matrizVariacaoFeromonio[j][i] = resultado;
            // dePara = dePara + Integer.toString(i) + "." + Integer.toString(j) + ".";
@@ -52,12 +53,12 @@ public class Feromonio {
         int j;//cidade destino
         double resultado = 0;
         double Q = AntSystem.Q_DEFAULT;
+        resultado =  Q/tamPercurssoOtimo;
         for(int k=0; k<AntSystem.QUANTIDADE_FORMIGAS_DEFAULT-1; k++){
             i = percussoOtimo[k];
-            j = percussoOtimo[k+1];
-            resultado =  Q/tamPercurssoOtimo;
+            j = percussoOtimo[k+1];            
             matrizVariacaoFeromonioElitista[i][j] = resultado;
-            matrizVariacaoFeromonioElitista[i][j] = resultado;  
+            matrizVariacaoFeromonioElitista[j][i] = resultado;
         }
         return matrizVariacaoFeromonioElitista;
     }
