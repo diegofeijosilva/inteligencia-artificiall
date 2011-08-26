@@ -84,10 +84,10 @@ public class AntSystem {
         int x2 = cidadeChegada.getX();
         int y2 = cidadeChegada.getY();
 
-        double parte1 = Math.pow(x1 - x2, 2);
-        double parte2 = Math.pow(y1 - y2, 2);
-        int d = (int) Math.sqrt(parte1 + parte2);
-        return d;
+        int parte1 = (x1 - x2)*(x1 - x2);
+        int parte2 = (y1 - y2) * (y1 - y2);
+        double d =  Math.sqrt(parte1 + parte2);
+        return (int)Math.round(d);
     }    
 
     private void initTrilhaDeFeromonio(){
@@ -107,8 +107,8 @@ public class AntSystem {
         double[] probabilidade;
 
         //loop principal
-        //for(int t=0; t<QUANTIDADE_ITERACOES_DEFAULT; t++){//t representa iterações
-        for(int t=0; t<3000; t++){//t representa iterações
+        for(int t=0; t<QUANTIDADE_ITERACOES_DEFAULT; t++){//t representa iterações
+        //for(int t=0; t<100; t++){//t representa iterações
             initListFormigas();
             System.out.println("Iteração: " + t);
             for(int k=0; k<QUANTIDADE_FORMIGAS_DEFAULT; k++){//k representa a formiga               
@@ -147,11 +147,7 @@ public class AntSystem {
                                 }
                             }
                         }
-                    }
-                    if(  (cidadeCorrente < 0 || cidadeCorrente >30)  || (cidadeEscolhida <0 || cidadeEscolhida >30) ){
-                        System.out.println("erro");
-                    }
-
+                    }                   
                     tamanhoPercussoAtual += matrizDistancias[cidadeCorrente][cidadeEscolhida];  
 
                     //atualiza a formiga: atualiza tour, tamanho do percursso, seta nova cidadeCorrente e atualiza tabuList
@@ -161,6 +157,9 @@ public class AntSystem {
                 tamanhoPercussoAtual += matrizDistancias[cidadeEscolhida][listFormigas.get(k).getCidadeIncial()];
                 listFormigas.get(k).setTamanhoDoPercursso(tamanhoPercussoAtual);
                 listFormigas.get(k).setTour(listFormigas.get(k).getCidadeIncial());
+                if(listFormigas.get(k).getTamanhoDoPercursso() < 420){
+                    System.out.println("caminho incorreto");
+                }
             }
             //agora pegar o melhor tamanho do percursso e o melhor percursso dessa iteraçao
             int tamanhoPercussoOtimoDessaIteracao = listFormigas.get(0).getTamanhoDoPercursso();
