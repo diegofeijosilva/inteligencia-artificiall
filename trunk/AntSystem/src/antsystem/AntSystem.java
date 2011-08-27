@@ -121,6 +121,9 @@ public class AntSystem {
                     cidadeEscolhida = roleta(probabilidade);
                     
                     //se a cidade escolhida não estiver correta
+                    while (cidadeEscolhida == 31 || cidadeJaFoiEscolhida(cidadeEscolhida, listFormigas.get(k))) {
+                        cidadeEscolhida = verificarCidadeEscolhida(cidadeEscolhida, k, probabilidade);
+                    }
                     while( cidadeEscolhida == 31 || cidadeJaFoiEscolhida(cidadeEscolhida, listFormigas.get(k))){
                         int[] tabu;
                         if(listFormigas.get(k).getQtdCidadesQueFaltamVisitar() == 1){
@@ -197,6 +200,36 @@ public class AntSystem {
         listFormigas.get(formiga).setTamanhoDoPercursso(tamanhoPercussoAtual);
         listFormigas.get(formiga).setCidadeCorrente(cidadeEscolhida);
         listFormigas.get(formiga).retiraCidadeDeTabuList(cidadeEscolhida);
+    }
+
+    private int verificarCidadeEscolhida(int cidadeEscolhida, int k, double[] probabilidade) {        
+            int[] tabu;
+            if (listFormigas.get(k).getQtdCidadesQueFaltamVisitar() == 1) {
+                for (int h = 0; h < QUANTIDADE_CIDADES_DEFAULT; h++) {
+                    tabu = listFormigas.get(k).getTabuList();
+                    if (tabu[h] != 31) {
+                        cidadeEscolhida = tabu[h];
+                        return cidadeEscolhida;
+                    }
+                }
+            } else {
+                //probabilidade = calculaProbabilidade(listFormigas.get(k), cidadeCorrente);//passo a formiga atual
+                //cidadeEscolhida = roleta(probabilidade);
+                double soma = 0;
+                for (int a = 0; a < QUANTIDADE_CIDADES_DEFAULT; a++) {
+                    soma += probabilidade[a];
+                }
+                double auxx = 1 - soma;
+                if (auxx > 0.1 || auxx < (-0.1)) {
+                    for (int b = 0; b < QUANTIDADE_CIDADES_DEFAULT; b++) {
+                        if (listFormigas.get(k).getTabuList()[b] == b) {
+                            cidadeEscolhida = b;
+                            return cidadeEscolhida;
+                        }
+                    }
+                }
+            }
+            return cidadeEscolhida;
     }
 
     private boolean cidadeJaFoiEscolhida(int cidadeEscolhida, Formiga formiga){
