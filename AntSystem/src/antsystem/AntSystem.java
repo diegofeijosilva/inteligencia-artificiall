@@ -5,6 +5,7 @@
 
 package antsystem;
 
+import gui.JFrameAntSystem;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -35,6 +36,19 @@ public class AntSystem {
     private double[][] matrizVariacaoFeromonioSoma;
     private int[] PERCUSSO_OTIMO; //T+
     private int TAMANHO_PERCURSSO_OTIMO;//L+
+    private int qtdIteracoes;
+    private int iteracaoAtual = 0;
+    JFrameAntSystem frame = new JFrameAntSystem();
+    
+
+    public AntSystem(int iteracoes) {
+       this.qtdIteracoes = iteracoes;       
+    }
+
+    public AntSystem(){
+        this.qtdIteracoes = QUANTIDADE_ITERACOES_DEFAULT;
+    }
+
 
     private void initListFormigas(){
         listFormigas = new ArrayList<Formiga>();
@@ -105,10 +119,12 @@ public class AntSystem {
         int cidadeCorrente = QUANTIDADE_CIDADES_DEFAULT +1; //valor impossivel de cidade, só para iniciar
         int cidadeEscolhida = QUANTIDADE_CIDADES_DEFAULT +1; //valor impossivel de cidade, só para iniciar
         double[] probabilidade;
-
+        
         //loop principal
-        for(int t=0; t<QUANTIDADE_ITERACOES_DEFAULT; t++){//t representa iterações
+        for(int t=0; t<qtdIteracoes; t++){//t representa iterações
         //for(int t=0; t<100; t++){//t representa iterações
+            setIteracaoAtual(t);
+            frame.setjTextIteracaoAtual(t);
             initListFormigas();
             System.out.println("Iteração: " + t);
             for(int k=0; k<QUANTIDADE_FORMIGAS_DEFAULT; k++){//k representa a formiga               
@@ -321,7 +337,17 @@ public class AntSystem {
     public int getTamanhoPercurssoOtimo(){
         return this.TAMANHO_PERCURSSO_OTIMO;
     }
-
-    
+    public void setQtdIteracoes(int it){
+        this.qtdIteracoes = it;
+    }
+    public int getQtdIteracoes(){
+        return this.qtdIteracoes;
+    }
+    public void setIteracaoAtual(int t){
+        this.iteracaoAtual = t;
+    }
+    public int getIteracaoAtual(){
+        return this.iteracaoAtual;
+    }
 
 }
