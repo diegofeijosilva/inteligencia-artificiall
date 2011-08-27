@@ -193,6 +193,7 @@ public class AntSystem {
                 for (int a = 0; a < QUANTIDADE_CIDADES_DEFAULT; a++) {
                     soma += probabilidade[a];
                 }
+                System.out.println("soma das probabilidades: " + soma + " da formiga " + k);
                 double auxx = 1 - soma;
                 if (auxx > 0.1 || auxx < (-0.1)) {
                     for (int b = 0; b < QUANTIDADE_CIDADES_DEFAULT; b++) {
@@ -265,14 +266,7 @@ public class AntSystem {
             else
                 vetorProbabilidade[i] = 0;
         }
-        //somando, para verificar se a probabilidade está correta
-        double soma=0;
-        for(int i=0; i<QUANTIDADE_CIDADES_DEFAULT; i++){
-            soma += vetorProbabilidade[i];
-        }
-        double auxx = 1-soma;
-        if(auxx > 0.1  || auxx < (-0.1))
-            System.out.println("soma das probabilidades: " + soma + "da formiga " + formigaAtual.getCidadeIncial());
+            
         return vetorProbabilidade;
     }
 
