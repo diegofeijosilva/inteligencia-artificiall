@@ -14,15 +14,15 @@ public class Main {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
-        // TODO code application logic here
-        AntSystem sistema = new AntSystem();
-        sistema.menorCaminho();      
-        System.out.println("Tamanho ótimo: " + sistema.getTamanhoPercurssoOtimo());
-        System.out.print("Percursso ótimo: ");
-        for(int i=0; i<sistema.QUANTIDADE_CIDADES_DEFAULT+1; i++){
-            System.out.print(sistema.getPercurssoOtimo()[i] + " , ");
-        }
-    }
+////    public static void main(String[] args) {
+////        // TODO code application logic here
+////        AntSystem sistema = new AntSystem();
+////        sistema.menorCaminho();
+////        System.out.println("Tamanho ótimo: " + sistema.getTamanhoPercurssoOtimo());
+////        System.out.print("Percursso ótimo: ");
+////        for(int i=0; i<sistema.QUANTIDADE_CIDADES_DEFAULT+1; i++){
+////            System.out.print(sistema.getPercurssoOtimo()[i] + " , ");
+////        }
+////    }
 
 }
