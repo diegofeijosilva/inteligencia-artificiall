@@ -12,12 +12,15 @@
 package gui;
 
 import antsystem.AntSystem;
+import java.util.Observable;
+import java.util.Observer;
+import javax.swing.JTextField;
 
 /**
  *
  * @author Larissa
  */
-public class JFrameAntSystem extends javax.swing.JFrame {
+public class JFrameAntSystem extends javax.swing.JFrame{
 
     /** Creates new form JFrameAntSystem */
     public JFrameAntSystem() {
@@ -53,16 +56,14 @@ public class JFrameAntSystem extends javax.swing.JFrame {
         jTextPercursoOtimo = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        jLabel11 = new javax.swing.JLabel();
-        jTextIteracaoAtual = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24));
         jLabel1.setText("Ant System");
 
-        jTextIteracoes.setText("3000");
+        jTextIteracoes.setText("10");
 
         jLabel2.setText("Iterações");
 
@@ -109,14 +110,6 @@ public class JFrameAntSystem extends javax.swing.JFrame {
             }
         });
 
-        jLabel11.setText("Iteração");
-
-        jTextIteracaoAtual.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextIteracaoAtualActionPerformed(evt);
-            }
-        });
-
         jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gui/imagens/Sem título.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -135,13 +128,7 @@ public class JFrameAntSystem extends javax.swing.JFrame {
                                 .addComponent(jLabel8)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jTextTamanhoOtimo, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jButton1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 240, Short.MAX_VALUE)
-                                .addComponent(jLabel11)
-                                .addGap(58, 58, 58)
-                                .addComponent(jTextIteracaoAtual, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(297, 297, 297))
+                            .addComponent(jButton1)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel9)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -219,11 +206,7 @@ public class JFrameAntSystem extends javax.swing.JFrame {
                     .addComponent(jLabel9)
                     .addComponent(jTextPercursoOtimo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jTextIteracaoAtual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel11)))
+                .addComponent(jButton1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -253,6 +236,8 @@ public class JFrameAntSystem extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextAlfaActionPerformed
 
+
+
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         
@@ -271,10 +256,10 @@ public class JFrameAntSystem extends javax.swing.JFrame {
         iteracoes = Integer.valueOf(jTextIteracoes.getText());
         jTextTamanhoOtimo.setText("");
         jTextPercursoOtimo.setText("");
-        jTextTamanhoOtimo.repaint();
-        jTextPercursoOtimo.repaint();
-        AntSystem sistema = new AntSystem(iteracoes);
+        
+        AntSystem sistema = new AntSystem(iteracoes);        
         sistema.menorCaminho();
+
         System.out.println("Tamanho ótimo: " + sistema.getTamanhoPercurssoOtimo());
         System.out.print("Percursso ótimo: ");
         String tudo ="";
@@ -290,17 +275,7 @@ public class JFrameAntSystem extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jButton1ActionPerformed
     
-    public void setjTextIteracaoAtual(int it){
-        jTextIteracaoAtual.setText(String.valueOf(it));
-        jTextIteracaoAtual.repaint();
-    }
-    public String getjTextIteracaoAtual(){
-        return this.jTextIteracaoAtual.getText();
-    }
 
-    private void jTextIteracaoAtualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextIteracaoAtualActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextIteracaoAtualActionPerformed
 
     /**
     * @param args the command line arguments
@@ -317,7 +292,6 @@ public class JFrameAntSystem extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -331,12 +305,12 @@ public class JFrameAntSystem extends javax.swing.JFrame {
     private javax.swing.JTextField jTextAlfa;
     private javax.swing.JTextField jTextBeta;
     private javax.swing.JTextField jTextCoeficienteDecaimento;
-    private javax.swing.JTextField jTextIteracaoAtual;
     private javax.swing.JTextField jTextIteracoes;
     private javax.swing.JTextField jTextPercursoOtimo;
     private javax.swing.JTextField jTextQuantidadeCidadesFormigas;
     private javax.swing.JTextField jTextQuantidadeElitistas;
     private javax.swing.JTextField jTextTamanhoOtimo;
     // End of variables declaration//GEN-END:variables
+
 
 }
