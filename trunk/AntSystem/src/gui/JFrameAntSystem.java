@@ -20,11 +20,14 @@ import javax.swing.JTextField;
  *
  * @author Larissa
  */
-public class JFrameAntSystem extends javax.swing.JFrame{
+public class JFrameAntSystem extends javax.swing.JFrame implements Observer{
 
     /** Creates new form JFrameAntSystem */
-    public JFrameAntSystem() {
+    public JFrameAntSystem(AntSystem sistema) {
+        this.sistema = sistema;
+        this.sistema.addObserver((Observer) this);
         initComponents();
+        update(this.sistema, null);
     }
 
     /** This method is called from within the constructor to
@@ -57,6 +60,8 @@ public class JFrameAntSystem extends javax.swing.JFrame{
         jLabel10 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jLabel12 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabelIteracao = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -112,6 +117,11 @@ public class JFrameAntSystem extends javax.swing.JFrame{
 
         jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gui/imagens/Sem título.png"))); // NOI18N
 
+        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel11.setText("Iteração: ");
+
+        jLabelIteracao.setText("0");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -134,13 +144,16 @@ public class JFrameAntSystem extends javax.swing.JFrame{
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jTextPercursoOtimo, javax.swing.GroupLayout.PREFERRED_SIZE, 680, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel10)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel3)
-                                            .addComponent(jLabel4)
-                                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(jLabel10)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jLabel11))
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                             .addComponent(jTextCoeficienteDecaimento)
@@ -159,8 +172,11 @@ public class JFrameAntSystem extends javax.swing.JFrame{
                                                 .addGap(46, 46, 46)
                                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                                     .addComponent(jTextAlfa, 0, 0, Short.MAX_VALUE)
-                                                    .addComponent(jTextBeta, javax.swing.GroupLayout.DEFAULT_SIZE, 55, Short.MAX_VALUE))))))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 93, Short.MAX_VALUE)
+                                                    .addComponent(jTextBeta, javax.swing.GroupLayout.DEFAULT_SIZE, 55, Short.MAX_VALUE)))))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(2, 2, 2)
+                                        .addComponent(jLabelIteracao)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 99, Short.MAX_VALUE)
                                 .addComponent(jLabel12)
                                 .addGap(34, 34, 34)))))
                 .addContainerGap())
@@ -193,7 +209,10 @@ public class JFrameAntSystem extends javax.swing.JFrame{
                             .addComponent(jLabel7)
                             .addComponent(jTextQuantidadeElitistas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(44, 44, 44)
-                        .addComponent(jLabel10)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel10)
+                            .addComponent(jLabel11)
+                            .addComponent(jLabelIteracao))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel8)
@@ -256,42 +275,68 @@ public class JFrameAntSystem extends javax.swing.JFrame{
         iteracoes = Integer.valueOf(jTextIteracoes.getText());
         jTextTamanhoOtimo.setText("");
         jTextPercursoOtimo.setText("");
-        
-        AntSystem sistema = new AntSystem(iteracoes);        
-        sistema.menorCaminho();
 
-        System.out.println("Tamanho ótimo: " + sistema.getTamanhoPercurssoOtimo());
-        System.out.print("Percursso ótimo: ");
-        String tudo ="";
-        for(int i=0; i<AntSystem.QUANTIDADE_CIDADES_DEFAULT+1; i++){
-            System.out.print(sistema.getPercurssoOtimo()[i] + " , ");
-            if(i<AntSystem.QUANTIDADE_CIDADES_DEFAULT)
-                tudo += sistema.getPercurssoOtimo()[i] + " , ";
-            else
-                tudo += sistema.getPercurssoOtimo()[i];
+        sistema.setQtdIteracoes(iteracoes);
+        //sistema = new AntSystem(iteracoes, this);
+        //sistema.menorCaminho();
+
+        if(processo==null || processo.isInterrupted()) { //Instancia a thread SE não existir uma
+            processo = new Thread(sistema);
+            processo.start();
+        } else {
+            System.out.println("O processo ainda está em execução");
         }
-        jTextTamanhoOtimo.setText(String.valueOf(sistema.getTamanhoPercurssoOtimo()));
-        jTextPercursoOtimo.setText(tudo);
+
+//        System.out.println("Tamanho ótimo: " + sistema.getTamanhoPercurssoOtimo());
+//        System.out.print("Percursso ótimo: ");
+//        String tudo ="";
+//        for(int i=0; i<AntSystem.QUANTIDADE_CIDADES_DEFAULT+1; i++){
+//            //System.out.print(sistema.getPercurssoOtimo()[i] + " , ");
+//            if(i<AntSystem.QUANTIDADE_CIDADES_DEFAULT)
+//                tudo += sistema.getPercurssoOtimo()[i] + " , ";
+//            else
+//                tudo += sistema.getPercurssoOtimo()[i];
+//        }
+//        jTextTamanhoOtimo.setText(String.valueOf(sistema.getTamanhoPercurssoOtimo()));
+//        jTextPercursoOtimo.setText(tudo);
         
     }//GEN-LAST:event_jButton1ActionPerformed
-    
+
+    public void setTamanhoOtimo(String tamanho)
+    {
+        jTextTamanhoOtimo.setText(String.valueOf(tamanho));
+    }
+
+    public void setPercursoOtimo(String percurso)
+    {
+        jTextPercursoOtimo.setText(percurso);
+    }
+
+    public void finalizarProcessoTreino()
+    {
+        processo.interrupt();
+        if (processo.isInterrupted()) {
+        processo = null;
+        }
+    }
 
 
     /**
     * @param args the command line arguments
     */
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new JFrameAntSystem().setVisible(true);
-            }
-        });
-    }
+//    public static void main(String args[]) {
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new JFrameAntSystem().setVisible(true);
+//            }
+//        });
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -301,6 +346,7 @@ public class JFrameAntSystem extends javax.swing.JFrame{
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel jLabelIteracao;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jTextAlfa;
     private javax.swing.JTextField jTextBeta;
@@ -311,6 +357,11 @@ public class JFrameAntSystem extends javax.swing.JFrame{
     private javax.swing.JTextField jTextQuantidadeElitistas;
     private javax.swing.JTextField jTextTamanhoOtimo;
     // End of variables declaration//GEN-END:variables
+    private Thread processo;
+    private AntSystem sistema;
 
+    public void update(Observable o, Object arg) {
+        jLabelIteracao.setText(String.valueOf(sistema.getIteracaoAtual()));
+    }
 
 }
