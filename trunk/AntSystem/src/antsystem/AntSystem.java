@@ -189,7 +189,7 @@ public class AntSystem extends Observable implements Runnable{
                 
         }
         System.out.println("Tamanho ótimo: " + getTamanhoPercurssoOtimo());
-        System.out.print("Percursso ótimo: ");
+        
         String tudo ="";
         for(int i=0; i<AntSystem.QUANTIDADE_CIDADES_DEFAULT+1; i++){
             //System.out.print(sistema.getPercurssoOtimo()[i] + " , ");
@@ -198,6 +198,7 @@ public class AntSystem extends Observable implements Runnable{
             else
                 tudo += getPercurssoOtimo()[i];
         }
+        System.out.print("Percursso ótimo: " + tudo);
         frame.setTamanhoOtimo(String.valueOf(getTamanhoPercurssoOtimo()));
         frame.setPercursoOtimo(tudo);
 

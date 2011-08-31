@@ -46,13 +46,9 @@ public class JFrameAntSystem extends javax.swing.JFrame implements Observer{
         jLabel3 = new javax.swing.JLabel();
         jTextCoeficienteDecaimento = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jTextQuantidadeCidadesFormigas = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jTextAlfa = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        jTextBeta = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        jTextQuantidadeElitistas = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jTextTamanhoOtimo = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
@@ -62,6 +58,10 @@ public class JFrameAntSystem extends javax.swing.JFrame implements Observer{
         jLabel12 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabelIteracao = new javax.swing.JLabel();
+        jLabelQuantidadeCidadesFormigas = new javax.swing.JLabel();
+        jLabelAlfa = new javax.swing.JLabel();
+        jLabelBeta = new javax.swing.JLabel();
+        jLabelQtdFormigasElitistas = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -70,9 +70,9 @@ public class JFrameAntSystem extends javax.swing.JFrame implements Observer{
 
         jTextIteracoes.setText("10");
 
-        jLabel2.setText("Iterações");
+        jLabel2.setText("Iterações:");
 
-        jLabel3.setText("Coeficiente de Decaimento");
+        jLabel3.setText("Coeficiente de Decaimento:");
 
         jTextCoeficienteDecaimento.setText("0.5");
         jTextCoeficienteDecaimento.addActionListener(new java.awt.event.ActionListener() {
@@ -81,26 +81,13 @@ public class JFrameAntSystem extends javax.swing.JFrame implements Observer{
             }
         });
 
-        jLabel4.setText("Quantidade de Cidades/Formigas");
+        jLabel4.setText("Quantidade de Cidades/Formigas:");
 
-        jTextQuantidadeCidadesFormigas.setText("30");
+        jLabel5.setText("Alfa:");
 
-        jLabel5.setText("Alfa");
+        jLabel6.setText("Beta:");
 
-        jTextAlfa.setText("1               ");
-        jTextAlfa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextAlfaActionPerformed(evt);
-            }
-        });
-
-        jLabel6.setText("Beta");
-
-        jTextBeta.setText("5");
-
-        jLabel7.setText("Formigas E");
-
-        jTextQuantidadeElitistas.setText("5");
+        jLabel7.setText("Formigas E:");
 
         jLabel8.setText("Tamanho");
 
@@ -115,12 +102,20 @@ public class JFrameAntSystem extends javax.swing.JFrame implements Observer{
             }
         });
 
-        jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gui/imagens/Sem título.png"))); // NOI18N
+        jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gui/imagens/formiguinhas.png"))); // NOI18N
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel11.setText("Iteração: ");
 
         jLabelIteracao.setText("0");
+
+        jLabelQuantidadeCidadesFormigas.setText("30");
+
+        jLabelAlfa.setText("1");
+
+        jLabelBeta.setText("5");
+
+        jLabelQtdFormigasElitistas.setText("5");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -129,57 +124,62 @@ public class JFrameAntSystem extends javax.swing.JFrame implements Observer{
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(284, 284, 284)
-                        .addComponent(jLabel1))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel8)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextTamanhoOtimo, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jButton1)
+                        .addGap(59, 59, 59)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel9)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jTextPercursoOtimo, javax.swing.GroupLayout.PREFERRED_SIZE, 680, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel10)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jLabel11))
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(jTextCoeficienteDecaimento)
-                                            .addComponent(jTextQuantidadeCidadesFormigas)
-                                            .addComponent(jTextIteracoes, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(70, 70, 70)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addComponent(jLabel7)
-                                                .addGap(18, 18, 18)
-                                                .addComponent(jTextQuantidadeElitistas))
-                                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(jLabel5)
-                                                    .addComponent(jLabel6))
-                                                .addGap(46, 46, 46)
-                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                    .addComponent(jTextAlfa, 0, 0, Short.MAX_VALUE)
-                                                    .addComponent(jTextBeta, javax.swing.GroupLayout.DEFAULT_SIZE, 55, Short.MAX_VALUE)))))
+                                        .addComponent(jLabel10)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
+                                        .addComponent(jLabel11)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jLabelIteracao)
+                                        .addGap(141, 141, 141))
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(2, 2, 2)
-                                        .addComponent(jLabelIteracao)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 99, Short.MAX_VALUE)
+                                        .addComponent(jLabel8)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jTextTamanhoOtimo, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(81, 81, 81)
                                 .addComponent(jLabel12)
-                                .addGap(34, 34, 34)))))
-                .addContainerGap())
+                                .addGap(129, 129, 129))
+                            .addComponent(jButton1)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(284, 284, 284)
+                        .addComponent(jLabel1))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jTextCoeficienteDecaimento)
+                                .addComponent(jTextIteracoes, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabelQuantidadeCidadesFormigas))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel7)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel6))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabelQtdFormigasElitistas))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(19, 19, 19)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabelAlfa)
+                                    .addComponent(jLabelBeta))))))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -189,11 +189,12 @@ public class JFrameAntSystem extends javax.swing.JFrame implements Observer{
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel1)
-                                .addGap(62, 62, 62))
+                                .addGap(48, 48, 48)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabelAlfa)))
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jTextIteracoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel5)
-                                .addComponent(jTextAlfa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -201,14 +202,14 @@ public class JFrameAntSystem extends javax.swing.JFrame implements Observer{
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jTextCoeficienteDecaimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel6)
-                                .addComponent(jTextBeta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jLabelBeta)))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
-                            .addComponent(jTextQuantidadeCidadesFormigas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabelQuantidadeCidadesFormigas)
                             .addComponent(jLabel7)
-                            .addComponent(jTextQuantidadeElitistas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(44, 44, 44)
+                            .addComponent(jLabelQtdFormigasElitistas))
+                        .addGap(60, 60, 60)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel10)
                             .addComponent(jLabel11)
@@ -218,15 +219,15 @@ public class JFrameAntSystem extends javax.swing.JFrame implements Observer{
                             .addComponent(jLabel8)
                             .addComponent(jTextTamanhoOtimo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(42, 42, 42)
+                        .addGap(52, 52, 52)
                         .addComponent(jLabel12)))
-                .addGap(13, 13, 13)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel9)
-                    .addComponent(jTextPercursoOtimo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(jTextPercursoOtimo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel9))
+                .addGap(35, 35, 35)
                 .addComponent(jButton1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -234,14 +235,14 @@ public class JFrameAntSystem extends javax.swing.JFrame implements Observer{
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -250,10 +251,6 @@ public class JFrameAntSystem extends javax.swing.JFrame implements Observer{
     private void jTextCoeficienteDecaimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextCoeficienteDecaimentoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextCoeficienteDecaimentoActionPerformed
-
-    private void jTextAlfaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextAlfaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextAlfaActionPerformed
 
 
 
@@ -346,15 +343,15 @@ public class JFrameAntSystem extends javax.swing.JFrame implements Observer{
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel jLabelAlfa;
+    private javax.swing.JLabel jLabelBeta;
     private javax.swing.JLabel jLabelIteracao;
+    private javax.swing.JLabel jLabelQtdFormigasElitistas;
+    private javax.swing.JLabel jLabelQuantidadeCidadesFormigas;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextAlfa;
-    private javax.swing.JTextField jTextBeta;
     private javax.swing.JTextField jTextCoeficienteDecaimento;
     private javax.swing.JTextField jTextIteracoes;
     private javax.swing.JTextField jTextPercursoOtimo;
-    private javax.swing.JTextField jTextQuantidadeCidadesFormigas;
-    private javax.swing.JTextField jTextQuantidadeElitistas;
     private javax.swing.JTextField jTextTamanhoOtimo;
     // End of variables declaration//GEN-END:variables
     private Thread processo;
