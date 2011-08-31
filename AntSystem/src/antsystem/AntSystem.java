@@ -15,7 +15,7 @@ import java.util.Observable;
  *
  * @author Larissa
  */
-public class AntSystem {
+public class AntSystem extends Observable implements Runnable{
 
     public static final int QUANTIDADE_CIDADES_DEFAULT = 30;
     public static final int QUANTIDADE_FORMIGAS_DEFAULT = QUANTIDADE_CIDADES_DEFAULT;
@@ -42,11 +42,15 @@ public class AntSystem {
     private JFrameAntSystem frame;
     private String campoTudo;
 
-    public AntSystem(int iteracoes) {
-       this.qtdIteracoes = iteracoes;       
+    public AntSystem(int iteracoes, JFrameAntSystem frame) {
+       this.qtdIteracoes = iteracoes;
+       this.frame = frame;
     }
 
-    public AntSystem(){        
+    public AntSystem(){
+        //this.qtdIteracoes = iteracoes;
+        this.frame = new JFrameAntSystem(this);
+        this.frame.setVisible(true);
     }
 
 
@@ -182,7 +186,22 @@ public class AntSystem {
 
                 //atualizar o feromonio agora
                 atualizarFeromonioGeral(matrizFormigasElitista);
-        }        
+                
+        }
+        System.out.println("Tamanho ótimo: " + getTamanhoPercurssoOtimo());
+        System.out.print("Percursso ótimo: ");
+        String tudo ="";
+        for(int i=0; i<AntSystem.QUANTIDADE_CIDADES_DEFAULT+1; i++){
+            //System.out.print(sistema.getPercurssoOtimo()[i] + " , ");
+            if(i<AntSystem.QUANTIDADE_CIDADES_DEFAULT)
+                tudo += getPercurssoOtimo()[i] + " , ";
+            else
+                tudo += getPercurssoOtimo()[i];
+        }
+        frame.setTamanhoOtimo(String.valueOf(getTamanhoPercurssoOtimo()));
+        frame.setPercursoOtimo(tudo);
+
+        frame.finalizarProcessoTreino();
     }
 
     private void atualizaFormiga(int formiga, int cidadeEscolhida, int tamanhoPercussoAtual) {
@@ -345,9 +364,15 @@ public class AntSystem {
     }
     public void setIteracaoAtual(int t){
         this.iteracaoAtual = t;
+        setChanged();
+        notifyObservers();
     }
     public int getIteracaoAtual(){
         return this.iteracaoAtual;
+    }
+
+    public void run() {
+        menorCaminho();
     }
 
 
