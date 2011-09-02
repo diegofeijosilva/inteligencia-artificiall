@@ -270,10 +270,12 @@ public class JFrameAntSystem extends javax.swing.JFrame implements Observer{
         //---------------------
         int iteracoes;
         iteracoes = Integer.valueOf(jTextIteracoes.getText());
+        double coeficiente;
+        coeficiente = Double.valueOf(jTextCoeficienteDecaimento.getText());
         jTextTamanhoOtimo.setText("");
         jTextPercursoOtimo.setText("");
-
         sistema.setQtdIteracoes(iteracoes);
+        sistema.setCoeficiente_decaimento(coeficiente);
         //sistema = new AntSystem(iteracoes, this);
         //sistema.menorCaminho();
 

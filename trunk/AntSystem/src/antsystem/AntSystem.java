@@ -6,10 +6,18 @@
 package antsystem;
 
 import gui.JFrameAntSystem;
+import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Observable;
+import javax.swing.JFrame;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.xy.XYSeries;
+import org.jfree.data.xy.XYSeriesCollection;
 
 /**
  *
@@ -41,6 +49,8 @@ public class AntSystem extends Observable implements Runnable{
     private int iteracaoAtual = 0;
     private JFrameAntSystem frame;
     private String campoTudo;
+    private XYSeries series;
+    private double coeficiente_decaimento;
 
     public AntSystem(int iteracoes, JFrameAntSystem frame) {
        this.qtdIteracoes = iteracoes;
@@ -123,14 +133,14 @@ public class AntSystem extends Observable implements Runnable{
         int cidadeCorrente = QUANTIDADE_CIDADES_DEFAULT +1; //valor impossivel de cidade, só para iniciar
         int cidadeEscolhida = QUANTIDADE_CIDADES_DEFAULT +1; //valor impossivel de cidade, só para iniciar
         double[] probabilidade;
-        
+        series = new XYSeries ("Data");
         //loop principal
         for(int t=0; t<qtdIteracoes; t++){//t representa iterações
         //for(int t=0; t<100; t++){//t representa iterações
             setIteracaoAtual(t);
             
             initListFormigas();
-            System.out.println("Iteração: " + t);
+            //System.out.println("Iteração: " + t);
             for(int k=0; k<QUANTIDADE_FORMIGAS_DEFAULT; k++){//k representa a formiga               
                 tamanhoPercussoAtual = 0;
                 //para a formiga k na iteração t deve ser construido o percusso dela, escolhendo a proxima cidade com a roleta
@@ -174,6 +184,19 @@ public class AntSystem extends Observable implements Runnable{
 
             //agora tem que comparar se o percursso otimo geral é menor que o percursso dessa iteração
             atualizarPercurssoOtimoETamanhoOtimo(t, tamanhoPercussoOtimoDessaIteracao, percurssoOtimoDessaIteracao);
+            //teste - debug
+            int c = 0;
+            int aresta1, aresta2, dis;
+            if(tamanhoPercussoOtimoDessaIteracao == 420 && c==0){
+                    System.out.println("Encontrou percurso ótimo na iteração: " + t);
+//                for(int y=0; y<30; y++){
+//                    aresta1 = listFormigas.get(formidaDePercurssoOtimoDessaIteracao).getTour()[y];
+//                    aresta2 = listFormigas.get(formidaDePercurssoOtimoDessaIteracao).getTour()[y+1];
+//                    dis = matrizDistancias[aresta1][aresta2];
+//                    System.out.println("aresta: " + aresta1 + " " + aresta2 + " = " + dis);
+//                    c++;
+//                }
+            }
 
             //----agora é necessário atualizar a trilha de feromonio----
 
@@ -186,7 +209,7 @@ public class AntSystem extends Observable implements Runnable{
 
                 //atualizar o feromonio agora
                 atualizarFeromonioGeral(matrizFormigasElitista);
-                
+                series.add(t, TAMANHO_PERCURSSO_OTIMO);
         }
         System.out.println("Tamanho ótimo: " + getTamanhoPercurssoOtimo());
         
@@ -271,7 +294,7 @@ public class AntSystem extends Observable implements Runnable{
         double calc1, calc2, calc3;
         for (int i = 0; i < QUANTIDADE_CIDADES_DEFAULT; i++) {
             for (int j = 0; j < QUANTIDADE_CIDADES_DEFAULT; j++) {
-                calc1 = 1 - COEFICIENTE_DECAIMENTO_DEFAULT;
+                calc1 = 1 - coeficiente_decaimento;
                 calc2 = calc1 * feromonio.trilhaDeFeromonio[i][j];
                 calc3 = calc2 + matrizVariacaoFeromonioSoma[i][j];
                 feromonio.trilhaDeFeromonio[i][j] = calc3 + e_DEFAULT * matrizFormigasElitista[i][j];
@@ -286,7 +309,12 @@ public class AntSystem extends Observable implements Runnable{
         } else if (TAMANHO_PERCURSSO_OTIMO > tamanhoPercussoOtimoDessaIteracao) {
             TAMANHO_PERCURSSO_OTIMO = tamanhoPercussoOtimoDessaIteracao;
             PERCUSSO_OTIMO = percurssoOtimoDessaIteracao;
+            //System.out.println("Menor tamanho atual: " + TAMANHO_PERCURSSO_OTIMO);
+//            if(tamanhoPercussoOtimoDessaIteracao == 420){
+//                System.out.println("chegou!!!");
+//            }
         }
+
     }
 
     private double[] calculaProbabilidade(Formiga formigaAtual, int cidadeCorrente){
@@ -372,9 +400,29 @@ public class AntSystem extends Observable implements Runnable{
         return this.iteracaoAtual;
     }
 
+    public void setCoeficiente_decaimento(double coeficiente_decaimento) {
+        this.coeficiente_decaimento = coeficiente_decaimento;
+    }
+
+
     public void run() {
         menorCaminho();
+        gerarGrafico();
     }
+    public void gerarGrafico(){
+         JFrame frame = new JFrame("Tamanho do menor caminho X Iteração");
+         frame.setSize(new Dimension(1024,1024));
+
+         final XYSeriesCollection data = new XYSeriesCollection(series);
+         final JFreeChart chart = ChartFactory.createXYLineChart("Época X Erro Quadrático Médio", "Época", "Erro Quadrático Médio",
+                 data,PlotOrientation.VERTICAL , true,true, false);
+         final ChartPanel chartPanel = new ChartPanel(chart);
+            chartPanel.setPreferredSize(new java.awt.Dimension (1024, 1024));
+            chartPanel.setVisible(true);
+
+            frame.setContentPane(chartPanel);
+            frame.setVisible(true);
+     }
 
 
 }
