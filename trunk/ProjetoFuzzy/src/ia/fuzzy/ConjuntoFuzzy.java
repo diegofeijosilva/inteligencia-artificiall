@@ -69,7 +69,7 @@ public class ConjuntoFuzzy {
     public void implementarMatriz(double[][] matriz)
     {
         elementos.clear();
-        System.out.println(matriz);
+       // System.out.println(matriz);
         for (int i = 0; i < matriz.length; i++) {
             elementos.add(new Elemento(matriz[i][0], matriz[i][1]));
         }
